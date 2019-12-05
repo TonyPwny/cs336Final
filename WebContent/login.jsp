@@ -13,8 +13,20 @@
 		<%
 			  try {
 				if (session.getAttribute("username") != null) {
-					
+						
+					if(session.getAttribute("usertype") == "User")
+						{
 						response.sendRedirect("success.jsp");
+						}
+						else if(session.getAttribute("usertype") == "Admin")
+						{
+							response.sendRedirect("success_Admin.jsp");
+						}
+						else
+						{
+							response.sendRedirect("success_SalesRep.jsp");
+						}
+						
 					}
 				
 				
