@@ -11,14 +11,17 @@
 	</head>
 	<body>
 		<%
-			try {
+			  try {
 				if (session.getAttribute("username") != null) {
-					response.sendRedirect("success.jsp");
-				}
+					
+						response.sendRedirect("success.jsp");
+					}
+				
 				
 				//Get arguments
 				String username = request.getParameter("username");
 				String password = request.getParameter("password");
+		
 				
 				String url = "jdbc:mysql://steve2.ckgj9bgqpyor.us-east-2.rds.amazonaws.com:3306/DB2";
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -30,11 +33,25 @@
 				
 				//gets all tuples from A
 				ResultSet result = s.executeQuery(str);
+				
 				if (result.next()) {
 					session.setAttribute("username", username);
-	
-					conn.close();
-					response.sendRedirect("success.jsp");
+					String usertype = result.getString(3);
+					session.setAttribute("usertype", usertype);
+				
+					if(usertype == "User"){
+						conn.close();
+						response.sendRedirect("success.jsp");
+					}
+					else if(usertype == "Admin"){
+						conn.close();
+						response.sendRedirect("success_Admin.jsp");
+					}
+					else
+						conn.close();
+						response.sendRedirect("success_SalesRep.jsp");
+					
+					
 				} else {
 					out.println("Invalid username and password<br>");
 					out.println("<a href='index.jsp'>Try Again</a>");
