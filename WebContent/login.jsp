@@ -36,9 +36,11 @@
 				
 				if (result.next()) {
 					session.setAttribute("username", username);
+				// gets usertype from column 3 and sets it to usertype object
 					String usertype = result.getString(3);
 					session.setAttribute("usertype", usertype);
 				
+				// checks what type of guest is on the site
 					if(usertype == "User"){
 						conn.close();
 						response.sendRedirect("success.jsp");
