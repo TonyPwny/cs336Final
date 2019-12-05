@@ -13,19 +13,8 @@
 		<%
 			  try {
 				if (session.getAttribute("username") != null) {
-						
-					if(session.getAttribute("usertype") == "User")
-						{
+				
 						response.sendRedirect("success.jsp");
-						}
-						else if(session.getAttribute("usertype") == "Admin")
-						{
-							response.sendRedirect("success_Admin.jsp");
-						}
-						else
-						{
-							response.sendRedirect("success_SalesRep.jsp");
-						}
 						
 					}
 				
@@ -53,18 +42,18 @@
 					session.setAttribute("usertype", usertype);
 				
 				// checks what type of guest is on the site
-					if(usertype == "User"){
+					if(usertype.contains("User")){
 						conn.close();
 						response.sendRedirect("success.jsp");
 					}
-					else if(usertype == "Admin"){
+					else if(usertype.contains("Admin")){
 						conn.close();
 						response.sendRedirect("success_Admin.jsp");
 					}
-					else
+					else if(usertype.contains("SalesRep")){
 						conn.close();
 						response.sendRedirect("success_SalesRep.jsp");
-					
+					}
 					
 				} else {
 					out.println("Invalid username and password<br>");

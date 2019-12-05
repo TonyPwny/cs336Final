@@ -10,10 +10,41 @@
 		<title>Search for Flights!</title>
 	</head>
 	<body>
-		<br>Please wait while you are logged out.
-		<%
-			session.invalidate();
-			response.sendRedirect("index.jsp");
-		%>
+		<br>
+		<h3>What type of flight?</h3>
+		<form method="get" action="flight_Search.jsp" enctype=text/plain>
+		<input type = "radio" name = "round_trip" value="0"/> One Way
+		<input type = "radio" name = "round_trip" value="1"/> Round Trip	
+		
+		<table>
+				<tr>
+					<!-- textbox for flight search -->
+					<td>Take off date</td>
+						</tr>
+							<tr>
+								<td>From:</td>
+						<td>
+								<input type="text" name="take_off_date" placeholder="Start Range"> To:
+					 			<input type= "text" name= "take_off_date_2" placeholder="End Range"> 
+							</td> 
+						</tr>
+						<br>
+					<tr>
+						 <td> Arrive date </td>
+						</tr>
+					<tr> 
+						<td>From:</td> 
+						<td>
+							<input type="text" name="arrive_date" placeholder= "Start Range"> To:
+							<input type="text" name="arrive_date_2" placeholder ="End Range">
+				
+				
+				</table>
+				
+		<input type = 'submit' name="submit" value = "submit"> 	
+			
+			
+			</form>
+		
 	</body>
 </html>

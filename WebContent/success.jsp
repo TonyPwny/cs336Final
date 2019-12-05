@@ -15,6 +15,12 @@
 			out.println("Hello " + (String)session.getAttribute("username") + "!" + "You are a " + (String)session.getAttribute("usertype") + "!");
 		%><br>
 		Nice to meet you!<br><br>
+		
+		<br><br>How can I assist you today?<br>
+		<a href="flight_Search.jsp">Search for Flights</a>
+		
+		
+		<br><br> All done? <br>
 		<a href="logout.jsp">Logout</a>
 	</body>
 </html>
