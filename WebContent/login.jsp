@@ -48,7 +48,7 @@
 					}
 					else if(usertype.contains("Admin")){
 						conn.close();
-						response.sendRedirect("success_Admin.jsp");
+						response.sendRedirect("adminHomepage.jsp");
 					}
 					else if(usertype.contains("SalesRep")){
 						conn.close();
