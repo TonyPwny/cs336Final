@@ -12,9 +12,9 @@
 	<body>
 		<br>
 		<h3>What type of flight?</h3>
-		<form method="get" action="flight_Search.jsp" enctype=text/plain>
-		<input type = "radio" name = "round_trip" value="0"/> One Way
-		<input type = "radio" name = "round_trip" value="1"/> Round Trip	
+			<form method="get" action="flight_Search.jsp" enctype=text/plain>
+				<input type = "radio" name = "round_trip" value="0"/> One Way
+				<input type = "radio" name = "round_trip" value="1"/> Round Trip	
 		
 		<table>
 				<tr>
@@ -37,8 +37,18 @@
 						<td>
 							<input type="text" name="arrive_date" placeholder= "Start Range"> To:
 							<input type="text" name="arrive_date_2" placeholder ="End Range">
-				
-				
+						</td>
+						<br>
+					<tr>
+						<td>Flight id</td>
+						</tr>
+						<tr><td>
+							<input type="text" name="flight_id" placeholder="Unique Flight id">
+						</td>
+					</tr>	
+						
+											
+					
 				</table>
 				
 		<input type = 'submit' name="submit" value = "submit"> 	
