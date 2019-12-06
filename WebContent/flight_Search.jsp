@@ -46,7 +46,6 @@
 			</form>
 		
 		<br>
-		<br>Want to go back?<br>
 		<a href="success.jsp">Want to go back?</a>
 		
 	</body>
