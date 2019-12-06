@@ -58,7 +58,8 @@
 							"and trip.flight_id = flight.flight_id " +
 							"and trip.date >= \"?-?-01\"" + 
 							"and trip.date < \"?-?-01\" " +
-						"group by (flight.flight_id)";
+						"group by (flight.flight_id)" +
+						"order by trip.date asc";
 				PreparedStatement stmt = conn.prepareStatement(str);
 				stmt.setString(1, year);
 				stmt.setString(2, month);
@@ -83,7 +84,7 @@
 				if (n > 0) {
 					out.println("<br><br>Flights<br>");
 					
-					out.println("<table>" +
+					out.println("<table><form method=\"post\" action=adminFlightInfo.jsp>" +
 						"<tr>" +
 							"<th>Flight ID</th>" +
 							"<th>Profit from Flight</th>" +
@@ -91,18 +92,21 @@
 						"<tr>"
 					);
 					
+					//Adds each flight to list of flights
 					flights.absolute(0);
 					do {
 						out.println(
 							"<tr>" +
-								"<td><input type=\"button\" name=\"flightid\" onclick=adminFlightInfo.jsp value=\"" + flights.getInt("id") + "\"></td>" +
+								"<td><input type=\"submit\" name=\"flightid\" onclick=" +
+									"\"session.setAttribute('profit', " + flights.getDouble("fProfit") + "); session.setAttribute('fNumCustomers', " + flights.getInt("customers") + ")\"" +
+									" value=\"" + flights.getInt("id") + "\"></td>" +
 								"<td>" + flights.getDouble("profit") + "</td>" +
 								"<td>" + flights.getInt("customers") + "</td>" +
 							"</tr>"
 						);
 					} while (flights.next());
 					
-					out.println("</table>");
+					out.println("</form></table><br><br>");
 				}
 			}
 		%>
