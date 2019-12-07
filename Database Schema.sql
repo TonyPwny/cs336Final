@@ -21,8 +21,7 @@ DROP TABLE IF EXISTS Airport;
 
 CREATE TABLE `User` (
 username VARCHAR(25) NOT NULL,
-passwords VARCHAR(25) NOT NULL,
-name_of_user VARCHAR(50) NOT NULL,
+password VARCHAR(25) NOT NULL,
 user_type VARCHAR(9) NOT NULL,
 PRIMARY KEY(username)
 );
@@ -165,6 +164,8 @@ PRIMARY KEY(day_num, flight_id),
 FOREIGN KEY(day_num) REFERENCES Days(day_num),
 FOREIGN KEY(flight_id) REFERENCES Flight(flight_id)
 );
+
+INSERT INTO `User` VALUES('Steven', 'Greens', 'admin');
 
 
 
