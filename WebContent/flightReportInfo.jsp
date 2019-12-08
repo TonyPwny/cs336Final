@@ -16,18 +16,39 @@
 			if (flightid != null) {
 				out.println("<br><b>Flight " + flightid + "</b><br><br>");
 				
-				session.setAttribute("flightid", flightid);
-				
 				out.println(
 					"View Flight Info <form method=\"post\" action=flightInfo.jsp>" +
 						"<input type=\"submit\" name=\"flightid\" value=\"" + flightid + "\"" + ">" +
 					"</form><br>"
 				);
 				
+				String url = "jdbc:mysql://steve2.ckgj9bgqpyor.us-east-2.rds.amazonaws.com:3306/DB2";
+				Class.forName("com.mysql.jdbc.Driver").newInstance();
+				//Connect to database
+				Connection conn = DriverManager.getConnection(url, "admin", "password");
+				String str = 
+					"";
+				PreparedStatement stmt = conn.prepareStatement(str);
+				stmt.setString(1, flightid);
+				//gets flight info
+				ResultSet flight = stmt.executeQuery();
+				
+				str = 
+					"";
+				stmt = conn.prepareStatement(str);
+				stmt.setString(1, flightid);
+				//gets customers on flight
+				
+				conn.close();
+				
 				out.println(
-					"<br>Profit: " + session.getAttribute("fProfit") +
-					"<br>Number of Customers: " + session.getAttribute("fNumCustomers") +
-					"<br>"
+					String.format(
+						"<br>Profit: %d" +
+						"<br>Number of Customers: %d" +
+						"<br>",
+						flight.getInt("profit"),
+						flight.getInt
+					)
 				);
 			} else {
 				out.println("<br>Flight id missing. Please try again<br><br>");
