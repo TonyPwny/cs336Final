@@ -22,7 +22,7 @@ Hello World1 <!-- the usual HTML way -->
 <!-- forms are used to collect user input 
 	The default method when submitting form data is GET.
 	However, when GET is used, the submitted form data will be visible in the page address field-->
-<form method="post" action="_beer_showBeer.jsp">
+<form method="post" action="_beer_show.jsp">
     <!-- note the show.jsp will be invoked when the choice is made -->
 	<!-- The next lines give HTML for radio buttons being displayed -->
   <input type="radio" name="command" value="beers"/>Let's have a beer!
