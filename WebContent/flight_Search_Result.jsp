@@ -7,55 +7,64 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Search for Flights!</title>
+		<title>Here are your results!</title>
+		<h4> Filter by Price, Take off, Land time, Airline</h4>
 	</head>
 	<body>
-		<br>
-		<h3>What type of flight?</h3>
-			<form method="get" action="flight_Search.jsp" enctype=text/plain>
-				<input type = "radio" name = "round_trip" value="0"/> One Way
-				<input type = "radio" name = "round_trip" value="1"/> Round Trip	
 		
-		<table>
-				<tr>
-					<!-- textbox for flight search -->
-					<td>Take off date</td>
-						</tr>
-							<tr>
-								<td>From:</td>
-						<td>
-								<input type="text" name="take_off_date" placeholder="Start Range"> To:
-					 			<input type= "text" name= "take_off_date_2" placeholder="End Range"> 
-							</td> 
-						</tr>
-						<br>
-					<tr>
-						 <td> Arrive date </td>
-						</tr>
-					<tr> 
-						<td>From:</td> 
-						<td>
-							<input type="text" name="arrive_date" placeholder= "Start Range"> To:
-							<input type="text" name="arrive_date_2" placeholder ="End Range">
-						</td>
-						<br>
-					<tr>
-						<td>Flight id</td>
-						</tr>
-						<tr><td>
-							<input type="text" name="flight_id" placeholder="Unique Flight id">
-						</td>
-					</tr>	
-						
-											
-					
-				</table>
+		<%
+				//Get arguments
 				
-		<input type = 'submit' name="submit" value = "submit"> 	
+				Boolean roundtrip = Boolean.parseBoolean(request.getParameter("round_trip"));
+				String takeoffd1 = request.getParameter("take_off_date");
+				String takeoffd2 = request.getParameter("take_off_date_2");
+				String arrived1 = request.getParameter("arrive_date");
+				String arrived2 = request.getParameter("arrive_date_2");
+				String flightid = request.getParameter("flight_id");
+				
+				if((roundtrip == null) && (takeoffd1.isEmpty()) && (takeoffd2.isEmpty()) && (arrived1.isEmpty()) 
+						&& (arrived2.isEmpty()) && (arrived2.isEmpty()) && (flightid.isEmpty()))
+						{
+							out.println("You didnt enter any data!<br>");
+							out.println("<a href='flight_Search'>Try Again</a>");	
+						}
+				if(!flightid.isEmpty())
+				{
+				
+				String url = "jdbc:mysql://steve2.ckgj9bgqpyor.us-east-2.rds.amazonaws.com:3306/DB2";
+				Class.forName("com.mysql.jdbc.Driver").newInstance();
+				//Connect to database
+				Connection conn = DriverManager.getConnection(url, "admin", "password");
+				String str = 
+						"SELECT flight_id" +																											"select flight.flight_id, id, 										 " +
+						"from Flight " +
+						"where flight_id = \"?\"";
+				PreparedStatement stmt = conn.prepareStatement(str);
+				stmt.setString(1, flightid);
+				ResultSet flights = stmt.executeQuery();
+
+				}
+				else if(roundtrip == true)
+				{
+					String url = "jdbc:mysql://steve2.ckgj9bgqpyor.us-east-2.rds.amazonaws.com:3306/DB2";
+					Class.forName("com.mysql.jdbc.Driver").newInstance();
+					//Connect to database
+					Connection conn = DriverManager.getConnection(url, "admin", "password");
+					String str = 
+							"SELECT Flight.flight_id" +																											"select flight.flight_id, id, 										 " +
+							"from Flight, arrival, departure " +
+							"where flight_id = \"?\"";	
+				
+				
+				}
+				
+				
+				
+				
+				%>
 			
-			</form>
-		
-		<br>
+	
+
 		<a href="success.jsp">Want to go back?</a>
 		
 	</body>
