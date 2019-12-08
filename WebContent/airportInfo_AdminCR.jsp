@@ -14,8 +14,6 @@
 	if (session.getAttribute("username") == null || logintype.equals("User")) {
 		response.sendRedirect(loginURL);
 	}
-
-	String airportID = request.getParameter("airportID");
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -43,11 +41,27 @@
 
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			//Get the combobox from the index.jsp
-			//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-			String city = "SELECT ap.city FROM DB1.Airport ap WHERE ap.airport_id = " + airportID;
+			//Get the search from the airlineInforSearch_AdminCR.jsp
+			String airportID = request.getParameter("airportID");
+			//Make a SELECT query from the Airport table with airportID specified by the 'airport_id' parameter at the airlineInfoSearch_AdminCR.jsp
+			String str, str_query;
+			if (airportID == null || airportID.equals("getAll")) {
+				str = "SELECT * FROM DB1.Airport";
+				if (airportID == null) {
+					str_query = "No Airport ID given, showing all results:<br><br>";
+				}
+				else {
+					str_query = "Querying for all Airports:<br><br>";
+				}
+			} else {
+				str = "SELECT * FROM DB1.Airport ap WHERE ap.airport_id = " + airportID;
+				str_query = "Result for " + airportID + ":<br><br>";
+			}
 			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(city);
+			ResultSet result = stmt.executeQuery(str);
+			
+			//Show what kind of query is being processed
+			out.print(str_query);
 
 			//Make an HTML table to show the results in:
 			out.print("<table>");
@@ -57,15 +71,23 @@
 			//make a column
 			out.print("<td>");
 			//print out column header
-			out.print("bar");
+			out.print("Airport ID");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
-			out.print("beer");
+			out.print("Name");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
-			out.print("price");
+			out.print("City");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("State");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("Country");
 			out.print("</td>");
 			out.print("</tr>");
 
@@ -75,16 +97,24 @@
 				out.print("<tr>");
 				//make a column
 				out.print("<td>");
-				//Print out current bar name:
-				out.print(result.getString("bar"));
+				//Print out current airport_id:
+				out.print(result.getString("airport_id"));
 				out.print("</td>");
 				out.print("<td>");
-				//Print out current beer name:
-				out.print(result.getString("beer"));
+				//Print out current name:
+				out.print(result.getString("name"));
 				out.print("</td>");
 				out.print("<td>");
-				//Print out current price
-				out.print(result.getString("price"));
+				//Print out current city:
+				out.print(result.getString("city"));
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current state (if any):
+				out.print(result.getString("state"));
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current country:
+				out.print(result.getString("country"));
 				out.print("</td>");
 				out.print("</tr>");
 
@@ -96,18 +126,6 @@
 
 		} catch (Exception e) {
 		}
-	%>
-	<br> Airport ID:
-	<%
-		out.println(" <b></b><br>");
-	%>
-	Location:
-	<%
-		out.println(" <b></b><br>");
-	%>
-	<br> Airlines:
-	<%
-		out.println(" <b></b><br>");
 	%>
 	<br> Departing Flights:
 	<%

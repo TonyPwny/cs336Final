@@ -31,7 +31,7 @@ public class ApplicationDBeer {
 		}
 		try {
 			//Create a connection to your DB
-			connection = DriverManager.getConnection(connectionUrl,"cs336fall17", "databasefall17");
+			connection = DriverManager.getConnection(connectionUrl, "cs336fall17", "databasefall17");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
