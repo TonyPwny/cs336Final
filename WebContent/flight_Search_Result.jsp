@@ -36,7 +36,7 @@
 				//Connect to database
 				Connection conn = DriverManager.getConnection(url, "admin", "password");
 				String str = 
-						"SELECT flight_id" +																											"select flight.flight_id, id, 										 " +
+						"SELECT flight_id" +																											
 						"from Flight " +
 						"where flight_id = \"?\"";
 				PreparedStatement stmt = conn.prepareStatement(str);
@@ -44,20 +44,41 @@
 				ResultSet flights = stmt.executeQuery();
 
 				}
-				else if(roundtrip == true)
+				else if(roundtrip == false)
 				{
 					String url = "jdbc:mysql://steve2.ckgj9bgqpyor.us-east-2.rds.amazonaws.com:3306/DB2";
 					Class.forName("com.mysql.jdbc.Driver").newInstance();
 					//Connect to database
 					Connection conn = DriverManager.getConnection(url, "admin", "password");
 					String str = 
-							"SELECT Flight.flight_id" +																											"select flight.flight_id, id, 										 " +
-							"from Flight, arrival, departure " +
-							"where flight_id = \"?\"";	
+							"SELECT Flight.flight_id" +																											 										 
+							"from Flight, arrival, departure" +
+							"where Flight.flight_id = arrival.flight_id " +
+							"and Flight.flight_id = departure.flight_id " +
+							"and departure.depart_date >= \"?\" " + 
+							"and departure.depart_date < \"?\" " +
+							"and arrival.arrive_date >= \"?\" " + 
+							"and arrival.arrive_date < \"?\" " +
+							"and flight_id = \"?\"";
 				
 				
+					PreparedStatement stmt = conn.prepareStatement(str);
+					stmt.setString(1, flightid);
+					stmt.setString(2, takeoffd1);
+					stmt.setString(3, takeoffd2);
+					stmt.setString(4, arrived1);
+					stmt.setString(5, arrived2);
+					ResultSet flights = stmt.executeQuery();
+
 				}
-				
+				else if(roundtrip == true)
+				{
+					
+					
+					
+					
+					
+				}
 				
 				
 				
