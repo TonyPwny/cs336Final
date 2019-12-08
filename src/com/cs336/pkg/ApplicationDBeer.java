@@ -4,16 +4,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ApplicationDB {
+public class ApplicationDBeer {
 	
-	public ApplicationDB(){
+	public ApplicationDBeer(){
 		
 	}
 
 	public Connection getConnection(){
 		
 		//Create a connection string
-		String connectionUrl = "jdbc:mysql://steve2.ckgj9bgqpyor.us-east-2.rds.amazonaws.com:3306/DB1";
+		String connectionUrl = "jdbc:mysql://cs336.ckksjtjg2jto.us-east-2.rds.amazonaws.com:3306/BarBeerDrinkerSample";
 		Connection connection = null;
 		
 		try {
@@ -31,7 +31,7 @@ public class ApplicationDB {
 		}
 		try {
 			//Create a connection to your DB
-			connection = DriverManager.getConnection(connectionUrl, "admin", "password");
+			connection = DriverManager.getConnection(connectionUrl,"cs336fall17", "databasefall17");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,7 +55,7 @@ public class ApplicationDB {
 	
 	
 	public static void main(String[] args) {
-		ApplicationDB dao = new ApplicationDB();
+		ApplicationDBeer dao = new ApplicationDBeer();
 		Connection connection = dao.getConnection();
 		
 		System.out.println(connection);		
