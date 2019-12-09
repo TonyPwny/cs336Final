@@ -1,3 +1,9 @@
+<!--
+Nicolas Gundersen
+CS336
+Professor Miranda
+Project Final Group 4
+-->
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
@@ -19,13 +25,27 @@
 		<table>
 				<tr>
 					<!-- textbox for flight search -->
+					<tr>
+						<td>Departing Airport</td>
+						</tr>
+						<tr><td>
+							<input type="text" name="depport" placeholder="Enter 3 letter Airport ID">
+						</td>
+					</tr>
+					<tr>
+						<td>Arriving Airport</td>
+						</tr>
+						<tr><td>
+							<input type="text" name="arrivport" placeholder="Enter 3 letter Airport ID">
+						</td>
+					</tr>
 					<td>Take off date</td>
 						</tr>
 							<tr>
 								
 						<td>
-								<input type="text" name="take_off_date" placeholder="Start Range"> To:
-					 			<input type= "text" name= "take_off_date_2" placeholder="End Range"> 
+								<input type="text" name="take_off_date" placeholder="YEAR-MM-DD"> To:
+					 			<input type= "text" name= "take_off_date_2" placeholder="YEAR-MM-DD"> 
 							</td> 
 						</tr>
 						<br>
@@ -35,8 +55,8 @@
 					<tr> 
 						
 						<td>
-							<input type="text" name="arrive_date" placeholder= "Start Range"> To:
-							<input type="text" name="arrive_date_2" placeholder ="End Range">
+							<input type="text" name="arrive_date" placeholder= "YEAR-MM-DD"> To:
+							<input type="text" name="arrive_date_2" placeholder ="YEAR-MM-DD">
 						</td>
 						<br>
 					<tr>
