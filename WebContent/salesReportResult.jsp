@@ -92,11 +92,11 @@
 				while (costs.next()) {
 					String c = costs.getString("class");
 					if (c.equals("economy")) {
-						totalProfit += costs.getInt("fe");
+						totalProfit += costs.getDouble("fe");
 					} else if (c.equals("first")) {
-						totalProfit += costs.getInt("ff");
+						totalProfit += costs.getDouble("ff");
 					} else if (c.equals("business")) {
-						totalProfit += costs.getInt("fb");
+						totalProfit += costs.getDouble("fb");
 					}
 					n++;
 				}
@@ -119,6 +119,7 @@
 					);
 					
 					//Adds each flight to list of flights
+					flights.first();
 					do {
 						out.println(
 							String.format(
