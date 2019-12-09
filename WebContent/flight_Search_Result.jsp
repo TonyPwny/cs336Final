@@ -33,8 +33,8 @@
 				//Connect to database
 				Connection conn = DriverManager.getConnection(url, "admin", "password");
 				String str = 
-						"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id" +																											
-						"from Flight, arrival, departure" +
+						"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id " +																											
+						"from Flight, arrival, departure " +
 						"where flight_id = \"?\"";
 				PreparedStatement stmt = conn.prepareStatement(str);
 				stmt.setString(1, flightid);
@@ -109,8 +109,8 @@
 					Connection conn = DriverManager.getConnection(url, "admin", "password");
 					String str = 
 							
-							"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id" +																											 										 
-							"from Flight, arrival, departure" +
+							"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id " +																											 										 
+							"from Flight, arrival, departure " +
 							"where Flight.flight_id = arrival.flight_id " +
 							"and Flight.flight_id = departure.flight_id " +
 							"and departure.depart_date >= \"?\" " + 
@@ -196,8 +196,8 @@
 					Connection conn = DriverManager.getConnection(url, "admin", "password");
 					String str = 
 							
-							"SELECT Flight.flight_id, departure.depart_date as ddate1, departure.airport_id as depportid, arrival.arrive_date as adate1, arrival.airport_id as aportid" +																											 										 
-							"from Flight, arrival, departure" +
+							"SELECT Flight.flight_id, departure.depart_date as ddate1, departure.airport_id as depportid, arrival.arrive_date as adate1, arrival.airport_id as aportid " +																											 										 
+							"from Flight, arrival, departure " +
 							"where Flight.flight_id = arrival.flight_id " +
 							"and Flight.flight_id = departure.flight_id " +
 							"and departure.depart_date >= \"?\" " + 
@@ -209,10 +209,10 @@
 													
 							
 							"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id" +																											 										 
-							"from Flight, arrival, departure" +
+							"from Flight, arrival, departure " +
 							"where Flight.flight_id = arrival.flight_id " +
 							"and Flight.flight_id = departure.flight_id " +
-							"and departure.depart_date >= adate1" + 
+							"and departure.depart_date >= adate1 " + 
 							"and departure.depart_date < \"?\" " +
 							"and arrival.arrive_date >= adate1 " + 
 							"and arrival.arrive_date < \"?\" " +
