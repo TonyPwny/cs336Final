@@ -4,7 +4,7 @@ CS336 Section 07
 Professor Miranda
 Project Final Group 4
 
-Page was coded with aid from the project beer template and ProjectSETUP guide.
+Page was coded with aid from the project beer template.
 -->
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -18,30 +18,35 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	String login = (String) session.getAttribute("username");
 	String logintype = (String) session.getAttribute("usertype");
 	String loginURL = "login.jsp";
-	String airportSearch = "airportSearch_AdminCR.jsp";
-	String airportUpdate = "airportUpdate_AdminCR.jsp";
+	String flightInfo ="flightInfo_AdminCR.jsp";
 
 	if (session.getAttribute("username") == null || logintype.equals("User")) {
 		response.sendRedirect(loginURL);
 	}
-	
-	if (request.getParameter("airport_id") == null) {
-		response.sendRedirect(airportSearch);
-	}
 
-	//Get the more info parameter from airportResults_AdminCR.jsp
-	String airportID = request.getParameter("airport_id");
-	//Make a SELECT query from the Airport table with airportID specified by the 'airport_id' parameter at the airportSearch_AdminCR.jsp
+	//Get the search from the flightSearch_AdminCR.jsp
+	String flightID = request.getParameter("flight_id");
+	//Make a SELECT query from the Airport table with flightID specified by the 'flight_id' parameter at the flightSearch_AdminCR.jsp
 	String str, str_query, str_query_title;
-	str = "SELECT * FROM DB1.Airport ap WHERE ap.airport_id = '" + airportID + "'";
-	str_query = "Result for " + airportID + ":<br><br>";
-	str_query_title = airportID;
+	if (flightID == null || flightID.equals("getAll")) {
+		str = "SELECT * FROM DB1.Flight";
+		if (flightID == null) {
+			str_query = "No Flight ID given, showing all results:<br><br>";
+		} else {
+			str_query = "Querying for all Flights:<br><br>";
+		}
+		str_query_title = "All";
+	} else {
+		str = "SELECT * FROM DB1.Flight f WHERE f.flight_id = " + flightID;
+		str_query = "Result for " + flightID + ":<br><br>";
+		str_query_title = flightID;
+	}
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>[<%
 	out.println(logintype);
-%>] Airport Information - <%
+%>] Flight Results - <%
 	out.println(str_query_title);
 %></title>
 </head>
@@ -53,6 +58,8 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	<br>
 	<br>
 	<%
+		List<String> list = new ArrayList<String>();
+
 		try {
 
 			//Get the database connection
@@ -76,7 +83,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			//make a column
 			out.print("<td>");
 			//print out column header
-			out.print("Airport ID");
+			out.print("Flight ID");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
@@ -104,35 +111,33 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			while (result.next()) {
 				//make a row
 				out.print("<tr>");
-				//begin form to update Airport Info
-				out.print("<form method='post' action='" + airportUpdate + "'>");
 				//make a column
 				out.print("<td>");
 				//Print out current airport_id:
-				out.print("<select name='airport_id'>");
-				out.print("<option value='" + result.getString("airport_id") + "'>" + result.getString("airport_id")
-						+ "</option>");
-				out.print("</select>");
+				out.print(result.getString("airport_id"));
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current name:
-				out.print("<input type='text' name='name' value='" + result.getString("name") + "'");
+				out.print(result.getString("name"));
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current city:
-				out.print("<input type='text' name='city' value='" + result.getString("city") + "'");
+				out.print(result.getString("city"));
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current state (if any):
-				out.print("<input type='text' name='state' value='" + result.getString("state") + "'");
+				out.print(result.getString("state"));
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current country:
-				out.print("<input type='text' name='country' value='" + result.getString("country") + "'");
+				out.print(result.getString("country"));
 				out.print("</td>");
 				out.print("<td>");
-				//Print out an update button:
-				out.print("<input type='submit' value='update'>");
+				//Print out an edit button:
+				out.print("<form method='post' action='" + flightInfo + "'>");
+				out.print("<button type='submit' name='airport_id' value=" + result.getString("airport_id") + ">");
+				out.print("more info");
+				out.print("</button>");
 				out.print("</form>");
 				out.print("</td>");
 				out.print("</tr>");

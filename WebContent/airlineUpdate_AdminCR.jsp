@@ -23,19 +23,19 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 		response.sendRedirect(loginURL);
 	}
 
-	//Get the search from the airportSearch_AdminCR.jsp
-	String airportID = request.getParameter("airport_id");
-	//Make a SELECT query from the Airport table with airportID specified by the 'airport_id' parameter at the airportSearch_AdminCR.jsp
+	//Get the search from the airlineSearch_AdminCR.jsp
+	String airlineID = request.getParameter("airline_id");
+	//Make a SELECT query from the Airline table with airline specified by the 'airline_id' parameter at the airlineSearch_AdminCR.jsp
 	String str, str_query, str_query_title;
-	str = "SELECT * FROM DB1.Airport ap WHERE ap.airport_id = '" + airportID + "'";
-	str_query = "Result for " + airportID + " updates:<br><br>";
-	str_query_title = airportID;
+	str = "SELECT * FROM DB1.Airline al WHERE al.airline_id = '" + airlineID + "'";
+	str_query = "Result for " + airlineID + " updates:<br><br>";
+	str_query_title = airlineID;
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>[<%
 	out.println(logintype);
-%>] Airport Update Information - <%
+%>] Airline Update Information - <%
 	out.println(str_query_title);
 %></title>
 </head>
@@ -56,24 +56,19 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 
-			//Get parameters from the HTML form at airportInfo_AdminCR.jsp
-			String airport_id = request.getParameter("airport_id");
-			String new_name = request.getParameter("name");
-			String new_city = request.getParameter("city");
-			String new_state = request.getParameter("state");
-			String new_country = request.getParameter("country");
+			//Get parameters from the HTML form at airlineInfo_AdminCR.jsp
+			String airline_id = request.getParameter("airline_id");
+			String new_name = request.getParameter("airline_name");
+			String new_revenue = request.getParameter("airline_revenue");
 
 			//Make an insert statement for the Sells table:
-			String update = "UPDATE Airport SET name = ?, city = ?, state = ?, country = ? WHERE airport_id = ?";
+			String update = "UPDATE Airline SET airline_name = ? WHERE airline_id = ?";
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			PreparedStatement ps = con.prepareStatement(update);
 
 			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
 			ps.setString(1, new_name);
-			ps.setString(2, new_city);
-			ps.setString(3, new_state);
-			ps.setString(4, new_country);
-			ps.setString(5, airport_id);
+			ps.setString(2, airline_id);
 			//Run the query against the DB
 			ps.executeUpdate();
 

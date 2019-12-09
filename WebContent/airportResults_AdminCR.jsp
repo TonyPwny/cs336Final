@@ -1,3 +1,11 @@
+<!--
+Anthony Tiongson
+CS336 Section 07
+Professor Miranda
+Project Final Group 4
+
+Page was coded with aid from the project beer template.
+-->
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
@@ -10,14 +18,15 @@
 	String login = (String) session.getAttribute("username");
 	String logintype = (String) session.getAttribute("usertype");
 	String loginURL = "login.jsp";
+	String airportInfo ="airportInfo_AdminCR.jsp";
 
 	if (session.getAttribute("username") == null || logintype.equals("User")) {
 		response.sendRedirect(loginURL);
 	}
 
-	//Get the search from the airlineInforSearch_AdminCR.jsp
+	//Get the search from the airportSearch_AdminCR.jsp
 	String airportID = request.getParameter("airport_id");
-	//Make a SELECT query from the Airport table with airportID specified by the 'airport_id' parameter at the airlineInfoSearch_AdminCR.jsp
+	//Make a SELECT query from the Airport table with airportID specified by the 'airport_id' parameter at the airportSearch_AdminCR.jsp
 	String str, str_query, str_query_title;
 	if (airportID == null || airportID.equals("getAll")) {
 		str = "SELECT * FROM DB1.Airport";
@@ -125,11 +134,12 @@
 				out.print("</td>");
 				out.print("<td>");
 				//Print out an edit button:
-				out.print("<form method='post' action='airportInfo_AdminCR.jsp'>");
+				out.print("<form method='post' action='" + airportInfo + "'>");
 				out.print("<button type='submit' name='airport_id' value=" + result.getString("airport_id") + ">");
 				out.print("more info");
 				out.print("</button>");
 				out.print("</form>");
+				out.print("</td>");
 				out.print("</tr>");
 			}
 			out.print("</table>");

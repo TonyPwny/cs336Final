@@ -18,30 +18,30 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	String login = (String) session.getAttribute("username");
 	String logintype = (String) session.getAttribute("usertype");
 	String loginURL = "login.jsp";
-	String airportSearch = "airportSearch_AdminCR.jsp";
-	String airportUpdate = "airportUpdate_AdminCR.jsp";
+	String airlineSearch = "airlineSearch_AdminCR.jsp";
+	String airlineUpdate = "airlineUpdate_AdminCR.jsp";
 
 	if (session.getAttribute("username") == null || logintype.equals("User")) {
 		response.sendRedirect(loginURL);
 	}
-	
-	if (request.getParameter("airport_id") == null) {
-		response.sendRedirect(airportSearch);
+
+	if (request.getParameter("airline_id") == null) {
+		response.sendRedirect(airlineSearch);
 	}
 
-	//Get the more info parameter from airportResults_AdminCR.jsp
-	String airportID = request.getParameter("airport_id");
-	//Make a SELECT query from the Airport table with airportID specified by the 'airport_id' parameter at the airportSearch_AdminCR.jsp
+	//Get the more info parameter from airlineResults_AdminCR.jsp
+	String airlineID = request.getParameter("airline_id");
+	//Make a SELECT query from the Airline table with airlineID specified by the 'airline_id' parameter at the airlineSearch_AdminCR.jsp
 	String str, str_query, str_query_title;
-	str = "SELECT * FROM DB1.Airport ap WHERE ap.airport_id = '" + airportID + "'";
-	str_query = "Result for " + airportID + ":<br><br>";
-	str_query_title = airportID;
+	str = "SELECT * FROM DB1.Airline al WHERE al.airline_id = '" + airlineID + "'";
+	str_query = "Result for " + airlineID + ":<br><br>";
+	str_query_title = airlineID;
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>[<%
 	out.println(logintype);
-%>] Airport Information - <%
+%>] Airline Information - <%
 	out.println(str_query_title);
 %></title>
 </head>
@@ -50,6 +50,8 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	<%
 		out.println(" <b>" + login + "</b> - " + logintype);
 	%>
+	<br>
+	<br>
 	<br>
 	<br>
 	<%
@@ -76,7 +78,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			//make a column
 			out.print("<td>");
 			//print out column header
-			out.print("Airport ID");
+			out.print("Airline ID");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
@@ -84,15 +86,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
-			out.print("City");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("State");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("Country");
+			out.print("Revenue Contribution");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
@@ -104,31 +98,23 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			while (result.next()) {
 				//make a row
 				out.print("<tr>");
-				//begin form to update Airport Info
-				out.print("<form method='post' action='" + airportUpdate + "'>");
+				//begin form to update Airline Info
+				out.print("<form method='post' action='" + airlineUpdate + "'>");
 				//make a column
 				out.print("<td>");
-				//Print out current airport_id:
-				out.print("<select name='airport_id'>");
-				out.print("<option value='" + result.getString("airport_id") + "'>" + result.getString("airport_id")
+				//Print out current airline_id:
+				out.print("<select name='airline_id'>");
+				out.print("<option value='" + result.getString("airline_id") + "'>" + result.getString("airline_id")
 						+ "</option>");
 				out.print("</select>");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current name:
-				out.print("<input type='text' name='name' value='" + result.getString("name") + "'");
+				out.print("<input type='text' name='airline_name' value='" + result.getString("airline_name") + "'");
 				out.print("</td>");
 				out.print("<td>");
-				//Print out current city:
-				out.print("<input type='text' name='city' value='" + result.getString("city") + "'");
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current state (if any):
-				out.print("<input type='text' name='state' value='" + result.getString("state") + "'");
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current country:
-				out.print("<input type='text' name='country' value='" + result.getString("country") + "'");
+				//Print out current revenue contribution:
+				out.print("<input type='text' name='airline_revenue' value='revenue contributions'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out an update button:

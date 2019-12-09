@@ -1,3 +1,11 @@
+<!--
+Anthony Tiongson
+CS336 Section 07
+Professor Miranda
+Project Final Group 4
+
+Page was coded with aid from the project beer template and ProjectSETUP guide.
+-->
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
