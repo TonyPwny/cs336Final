@@ -34,13 +34,13 @@ Project Final Group 4
 
 		List<String> list = new ArrayList<String>();
 
-		if (!flightid.isEmpty()) {
+		if (!flightid.isEmpty()){
 
 			//Connect to database
 			ApplicationDB db = new ApplicationDB();
 			Connection conn = db.getConnection();
 
-			String str = "SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrival_date, arrival.airport_id "
+			String str = "SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id "
 					+ "from Flight, arrival, departure " + "where Flight.flight_id = ? "
 					+ "and arrival.flight_id = Flight.flight_id " + "and departure.flight_id = Flight.flight_id";
 
@@ -98,7 +98,7 @@ Project Final Group 4
 				out.print("<td>");
 
 				//Print out arrival date
-				out.print(flights.getString("arrival.arrival_date"));
+				out.print(flights.getString("arrival.arrive_date"));
 				out.print("</td>");
 				out.print("<td>");
 
@@ -106,15 +106,26 @@ Project Final Group 4
 				out.print(flights.getString("arrival.airport_id"));
 				out.print("</td>");
 				out.print("<td>");
-
-
+				//Print out a moreinfo button:
+				out.print("<form method='post' action='more_Flight_Info.jsp'>");
+				out.print("<button type='submit' name='more info' +  value = 'flight_id' + >");
+				out.print("more info");
+				out.print("</button>");
+				out.print("</form>");
+				out.print("</td>");
+				out.print("</tr>");
 			}
+
+
+			
 			out.print("</table>");
 
 			//close the connection
 			conn.close();
 
-		} else if (roundtrip == false) {
+					
+		}
+			else if(roundtrip == false) {
 			
 			ApplicationDB db = new ApplicationDB();
 			Connection conn = db.getConnection();
@@ -122,14 +133,14 @@ Project Final Group 4
 			
 			String str =
 
-					"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrival_date, arrival.airport_id "
+					"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id "
 							+ "from Flight, arrival, departure " 
 							+ "where Flight.flight_id = arrival.flight_id "
 							+ "and Flight.flight_id = departure.flight_id " 
 							+ "and departure.depart_date >= ? "
 							+ "and departure.depart_date <= ? " 
-							+ "and arrival.arrival_date >= ? " 
-							+ "and arrival.arrival_date <= ? " 
+							+ "and arrival.arrive_date >= ? " 
+							+ "and arrival.arrive_date <= ? " 
 							+ "and departure.airport_id = ? "
 							+ "and arrival.airport_id = ?";
 
@@ -187,7 +198,7 @@ Project Final Group 4
 				out.print("<td>");
 
 				//Print out arrival date
-				out.print(flights.getString("arrival.arrival_date"));
+				out.print(flights.getString("arrival.arrive_date"));
 				out.print("</td>");
 				out.print("<td>");
 
@@ -195,6 +206,13 @@ Project Final Group 4
 				out.print(flights.getString("arrival.airport_id"));
 				out.print("</td>");
 				out.print("<td>");
+				out.print("<form method='post' action='more_Flight_Info.jsp'>");
+				out.print("<button type='submit' name='more info' +  value = 'flight_id' + >");
+				out.print("more info");
+				out.print("</button>");
+				out.print("</form>");
+				out.print("</td>");
+				out.print("</tr>");
 
 
 			}
@@ -204,38 +222,34 @@ Project Final Group 4
 			conn.close();
 
 		}
-		/*	
+			
 		else if(roundtrip == true)
 		{
+			ApplicationDB db = new ApplicationDB();
+			Connection conn = db.getConnection();
 			
-			String url = "jdbc:mysql://steve2.ckgj9bgqpyor.us-east-2.rds.amazonaws.com:3306/DB2";
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			//Connect to database
-			Connection conn = DriverManager.getConnection(url, "admin", "password");
 			String str = 
 					
 					"SELECT Flight.flight_id, departure.depart_date as ddate1, departure.airport_id as depportid, arrival.arrive_date as adate1, arrival.airport_id as aportid " +																											 										 
 					"from Flight, arrival, departure " +
 					"where Flight.flight_id = arrival.flight_id " +
 					"and Flight.flight_id = departure.flight_id " +
-					"and departure.depart_date >= \"?\" " + 
-					"and departure.depart_date < \"?\" " +
-					"and arrival.arrive_date >= \"?\" " + 
-					"and arrival.arrive_date < \"?\" " +
-					"and departure.airport_id = \"?\" " +
-					"and arrival.airport_id = \"?\"" ;
+					"and departure.depart_date >= ? " + 
+					"and departure.depart_date <= ? " +
+					"and arrival.arrive_date >= ? " + 
+					"and arrival.arrive_date <= ? " +
+					"and departure.airport_id = ? " +
+					"and arrival.airport_id = ? " +
 					
-		
-											
-					
+							
 					"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id " +																											 										 
 					"from Flight, arrival, departure " +
 					"where Flight.flight_id = arrival.flight_id " +
 					"and Flight.flight_id = departure.flight_id " +
 					"and departure.depart_date >= adate1 " + 
-					"and departure.depart_date < \"?\" " +
+					"and departure.depart_date =< ? " +
 					"and arrival.arrive_date >= adate1 " + 
-					"and arrival.arrive_date < \"?\" " +
+					"and arrival.arrive_date <= ? " +
 					"and arrival.airport_id = depportid";
 					
 				
@@ -297,7 +311,7 @@ Project Final Group 4
 				out.print("</td>");
 				out.print("</tr>");
 				//Print out current price
-				out.print(flights.getString("arrive_date"));
+				out.print(flights.getString("arrival.arrive_date"));
 				out.print("</td>");
 				out.print("</tr>");
 				//Print out current price
@@ -312,7 +326,7 @@ Project Final Group 4
 			conn.close();
 			
 		
-		}	*/
+		}	
 		else {
 
 			out.println("You didnt enter any data!<br>");
