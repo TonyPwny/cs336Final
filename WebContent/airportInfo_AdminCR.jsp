@@ -84,7 +84,7 @@
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
-			out.print("Make Changes");
+			out.print("");
 			out.print("</td>");
 			out.print("</tr>");
 
@@ -92,37 +92,40 @@
 			while (result.next()) {
 				//make a row
 				out.print("<tr>");
+				//begin form to update Airport Info
+				out.print("<form method='post' action='airportUpdate_AdminCR.jsp'>");
 				//make a column
 				out.print("<td>");
 				//Print out current airport_id:
-				out.print(result.getString("airport_id"));
+				out.print("<select name='airport_id'>");
+				out.print("<option value='" + result.getString("airport_id") + "'>" + result.getString("airport_id") + "</option>");
+				out.print("</select>");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current name:
-				out.print(result.getString("name"));
+				out.print("<input type='text' name='name' value='" + result.getString("name") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current city:
-				out.print(result.getString("city"));
+				out.print("<input type='text' name='city' value='" + result.getString("city") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current state (if any):
-				out.print(result.getString("state"));
+				out.print("<input type='text' name='state' value='" + result.getString("state") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current country:
-				out.print(result.getString("country"));
+				out.print("<input type='text' name='country' value='" + result.getString("country") + "'");
 				out.print("</td>");
 				out.print("<td>");
-				//Print out an edit button:
-				out.print("<form method='post' action='airportInfo_AdminCR.jsp'>");
-				out.print("<button type='submit' name='airport_id' value=" + result.getString("airport_id") + ">");
-				out.print("edit");
-				out.print("</button>");
+				//Print out an update button:
+				out.print("<input type='submit' value='update'>");
 				out.print("</form>");
 				out.print("</tr>");
 			}
 			out.print("</table>");
+			
+			
 
 			//close the connection.
 			con.close();

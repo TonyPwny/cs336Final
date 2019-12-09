@@ -94,7 +94,7 @@
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
-			out.print("Make Changes");
+			out.print("");
 			out.print("</td>");
 			out.print("</tr>");
 
@@ -127,7 +127,7 @@
 				//Print out an edit button:
 				out.print("<form method='post' action='airportInfo_AdminCR.jsp'>");
 				out.print("<button type='submit' name='airport_id' value=" + result.getString("airport_id") + ">");
-				out.print("edit");
+				out.print("more info");
 				out.print("</button>");
 				out.print("</form>");
 				out.print("</tr>");
