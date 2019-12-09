@@ -16,7 +16,7 @@
 		%><br>
 		
 		<a href="salesReportSearch.jsp">Sales Report Search</a><br>
-		<a href="flightSearch_AdminCR">Flight Search</a><br>
+		<a href="flightSearch_AdminCR.jsp">Flight Search</a><br>
 		<a href="airlineSearch.jsp">Airline Search</a><br>
 		<a href="customerSearch.jsp">Customer Search</a><br>
 		
