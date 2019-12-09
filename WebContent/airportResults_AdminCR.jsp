@@ -19,15 +19,25 @@
 	String airportID = request.getParameter("airport_id");
 	//Make a SELECT query from the Airport table with airportID specified by the 'airport_id' parameter at the airlineInfoSearch_AdminCR.jsp
 	String str, str_query, str_query_title;
-	str = "SELECT * FROM DB1.Airport ap WHERE ap.airport_id = '" + airportID + "'";
-	str_query = "Result for " + airportID + ":<br><br>";
-	str_query_title = airportID;
+	if (airportID == null || airportID.equals("getAll")) {
+		str = "SELECT * FROM DB1.Airport";
+		if (airportID == null) {
+			str_query = "No Airport ID given, showing all results:<br><br>";
+		} else {
+			str_query = "Querying for all Airports:<br><br>";
+		}
+		str_query_title = "All";
+	} else {
+		str = "SELECT * FROM DB1.Airport ap WHERE ap.airport_id = " + airportID;
+		str_query = "Result for " + airportID + ":<br><br>";
+		str_query_title = airportID;
+	}
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>[<%
 	out.println(logintype);
-%>] Airport Information - <%
+%>] Airport Results - <%
 	out.println(str_query_title);
 %></title>
 </head>
