@@ -4,7 +4,7 @@ CS336 Section 07
 Professor Miranda
 Project Final Group 4
 
-Page was coded with aid from the project beer template.
+Page was coded with aid from the project beer template and ProjectSETUP guide.
 -->
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -18,7 +18,7 @@ Page was coded with aid from the project beer template.
 	String login = (String) session.getAttribute("username");
 	String logintype = (String) session.getAttribute("usertype");
 	String loginURL = "login.jsp";
-	String airportInfo ="airportInfo_AdminCR.jsp";
+	String airportInfo = "airportInfo_AdminCR.jsp";
 
 	if (session.getAttribute("username") == null || logintype.equals("User")) {
 		response.sendRedirect(loginURL);
@@ -37,7 +37,7 @@ Page was coded with aid from the project beer template.
 		}
 		str_query_title = "All";
 	} else {
-		str = "SELECT * FROM DB1.Airport ap WHERE ap.airport_id = " + airportID;
+		str = "SELECT * FROM DB1.Airport ap WHERE ap.airport_id LIKE " + airportID;
 		str_query = "Result for " + airportID + ":<br><br>";
 		str_query_title = airportID;
 	}

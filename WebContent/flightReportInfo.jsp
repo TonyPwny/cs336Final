@@ -27,14 +27,23 @@
 				//Connect to database
 				Connection conn = DriverManager.getConnection(url, "admin", "password");
 				String str = 
-					"";
+					"select F.aircraft_id aircraftId, F.airline_id airlineId, F.flight_type fType, F.fare_econ fe, F.fare_first ff, F.fare_bus fb, sum(trip.ticket_id) numCustomers " +
+					"from Flight F, trip " +
+					"where F.flight_id = trip.flight_id " +
+						"and F.flight_id = \"?\"" +
+					"group by F.flight_id";
 				PreparedStatement stmt = conn.prepareStatement(str);
 				stmt.setString(1, flightid);
 				//gets flight info
 				ResultSet flight = stmt.executeQuery();
+				flight.next();
 				
 				str = 
-					"";
+					"select buys.username username, Ticket.total_fare cost" +
+					"from buys, Ticket, trip " + 
+					"where buys.ticket_num = Ticket.ticket_num " +
+						"and Ticket.ticket_num = trip.ticket_num " +
+						"and trip.flight_id = \"?\"";
 				stmt = conn.prepareStatement(str);
 				stmt.setString(1, flightid);
 				//gets customers on flight

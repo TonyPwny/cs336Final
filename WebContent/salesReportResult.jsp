@@ -21,11 +21,11 @@
 				try {
 					Integer.parseInt(year);
 				} catch (NumberFormatException e) {
-					out.println("Invalid Input for Year<br>");
+					out.println("Invalid Input for Year<br><br>");
 					validInput = false;
 				}
 			} else {
-				out.println("Invalid Input for Year<br>");
+				out.println("Invalid Input for Year<br><br>");
 				validInput = false;	
 			}
 			
@@ -35,7 +35,7 @@
 					month = "0" + month;
 				}
 				
-				out.println("<br><b>Sales Report for " + year + "/" + month + "</b><br><br>");
+				out.println("<br><b>Sales Report for " + month + "/" + year + "</b><br><br>");
 				
 				//Get end of month
 				String year2 = Integer.toString(Integer.parseInt(year)+1);
@@ -67,7 +67,7 @@
 				stmt.setString(4, month2);
 				//gets all flights within month with ID, profit, and # of customers
 				ResultSet flights = stmt.executeQuery();
-				
+				/*
 				str =
 					"select ticket.ticket_id id, seat.class class, flight.fare_econ fe, flight.fare_first ff, flight.fare_bus fb, flight.depart_time departTime" +
 					"from ticket, trip, seat, flight " +
@@ -83,20 +83,20 @@
 				stmt.setString(4, month2);
 				//gets all tickets, their seat's class, and all prices for that flight
 				ResultSet costs = stmt.executeQuery();
-						
+				*/		
 				conn.close();
-				
+				/*
 				//get total profit of month by adding each flight's profit
 				double totalProfit = 0;
 				int n = 0; //also get number of flights
 				while (costs.next()) {
 					String c = costs.getString("class");
 					if (c.equals("economy")) {
-						totalProfit += costs.getInt("fe");
+						totalProfit += costs.getDouble("fe");
 					} else if (c.equals("first")) {
-						totalProfit += costs.getInt("ff");
+						totalProfit += costs.getDouble("ff");
 					} else if (c.equals("business")) {
-						totalProfit += costs.getInt("fb");
+						totalProfit += costs.getDouble("fb");
 					}
 					n++;
 				}
@@ -119,6 +119,7 @@
 					);
 					
 					//Adds each flight to list of flights
+					flights.first();
 					do {
 						out.println(
 							String.format(
@@ -141,7 +142,7 @@
 					out.println("</form></table><br><br>");
 				} else {
 					out.println("<br><br>No flights found.<br><br>");
-				}
+				}*/
 			}
 		%>
 		

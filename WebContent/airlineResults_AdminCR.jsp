@@ -4,7 +4,7 @@ CS336 Section 07
 Professor Miranda
 Project Final Group 4
 
-Page was coded with aid from the project beer template.
+Page was coded with aid from the project beer template and ProjectSETUP guide.
 -->
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -37,7 +37,7 @@ Page was coded with aid from the project beer template.
 		}
 		str_query_title = "All";
 	} else {
-		str = "SELECT * FROM DB1.Airline al WHERE al.airline_id = " + airlineID;
+		str = "SELECT * FROM DB1.Airline al WHERE al.airline_id LIKE " + airlineID + "%";
 		str_query = "Result for " + airlineID + ":<br><br>";
 		str_query_title = airlineID;
 	}

@@ -31,7 +31,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 
 	//Get the more info parameter from airlineResults_AdminCR.jsp
 	String airlineID = request.getParameter("airline_id");
-	//Make a SELECT query from the Airline table with airlineID specified by the 'airline_id' parameter at the airlineSearch_AdminCR.jsp
+	//Make a SELECT query to the Airline table with airlineID specified by the more info parameter from airlineResults_AdminCR.jsp
 	String str, str_query, str_query_title;
 	str = "SELECT * FROM DB1.Airline al WHERE al.airline_id = '" + airlineID + "'";
 	str_query = "Result for " + airlineID + ":<br><br>";

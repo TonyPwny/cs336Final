@@ -4,7 +4,7 @@ CS336 Section 07
 Professor Miranda
 Project Final Group 4
 
-Page was coded with aid from the project beer template.
+Page was coded with aid from the project beer template and ProjectSETUP guide.
 -->
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -18,7 +18,7 @@ Page was coded with aid from the project beer template.
 	String login = (String) session.getAttribute("username");
 	String logintype = (String) session.getAttribute("usertype");
 	String loginURL = "login.jsp";
-	String flightInfo ="flightInfo_AdminCR.jsp";
+	String flightInfo = "flightInfo_AdminCR.jsp";
 
 	if (session.getAttribute("username") == null || logintype.equals("User")) {
 		response.sendRedirect(loginURL);
@@ -29,7 +29,7 @@ Page was coded with aid from the project beer template.
 	//Make a SELECT query from the Airport table with flightID specified by the 'flight_id' parameter at the flightSearch_AdminCR.jsp
 	String str, str_query, str_query_title;
 	if (flightID == null || flightID.equals("getAll")) {
-		str = "SELECT * FROM DB1.Flight";
+		str = "SELECT * FROM DB1.Flight, DB1.Airline, DB1.Aircraft";
 		if (flightID == null) {
 			str_query = "No Flight ID given, showing all results:<br><br>";
 		} else {
@@ -37,7 +37,8 @@ Page was coded with aid from the project beer template.
 		}
 		str_query_title = "All";
 	} else {
-		str = "SELECT * FROM DB1.Flight f WHERE f.flight_id = " + flightID;
+		str = "SELECT * FROM DB1.Flight f, DB1.Airline al, DB1.Aircraft ac WHERE f.flight_id LIKE '" + flightID
+				+ "%' AND f.airline_id = al.airline_id AND f.aircraft_id = ac.aircraft_id";
 		str_query = "Result for " + flightID + ":<br><br>";
 		str_query_title = flightID;
 	}
@@ -87,19 +88,43 @@ Page was coded with aid from the project beer template.
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
-			out.print("Name");
+			out.print("Airline");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
-			out.print("City");
+			out.print("Aircraft");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
-			out.print("State");
+			out.print("Capacity");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
-			out.print("Country");
+			out.print("Type");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("Departure Time");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("Arrival Time");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("Days");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("First Class Fare");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("Business Class Fare");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("Economy Class Fare");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
@@ -113,29 +138,53 @@ Page was coded with aid from the project beer template.
 				out.print("<tr>");
 				//make a column
 				out.print("<td>");
-				//Print out current airport_id:
-				out.print(result.getString("airport_id"));
+				//Print out current flight_id:
+				out.print(result.getString("flight_id"));
 				out.print("</td>");
 				out.print("<td>");
-				//Print out current name:
-				out.print(result.getString("name"));
+				//Print out current airline_name:
+				out.print(result.getString("airline_name"));
 				out.print("</td>");
 				out.print("<td>");
-				//Print out current city:
-				out.print(result.getString("city"));
+				//Print out current aircraft_id:
+				out.print(result.getString("aircraft_id"));
 				out.print("</td>");
 				out.print("<td>");
-				//Print out current state (if any):
-				out.print(result.getString("state"));
+				//Print out current capacity:
+				out.print(result.getString("capacity"));
 				out.print("</td>");
 				out.print("<td>");
-				//Print out current country:
-				out.print(result.getString("country"));
+				//Print out current flight_type:
+				out.print(result.getString("flight_type"));
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current depart_time:
+				out.print(result.getString("depart_time"));
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current arrive_time:
+				out.print(result.getString("arrive_time"));
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current flight_days:
+				out.print(result.getString("flight_days"));
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current fare_first:
+				out.print(result.getString("fare_first"));
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current fare_bust:
+				out.print(result.getString("fare_bus"));
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current fare_econ:
+				out.print(result.getString("fare_econ"));
 				out.print("</td>");
 				out.print("<td>");
 				//Print out an edit button:
 				out.print("<form method='post' action='" + flightInfo + "'>");
-				out.print("<button type='submit' name='airport_id' value=" + result.getString("airport_id") + ">");
+				out.print("<button type='submit' name='flight_id' value=" + result.getString("flight_id") + ">");
 				out.print("more info");
 				out.print("</button>");
 				out.print("</form>");

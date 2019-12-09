@@ -4,7 +4,7 @@ CS336 Section 07
 Professor Miranda
 Project Final Group 4
 
-Page was coded with aid from the project beer template and ProjectSETUP guide and ProjectSETUP guide.
+Page was coded with aid from the project beer template and ProjectSETUP guide.
 -->
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -24,16 +24,17 @@ Page was coded with aid from the project beer template and ProjectSETUP guide an
 	if (session.getAttribute("username") == null || logintype.equals("User")) {
 		response.sendRedirect(loginURL);
 	}
-	
+
 	if (request.getParameter("flight_id") == null) {
 		response.sendRedirect(flightSearch);
 	}
 
-	//Get the search from the flightSearch_AdminCR.jsp
+	//Get the more info parameter from flightResults_AdminCR.jsp
 	String flightID = request.getParameter("flight_id");
-	//Make a SELECT query from the Airport table with flightID specified by the 'flight_id' parameter at the flightSearch_AdminCR.jsp
+	//Make a SELECT query to the Flight table with flightID specified by the more info parameter from flightResults_AdminCR.jsp
 	String str, str_query, str_query_title;
-	str = "SELECT * FROM DB1.Flight f, DB1.Airline al WHERE f.flight_id = '" + flightID + "AND f.airline_id = al.airline_id'";
+	str = "SELECT * FROM DB1.Flight f, DB1.Airline al, DB1.Aircraft ac WHERE f.flight_id = '" + flightID
+			+ "' AND f.airline_id = al.airline_id AND f.aircraft_id = ac.aircraft_id";
 	str_query = "Result for " + flightID + ":<br><br>";
 	str_query_title = flightID;
 %>
@@ -88,7 +89,23 @@ Page was coded with aid from the project beer template and ProjectSETUP guide an
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
+			out.print("Capacity");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
 			out.print("Type");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("Departure Time");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("Arrival Time");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("Days");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
@@ -124,15 +141,32 @@ Page was coded with aid from the project beer template and ProjectSETUP guide an
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current airline_name:
-				out.print("<input type='text' name='airline_name' value='" + result.getString("airline_name") + "'");
+				out.print(
+						"<input type='text' name='airline_name' value='" + result.getString("airline_name") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current aircraft_id:
 				out.print("<input type='text' name='aircraft_id' value='" + result.getString("aircraft_id") + "'");
 				out.print("</td>");
 				out.print("<td>");
+				//Print out current capacity:
+				out.print("<input type='text' name='capacity' value='" + result.getString("capacity") + "'");
+				out.print("</td>");
+				out.print("<td>");
 				//Print out current flight_type:
 				out.print("<input type='text' name='flight_type' value='" + result.getString("flight_type") + "'");
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current depart_time:
+				out.print("<input type='text' name='depart_time' value='" + result.getString("depart_time") + "'");
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current arrive_time:
+				out.print("<input type='text' name='arrive_time' value='" + result.getString("arrive_time") + "'");
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current flight_days:
+				out.print("<input type='text' name='flight_days' value='" + result.getString("flight_days") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current fare_first:
