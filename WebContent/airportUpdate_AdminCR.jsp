@@ -25,7 +25,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 
 	//Get the search from the airportSearch_AdminCR.jsp
 	String airportID = request.getParameter("airport_id");
-	//Make a SELECT query from the Airport table with airportID specified by the 'airport_id' parameter at the airportSearch_AdminCR.jsp
+	//Make a SELECT query from the Airport table with airportID specified by the 'airport_id' parameter from airportSearch_AdminCR.jsp
 	String str, str_query, str_query_title;
 	str = "SELECT * FROM DB1.Airport ap WHERE ap.airport_id = '" + airportID + "'";
 	str_query = "Result for " + airportID + " updates:<br><br>";
