@@ -12,7 +12,7 @@
 	<body>
 		<br>
 		<h3>Search for an airline</h3>
-			<form method="get" action="airlineResults_AdminCR.jsp" enctype=text/plain>
+			<form method="post" action="airlineResults_AdminCR.jsp" enctype=text/plain>
 				<table>
 					<tr>
 						<td>Airline ID:</td>
