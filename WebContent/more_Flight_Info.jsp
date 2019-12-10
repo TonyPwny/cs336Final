@@ -23,26 +23,138 @@ Project Final Group 4
 	<%
 		//Get arguments
 
-		Boolean roundtrip = Boolean.parseBoolean(request.getParameter("round_trip"));
-		String takeoffd1 = request.getParameter("take_off_date");
-		String takeoffd2 = request.getParameter("take_off_date_2");
-		String arrived1 = request.getParameter("arrive_date");
-		String arrived2 = request.getParameter("arrive_date_2");
-		String flightid = request.getParameter("flight_id");
-		String departing_port = request.getParameter("depport");
-		String arriving_port = request.getParameter("arrivport");
+		String button_flightid = request.getParameter("more_info");
+
+		ApplicationDB db = new ApplicationDB();
+		Connection conn = db.getConnection();
 
 		
-		if {   }
-		else {
+String str = 		
+	"SELECT DISTINCT Flight.flight_id, departure.airport_id, departure.depart_date, Flight.depart_time "  
+		+ "arrival.airport_id, arrival.arrive_date, Flight.arrive_time, " 
+		+ "Flight.airline_id, Airline.airline_name, " 
+		+ "Flight.fare_econ, Flight.fare_bus, Flight.fare_first " 
+		+ "FROM Flight, arrival, departure, Airline, Airport " 
+		+ "WHERE Flight.flight_id = ? " 
+		+ "AND Flight.flight_id = departure.flight_id " 
+		+ "AND Flight.flight_id = arrival.flight_id " 
+		+ "AND Flight.airline_id = Airline.airline_id";
 
-			out.println("You didnt enter any data!<br>");
-			out.println("<a href='flight_Search'>Try Again</a>");
-		}
+		PreparedStatement stmt = conn.prepareStatement(str);
+		stmt.setString(1, button_flightid);
+		ResultSet flights = stmt.executeQuery();
+
+		out.print("<table>");
+		//make a row
+		out.print("<tr>");
+		//make a column
+		out.print("<td>");
+		//print out column header
+		out.print("flight id");
+		out.print("</td>");
+		//make a column
+		out.print("<td>");
+		out.print("departing port");
+		out.print("</td>");
+		//make a column
+		out.print("<td>");
+		out.print("departure time");
+		out.print("</td>");
+		//print out column header
+		out.print("<td>");
+		out.print("arrival port");
+		out.print("</td>");
+		//make a column
+		out.print("<td>");
+		out.print("arrival date");
+		out.print("</td>");
+		
+		out.print("<td>");
+		out.print("arrival time");
+		out.print("</td>");
+		
+		out.print("<td>");
+		out.print("airline ID");
+		out.print("</td>");
+		
+		out.print("<td>");
+		out.print("Airline name");
+		out.print("</td>");
+		
+		out.print("<td>");
+		out.print("Econ price");
+		out.print("</td>");
+		
+		out.print("<td>");
+		out.print("business price");
+		out.print("</td>");
+		
+		out.print("<td>");
+		out.print("first-class price");
+		out.print("</td>");
+		
+		
+		//make a column
+		out.print("");
+		out.print("</td>");
+		out.print("</tr>");
+
+		//parse out the results
+		while (flights.next()) {
+			//make a row
+			out.print("<tr>");
+			//make a column
+			out.print("<td>");
+			//Print out current flightid:
+			out.print(flights.getString("Flight.flight_id"));
+			out.print("</td>");
+			out.print("<td>");
+			//Print out current beer name:
+			out.print(flights.getString("departure.airport_id"));
+			out.print("</td>");
+			out.print("<td>");
+			//Print out current price
+			out.print(flights.getString("Flight.depart_time"));
+			out.print("</td>");
+			out.print("<td>");
+
+			//Print out arrival date
+			out.print(flights.getString("arrival.airport_Id"));
+			out.print("</td>");
+			out.print("<td>");
+
+			//Print out arrival airport id
+			out.print(flights.getString("arrival.arrive_time"));
+			out.print("</td>");
+			out.print("<td>");
+			
+			out.print(flights.getString("Flight.arrive_time"));
+			out.print("</td>");
+			out.print("<td>");
+			
+			out.print(flights.getString("Flight.airline_id"));
+			out.print("</td>");
+			out.print("<td>");
+			
+			out.print(flights.getString("Airline.airline_name"));
+			out.print("</td>");
+			out.print("<td>");
+			
+			out.print(flights.getString("Flight.fare_econ"));
+			out.print("</td>");
+			out.print("<td>");
+			
+			out.print(flights.getString("Flight.fare_bus"));
+			out.print("</td>");
+			out.print("<td>");
+			
+			out.print(flights.getString("Flight.fare_first"));
+			out.print("</td>");
+			out.print("<td>");
 	%>
 
-
-
+	<a href = "flight_Search.jsp""> Make a new search?</a>
+	<a href = "flight_Search_result.jsp"> Go back to your search</a>
 	<a href="success.jsp">Want to go back?</a>
 
 </body>

@@ -108,12 +108,14 @@ Project Final Group 4
 				out.print("<td>");
 				//Print out a moreinfo button:
 				out.print("<form method='post' action='more_Flight_Info.jsp'>");
-				out.print("<button type='submit' name='more info' +  value = 'flight_id' + >");
+				out.print("<button type='submit' name='more_info' +  value = 'flight_id' + >");
 				out.print("more info");
 				out.print("</button>");
 				out.print("</form>");
 				out.print("</td>");
 				out.print("</tr>");
+				
+				
 			}
 
 
@@ -285,7 +287,6 @@ Project Final Group 4
 			
 			out.print("<table>");
 			
-			flightid flight2 = flightsBA.next();
 			
 			//make a row
 			out.print("<tr>");
