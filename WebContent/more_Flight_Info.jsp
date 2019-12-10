@@ -161,7 +161,7 @@ String str =
 
 
 
-	<a href = "flight_Search.jsp""> Make a new search?</a>
+	<a href = "flight_Search.jsp"> Make a new search?</a>
 	<a href = "flight_Search_result.jsp"> Go back to your search</a>
 	<a href="success.jsp">Want to go back?</a>
 
