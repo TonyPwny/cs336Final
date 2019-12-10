@@ -52,7 +52,7 @@
 					}
 					else if(usertype.contains("SalesRep")){
 						conn.close();
-						response.sendRedirect("success_SalesRep.jsp");
+						response.sendRedirect("rep_Homepage.jsp");
 					}
 					
 				} else {
