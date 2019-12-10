@@ -23,264 +23,66 @@ Project Final Group 4
 	<%
 		//Get arguments
 
-		Boolean roundtrip = Boolean.parseBoolean(request.getParameter("round_trip"));
+		
 		String takeoffd1 = request.getParameter("take_off_date");
 		String takeoffd2 = request.getParameter("take_off_date_2");
 		String arrived1 = request.getParameter("arrive_date");
 		String arrived2 = request.getParameter("arrive_date_2");
-		String flightid = request.getParameter("flight_id");
 		String departing_port = request.getParameter("depport");
 		String arriving_port = request.getParameter("arrivport");
 
 		List<String> list = new ArrayList<String>();
 
-		if (!flightid.isEmpty()){
 
-			//Connect to database
-			ApplicationDB db = new ApplicationDB();
-			Connection conn = db.getConnection();
-
-			String str = "SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id "
-					+ "from Flight, arrival, departure " + "where Flight.flight_id = ? "
-					+ "and arrival.flight_id = Flight.flight_id " + "and departure.flight_id = Flight.flight_id";
-
-			PreparedStatement stmt = conn.prepareStatement(str);
-			stmt.setString(1, flightid);
-			ResultSet flights = stmt.executeQuery();
-
-			out.print("<table>");
-			//make a row
-			out.print("<tr>");
-			//make a column
-			out.print("<td>");
-			//print out column header
-			out.print("flight id");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("departure date");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("departure airport");
-			out.print("</td>");
-			//print out column header
-			out.print("<td>");
-			out.print("arrive date");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("arrival port");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("");
-			out.print("</td>");
-			out.print("</tr>");
-
-			//parse out the results
-			while (flights.next()) {
-				//make a row
-				out.print("<tr>");
-				//make a column
-				out.print("<td>");
-				//Print out current flightid:
-				out.print(flights.getString("Flight.flight_id"));
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current beer name:
-				out.print(flights.getString("departure.depart_date"));
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current price
-				out.print(flights.getString("departure.airport_id"));
-				out.print("</td>");
-				out.print("<td>");
-
-				//Print out arrival date
-				out.print(flights.getString("arrival.arrive_date"));
-				out.print("</td>");
-				out.print("<td>");
-
-				//Print out arrival airport id
-				out.print(flights.getString("arrival.airport_id"));
-				out.print("</td>");
-				out.print("<td>");
-				//Print out a moreinfo button:
-				out.print("<form method='post' action='more_Flight_Info.jsp'>");
-				out.print("<button type='submit' name='more_info' +  value = \"" + flights.getString("Flight.flight_id") + "\">");
-				out.print("more info");
-				out.print("</button>");
-				out.print("</form>");
-				out.print("</td>");
-				out.print("</tr>");
-				
-				
-			}
-
-
-			
-			out.print("</table>");
-
-			//close the connection
-			conn.close();
-
-					
-		}
-			else if(roundtrip == false) {
-			
-			ApplicationDB db = new ApplicationDB();
-			Connection conn = db.getConnection();
-			
-			
-			String str =
-
-					"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id "
-							+ "from Flight, arrival, departure " 
-							+ "where Flight.flight_id = arrival.flight_id "
-							+ "and Flight.flight_id = departure.flight_id " 
-							+ "and departure.depart_date >= ? "
-							+ "and departure.depart_date <= ? " 
-							+ "and arrival.arrive_date >= ? " 
-							+ "and arrival.arrive_date <= ? " 
-							+ "and departure.airport_id = ? "
-							+ "and arrival.airport_id = ?";
-
-			PreparedStatement stmt = conn.prepareStatement(str);
-			stmt.setString(1, takeoffd1);
-			stmt.setString(2, takeoffd2);
-			stmt.setString(3, arrived1);
-			stmt.setString(4, arrived2);
-			stmt.setString(5, departing_port);
-			stmt.setString(6, arriving_port);
-			ResultSet flights = stmt.executeQuery();
-			
-
-			
-			
 		
-			out.print("<table>");
-
-			//make a row
-			out.print("<tr>");
-			//make a column
-			out.print("<td>");
-			//print out column header
-			out.print("flight id");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("departure date");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("departure airport");
-			out.print("</td>");
-			//print out column header
-			out.print("<td>");
-			out.print("arrive date");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("arriving airport");
-			out.print("</td>");
-
-			//parse out the results
-			while (flights.next()) {
-			
-				out.print("<tr>");
-				//make a column
-				out.print("<td>");
-				//Print out current flightid:
-				out.print(flights.getString("Flight.flight_id"));
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current beer name:
-				out.print(flights.getString("departure.depart_date"));
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current price
-				out.print(flights.getString("departure.airport_id"));
-				out.print("</td>");
-				out.print("<td>");
-
-				//Print out arrival date
-				out.print(flights.getString("arrival.arrive_date"));
-				out.print("</td>");
-				out.print("<td>");
-
-				//Print out arrival airport id
-				out.print(flights.getString("arrival.airport_id"));
-				out.print("</td>");
-				out.print("<td>");
-				out.print("<form method='post' action='more_Flight_Info.jsp'>");
-				out.print("<button type='submit' name='more_info' +  value = \"" + flights.getString("Flight.flight_id") + "\">");
-				out.print("more info");
-				out.print("</button>");
-				out.print("</form>");
-				out.print("</td>");
-				out.print("</tr>");
-
-
-			}
-			out.print("</table>");
-
-			//close the connection
-			conn.close();
-
-		}
-			
-		else if(roundtrip == true) 
-		{
 			ApplicationDB db = new ApplicationDB();
 			Connection conn = db.getConnection();
 			
 			String str = 
 					
-					"SELECT Flight.flight_id, departure.depart_date as ddate1, departure.airport_id as depportid, arrival.arrive_date as adate1, arrival.airport_id as aportid " +																											 										 
+					"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id " +																											 										 
 					"from Flight, arrival, departure " +
 					"where Flight.flight_id = arrival.flight_id " +
 					"and Flight.flight_id = departure.flight_id " +
 					"and departure.depart_date >= ? " + 
 					"and departure.depart_date <= ? " +
-					"and arrival.arrive_date >= ? " + 
-					"and arrival.arrive_date <= ? " +
 					"and departure.airport_id = ? " +
-					"and arrival.airport_id = ? ";
+					"and arrival.airport_id = ?";
 					
-					PreparedStatement stmt = conn.prepareStatement(str);
-					stmt.setString(1, takeoffd1);
-					stmt.setString(2, takeoffd2);
-					stmt.setString(3, arrived1);
-					stmt.setString(4, arrived2);
-					stmt.setString(5, takeoffd2);
-					stmt.setString(6, arrived2);
-					ResultSet flightsAB = stmt.executeQuery();
+			PreparedStatement stmt = conn.prepareStatement(str);
+			stmt.setString(1, takeoffd1);
+			stmt.setString(2, takeoffd2);
+			stmt.setString(3, departing_port);
+			stmt.setString(4, arriving_port);
+			ResultSet flightsAB = stmt.executeQuery();
 					
 			if (flightsAB.next()) {
-				String arrivedate = flightsAB.getString("arrival.arrive_date");
-						
-					out.print("Test");	
+				String fid = flightsAB.getString("Flight.flight_id");
+				out.print("Test");
+				
 				String str2 =	
 						
-						"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id " +																											 										 
-						"from Flight, arrival, departure " +
-						"where Flight.flight_id = arrival.flight_id " +
-						"and Flight.flight_id = departure.flight_id " +
-						"and departure.depart_date > ?" +  
-						"and arrival.arrive_date >= ?"  + 
-						" and arrival.arrive_date <= ? " +
-						"and arrival.airport_id = ?";
+					"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id " +																											 										 
+					"from Flight, arrival, departure " +
+					"where Flight.flight_id = arrival.flight_id " +
+					"and Flight.flight_id = departure.flight_id " +
+					"and departure.depart_date > ?" +  
+					"and departure.depart_date <= ? " +
+					"and departure.airport_id = ? " +
+					"and arrival.airport_id = ? ";
 						
-						PreparedStatement stmt2 = conn.prepareStatement(str2);
-						stmt2.setString(1, arrivedate);
-						stmt2.setString(2, takeoffd2);
-						stmt2.setString(3, arrivedate);
-						stmt2.setString(4, takeoffd2);
-						ResultSet flightsBA = stmt.executeQuery();
-					
+				PreparedStatement stmt2 = conn.prepareStatement(str2);
+				stmt2.setString(1, arrived1);
+				stmt2.setString(2, arrived2);
+				stmt2.setString(3, arriving_port);
+				stmt2.setString(4, departing_port);
+				ResultSet flightsBA = stmt2.executeQuery();
+						
+						
+						
 						
 				
+						
 				
 				out.print("<table>");
 				
@@ -300,7 +102,6 @@ Project Final Group 4
 				out.print("<td>");
 				out.print("departure airport");
 				out.print("</td>");
-				out.print("</tr>");
 				//make a column
 				out.print("<td>");
 				//print out column header
@@ -310,34 +111,36 @@ Project Final Group 4
 				out.print("<td>");
 				out.print("arriving airport");
 				out.print("</td>");
+				out.print("</tr>");
 			
+				
 				//parse out the results
-				while (flightsAB.next()) {
+				while (flightsBA.next()) {
 					//make a row
 					out.print("<tr>");
 					//make a column
 					out.print("<td>");
 					//Print out current flightid:
-					out.print(flightsAB.getString("Flight.flight_id"));
+					out.print(fid);
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current beer name:
-					out.print(flightsAB.getString("departure.depart_date"));
+				//	out.print(flight1ddate);
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current price
-					out.print(flightsAB.getString("departure.airport_id"));
+				//	out.print(flight1dport);
 					out.print("</td>");
 					out.print("</tr>");
 					//Print out current price
-					out.print(flightsAB.getString("arrival.arrive_date"));
+				//	out.print(flight1adate);
 					out.print("</td>");
 					out.print("</tr>");
 					//Print out current price
-					out.print(flightsAB.getString("arrival.airport_id"));
+				//	out.print(flight1aport);
 					out.print("</td>");
 					out.print("</tr>");
-					//make a row
+					
 					out.print("<tr>");
 					//make a column
 					out.print("<td>");
@@ -346,23 +149,23 @@ Project Final Group 4
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current beer name:
-					out.print(flightsBA.getString("departure.depart_date"));
+					out.print(flightsBA.getString("arrival.airport_id"));
 					out.print("</td>");
 					out.print("<td>");
-					//Print out current price
-					out.print(flightsBA.getString("departure.airport_id"));
-					out.print("</td>");
-					out.print("</tr>");
 					//Print out current price
 					out.print(flightsBA.getString("arrival.arrive_date"));
 					out.print("</td>");
 					out.print("</tr>");
 					//Print out current price
-					out.print(flightsBA.getString("arrival.airport_id"));
+					out.print(flightsBA.getString("departure.airport_id"));
+					out.print("</td>");
+					out.print("</tr>");
+					//Print out current price
+					out.print(flightsBA.getString("departure.depart_date"));
 					out.print("</td>");
 					out.print("</tr>");
 					
-			
+		
 				}
 				out.print("</table>");
 			}	
@@ -370,15 +173,11 @@ Project Final Group 4
 			conn.close();
 		
 		
-		} 
-		else {
-
-			out.println("You didnt enter any data!<br>");
-			out.println("<a href='flight_Search'>Try Again</a>");
-		}
+		
+		
 	%>
 
-
+<br><br>
 
 	<a href="success.jsp">Want to go back?</a>
 

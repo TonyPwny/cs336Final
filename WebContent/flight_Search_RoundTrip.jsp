@@ -18,9 +18,7 @@ Project Final Group 4
 	<body>
 		<br>
 		<h3>What type of flight?</h3>
-			<form method="get" action="flight_Search_Result.jsp" enctype=text/plain>
-				<input type = "radio" name = "round_trip" value="0"/> One Way
-				<input type = "radio" name = "round_trip" value="1"/> Round Trip	
+			<form method="get" action="flight_Search_Result_RoundTrip.jsp" enctype=text/plain>	
 		
 		<table>
 				<tr>
@@ -60,12 +58,8 @@ Project Final Group 4
 						</td>
 						<br>
 					<tr>
-						<td>Flight id</td>
-						</tr>
-						<tr><td>
-							<input type="text" name="flight_id" placeholder="Unique Flight id">
-						</td>
-					</tr>	
+						
+						
 						
 											
 					
