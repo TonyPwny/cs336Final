@@ -20,7 +20,12 @@
 					</tr>
 				</table>
 				
-				<input type = 'submit' name="submit" value = "submit">
+				<input type = 'submit' name="submit" value = "Submit">
+			</form>
+			
+			<form method="get" action="airlineResults_AdminCR.jsp" enctype=text/plain>
+				<td>Click here to get all: </td>
+				<td><input type = 'submit' name="airline_id" value = ""></td>
 			</form>
 			
 		

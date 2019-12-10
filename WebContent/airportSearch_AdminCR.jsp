@@ -23,6 +23,10 @@
 				<input type = 'submit' name="submit" value = "submit">
 			</form>
 			
+			<form method="get" action="airportResults_AdminCR.jsp" enctype=text/plain>
+				<td>Click here to get all: </td>
+				<td><input type = 'submit' name="airport_id" value = ""></td>
+			</form>
 		
 	</body>
 </html>
