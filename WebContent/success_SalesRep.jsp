@@ -12,9 +12,14 @@
 	<body>
 		<br><b>Welcome</b><br><br>
 		<% 
-		out.println("Hello " + (String)session.getAttribute("username") + "!" + "You are a " + (String)session.getAttribute("usertype") + "!");
+		out.println("Hello " + (String)session.getAttribute("username") + "! " + "You are a " + (String)session.getAttribute("usertype") + "!");
 		%><br>
 		Nice to meet you!<br><br>
+		
+		<a href="flightSearch_AdminCR.jsp">Flight Search</a><br>
+		<a href="airlineSearch_AdminCR.jsp">Airline Search</a><br>
+		<a href="airportSearch_AdminCR.jsp">Airport Search</a><br>
+		
 		<a href="logout.jsp">Logout</a>
 	</body>
 </html>
