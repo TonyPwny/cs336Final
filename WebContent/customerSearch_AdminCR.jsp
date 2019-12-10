@@ -7,24 +7,24 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Search for Airports</title>
+		<title>Search for Customers</title>
 	</head>
 	<body>
 		<br>
-		<h3>Search for an airport</h3>
-			<form method="get" action="airportResults_AdminCR.jsp" enctype=text/plain>
+		<h3>Search for a customer.</h3>
+			<form method="get" action="customerResults_AdminCR.jsp" enctype=text/plain>
 				<table>
 					<tr>
-						<td>Airport ID:</td>
-						<td><input type="text" name="airport_id" placeholder="Airport ID"></td>
+						<td>Username: </td>
+						<td><input type="text" name=""username"" placeholder="username"></td>
 					</tr>
 				</table>
 				
 				<input type = 'submit' name="submit" value = "Submit">
 			</form>
 			
-			<form method="get" action="airportResults_AdminCR.jsp" enctype=text/plain>
-				<button type="submit" name="airport_id" value="getAll">Get All</button>
+			<form method="get" action="customerResults_AdminCR.jsp" enctype=text/plain>
+				<button type="submit" name="username" value="getAll">Get All</button>
 			</form>
 		
 	</body>

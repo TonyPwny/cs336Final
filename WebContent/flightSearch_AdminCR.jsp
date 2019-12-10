@@ -12,8 +12,7 @@
 <body>
 	<br>
 	<h3>What type of flight?</h3>
-	<form method="get" action="flightResults_AdminCR.jsp"
-		enctype=text/plain>
+	<form method="get" action="flightResults_AdminCR.jsp" enctype=text/plain>
 		<input type="radio" name="round_trip" value="0" /> One Way <input
 			type="radio" name="round_trip" value="1" /> Round Trip
 
@@ -50,7 +49,7 @@
 
 		</table>
 
-		<input type='submit' name="submit" value="submit">
+		<input type='submit' name="submit" value="Submit">
 
 	</form>
 	
