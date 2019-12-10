@@ -7,19 +7,18 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Welcome to Our Domain</title>
+		<title>Customer Representative Homepage</title>
 	</head>
 	<body>
-		<br><b>Welcome</b><br><br>
+		<br><b>Customer Representative Homepage</b><br><br>
 		<% 
-		out.println("Hello " + (String)session.getAttribute("username") + "! " + "You are a " + (String)session.getAttribute("usertype") + "!");
+			out.println("Hello " + (String)session.getAttribute("username") + "!");
 		%><br>
-		Nice to meet you!<br><br>
 		
-		<a href="flightSearch_AdminCR.jsp">Flight Search</a><br>
-		<a href="airlineSearch_AdminCR.jsp">Airline Search</a><br>
-		<a href="airportSearch_AdminCR.jsp">Airport Search</a><br>
+		<a href="flight_Search.jsp">Flight Search</a><br>
+		<a href="customerSearch.jsp">Customer Search</a><br>
+		<a href="airport_Search.jsp">Airport Search</a><br>
 		
-		<a href="logout.jsp">Logout</a>
+		<br><a href="logout.jsp">Logout</a>
 	</body>
 </html>

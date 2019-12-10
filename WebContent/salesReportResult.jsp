@@ -47,48 +47,36 @@
 					month2 = "0" + month2;
 				}
 				
-				String url = "jdbc:mysql://steve2.ckgj9bgqpyor.us-east-2.rds.amazonaws.com:3306/DB2";
+				String url = "jdbc:mysql://steve2.ckgj9bgqpyor.us-east-2.rds.amazonaws.com:3306/DB1";
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
 				//Connect to database
 				Connection conn = DriverManager.getConnection(url, "admin", "password");
 				String str = 
-						"select flight.flight_id id, flight.fare_econ fe, flight.fare_first ff, flight.fare_bus fb, trip.depart_time" +
-						"from ticket, trip, flight " +
-						"where ticket.ticket_id = trip.ticket_id " +
-							"and trip.flight_id = flight.flight_id " +
-							"and flight.depart_time >= \"?-?-01T00:00:00.000\" " + 
-							"and flight.depart_time < \"?-?-01T00:00:00.000\" " +
-						"group by (flight.flight_id)" +
-						"order by trip.depart_time asc";
+						"select F.flight_id id, F.fare_econ fe, F.fare_first ff, F.fare_bus fb, d.depart_date depart_date, F.depart_time depart_time " +
+						"from Flight F, departure d " +
+						"where F.flight_id = d.flight_id " +
+							"and d.depart_date >= \"" + year + "-" + month + "-01\" " + 
+							"and d.depart_date < \"" + year2 + "-" + month2 + "-01\" " +
+						"group by (F.flight_id)" +
+						"order by d.depart_date asc";
 				PreparedStatement stmt = conn.prepareStatement(str);
-				stmt.setString(1, year);
-				stmt.setString(2, month);
-				stmt.setString(3, year2);
-				stmt.setString(4, month2);
 				//gets all flights within month with ID, profit, and # of customers
 				ResultSet flights = stmt.executeQuery();
-				/*
+				
 				str =
-					"select ticket.ticket_id id, seat.class class, flight.fare_econ fe, flight.fare_first ff, flight.fare_bus fb, flight.depart_time departTime" +
-					"from ticket, trip, seat, flight " +
-					"where ticket.ticket_id = trip.ticket_id " +
-						"and trip.seat_num = seat.seat_num" +
-						"and trip.flight_id = flight.flight_id" +
-						"and flight.depart_time >= \"?-?-01T00:00:00.000\" " + 
-						"and flight.depart_time < \"?-?-01T00:00:00.000\"";
+					"select T.ticket_num id, S.class class, F.fare_econ fe, F.fare_first ff, F.fare_bus fb " +
+					"from Ticket T, trip t, Seat S, Flight F, departure d " +
+					"where T.ticket_num = t.ticket_num " +
+						"and t.seat_num = S.seat_num " +
+						"and t.flight_id = F.flight_id " +
+						"and F.flight_id = d.flight_id " +
+						"and d.depart_date >= \"" + year + "-" + month + "-01\" " + 
+						"and d.depart_date < \"" + year2 + "-" + month2 + "-01\" ";
 				stmt = conn.prepareStatement(str);
-				stmt.setString(1, year);
-				stmt.setString(2, month);
-				stmt.setString(3, year2);
-				stmt.setString(4, month2);
 				//gets all tickets, their seat's class, and all prices for that flight
 				ResultSet costs = stmt.executeQuery();
-				*/		
-				conn.close();
-				/*
-				//get total profit of month by adding each flight's profit
-				double totalProfit = 0;
-				int n = 0; //also get number of flights
+				
+				double totalProfit = 0.00; //get total profit of month by adding each flight's profit
 				while (costs.next()) {
 					String c = costs.getString("class");
 					if (c.equals("economy")) {
@@ -98,43 +86,50 @@
 					} else if (c.equals("business")) {
 						totalProfit += costs.getDouble("fb");
 					}
-					n++;
 				}
 				
 				
-				out.println("Total Profit: " + totalProfit);
+				out.println(
+					String.format(
+						"Total Profit: %.2f",
+						totalProfit
+					)
+				);
 				
 				//If atleast 1 flight
-				if (n > 0) {
+				if (flights.next()) {
 					out.println("<br><br>Flights<br>");
 					
-					out.println("<table><form method=\"post\" action=adminFlightInfo.jsp>" +
+					//Create table for Flight ID, Econ Price, FirstClass Price, Business Price, Depart Date, Depart Time
+					out.println("<table><form method=\"post\" action=flightReportInfo.jsp>" +
 						"<tr>" +
 							"<th>Flight ID</th>" +
 							"<th>Econ Class Price</th>" +
 							"<th>First Class Price</th>" +
 							"<th>Bus Class Price</th>" +
+							"<th>Departure Date</th>" +
 							"<th>Departure Time</th>" +
 						"<tr>"
 					);
 					
 					//Adds each flight to list of flights
-					flights.first();
 					do {
 						out.println(
 							String.format(
 								"<tr>" +
-									"<td><input type=\"submit\" name=\"flightid\" value=\"%d\"></td>" +
-									"<td>%.2f</td>" +
+									"<td><input type=\"submit\" name=\"flightid\" value=\"%s\"></td>" +
+									"<td>%s</td>" +
 									"<td>%.2f</td>" +
 									"<td>%.2f</td>" +
 									"<td>%s</td>" +
+									"<td>%s</td>" +
 								"</tr>",
-								flights.getInt("id"),
+								flights.getString("id"),
 								flights.getDouble("fe"),
 								flights.getDouble("ff"),
 								flights.getDouble("fb"),
-								flights.getTimestamp("departTime").toString()
+								flights.getDate("depart_date").toString(),
+								flights.getDate("depart_time").toString()
 							)
 						);
 					} while (flights.next());
@@ -142,7 +137,8 @@
 					out.println("</form></table><br><br>");
 				} else {
 					out.println("<br><br>No flights found.<br><br>");
-				}*/
+				}
+				conn.close();
 			}
 		%>
 		

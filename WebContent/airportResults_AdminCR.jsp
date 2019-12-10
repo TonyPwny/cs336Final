@@ -28,18 +28,19 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	String airportID = request.getParameter("airport_id");
 	//Make a SELECT query from the Airport table with airportID specified by the 'airport_id' parameter at the airportSearch_AdminCR.jsp
 	String str, str_query, str_query_title;
-	if (airportID == null || airportID.equals("getAll")) {
+	if (airportID.isEmpty() || airportID.equals("getAll")) {
 		str = "SELECT * FROM DB1.Airport";
-		if (airportID == null) {
+		if (airportID.isEmpty()) {
 			str_query = "No Airport ID given, showing all results:<br><br>";
+			str_query_title = "No search, showing all Airports";
 		} else {
 			str_query = "Querying for all Airports:<br><br>";
+			str_query_title = "Displaying All Airports";
 		}
-		str_query_title = "All";
 	} else {
-		str = "SELECT * FROM DB1.Airport ap WHERE ap.airport_id LIKE " + airportID;
+		str = "SELECT * FROM DB1.Airport ap WHERE ap.airport_id LIKE '" + airportID + "%'";
 		str_query = "Result for " + airportID + ":<br><br>";
-		str_query_title = airportID;
+		str_query_title = airportID + " search results";
 	}
 %>
 <head>
