@@ -108,7 +108,7 @@ Project Final Group 4
 				out.print("<td>");
 				//Print out a moreinfo button:
 				out.print("<form method='post' action='more_Flight_Info.jsp'>");
-				out.print("<button type='submit' name='more_info' +  value = 'flight_id' + >");
+				out.print("<button type='submit' name='more_info' +  value = \"" + flights.getString("Flight.flight_id") + "\">");
 				out.print("more info");
 				out.print("</button>");
 				out.print("</form>");
@@ -214,7 +214,7 @@ Project Final Group 4
 				out.print("</td>");
 				out.print("<td>");
 				out.print("<form method='post' action='more_Flight_Info.jsp'>");
-				out.print("<button type='submit' name='more info' +  value = 'flight_id' + >");
+				out.print("<button type='submit' name='more_info' +  value = 'flight_id' + >");
 				out.print("more info");
 				out.print("</button>");
 				out.print("</form>");
@@ -230,7 +230,7 @@ Project Final Group 4
 
 		}
 			
-		else if(roundtrip == true)
+	/* 	else if(roundtrip == true) 
 		{
 			ApplicationDB db = new ApplicationDB();
 			Connection conn = db.getConnection();
@@ -346,9 +346,9 @@ Project Final Group 4
 		
 			//close the connection
 			conn.close();
-			
 		
-		}	
+		
+		}	*/
 		else {
 
 			out.println("You didnt enter any data!<br>");

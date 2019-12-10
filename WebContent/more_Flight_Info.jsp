@@ -29,8 +29,9 @@ Project Final Group 4
 		Connection conn = db.getConnection();
 
 		
-String str = 		
-	"SELECT DISTINCT Flight.flight_id, departure.airport_id, departure.depart_date, Flight.depart_time "  
+String str = 
+
+	"SELECT DISTINCT Flight.flight_id, departure.airport_id, departure.depart_date, Flight.depart_time, "  
 		+ "arrival.airport_id, arrival.arrive_date, Flight.arrive_time, " 
 		+ "Flight.airline_id, Airline.airline_name, " 
 		+ "Flight.fare_econ, Flight.fare_bus, Flight.fare_first " 
@@ -131,7 +132,7 @@ String str =
 			out.print(flights.getString("Flight.arrive_time"));
 			out.print("</td>");
 			out.print("<td>");
-			
+
 			out.print(flights.getString("Flight.airline_id"));
 			out.print("</td>");
 			out.print("<td>");
@@ -151,7 +152,14 @@ String str =
 			out.print(flights.getString("Flight.fare_first"));
 			out.print("</td>");
 			out.print("<td>");
+		}
+
+		
+		
 	%>
+	
+
+
 
 	<a href = "flight_Search.jsp""> Make a new search?</a>
 	<a href = "flight_Search_result.jsp"> Go back to your search</a>
