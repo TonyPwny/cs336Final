@@ -17,7 +17,8 @@
 		Nice to meet you!<br><br>
 		
 		<br><br>How can I assist you today?<br>
-		<a href="flight_Search.jsp">Search for Flights</a>
+		<br><a href="flight_Search_OneWay.jsp">Search for One-Way Flights</a><br>
+		<a href="flight_Search_RoundTrip.jsp">Search for Round_Trip Flights</a>
 		
 		
 		<br><br> All done? <br>

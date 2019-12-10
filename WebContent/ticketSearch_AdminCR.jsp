@@ -7,28 +7,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Search for Flights</title>
+<title>Search for Tickets</title>
 </head>
 <body>
 	<br>
-	<h3>Which flight are you looking for?</h3>
-	<form method="get" action="flightResults_AdminCR.jsp" enctype=text/plain>
+	<h3>Look for a ticket number.</h3>
+	<form method="get" action="ticketResults_AdminCR.jsp" enctype=text/plain>
 		<table>
 			<tr>
-				<td>Flight ID: </td>
-				<td><input type="text" name="flight_id" placeholder="Flight ID"></td>
+				<td>Ticket Number: </td>
+				<td><input type="text" name="ticket_num" placeholder="ticket number"></td>
 			</tr>
 		</table>
 
 		<input type='submit' name="submit" value="Submit">
 	</form>
-	
-	<form method="get" action="flightResults_AdminCR.jsp" enctype=text/plain>
-		<button type="submit" name="flight_id" value="getAll">Get All</button>
+		<form method="get" action="ticketResults_AdminCR.jsp" enctype=text/plain>
+			<button type="submit" name="ticket_num" value="getAll">Get All</button>
+		
 	</form>
-	
-	<br>
-	<!-- <a href="success.jsp">Want to go back?</a> -->
-
 </body>
 </html>
