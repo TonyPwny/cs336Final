@@ -12,7 +12,7 @@
 	<body>
 		<br>
 		<h3>Search for an airport</h3>
-			<form method="post" action="airportResults_AdminCR.jsp" enctype=text/plain>
+			<form method="get" action="airportResults_AdminCR.jsp" enctype=text/plain>
 				<table>
 					<tr>
 						<td>Airport ID:</td>
