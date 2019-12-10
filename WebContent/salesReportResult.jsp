@@ -64,10 +64,9 @@
 				ResultSet flights = stmt.executeQuery();
 				
 				str =
-					"select T.ticket_num id, S.class class, F.fare_econ fe, F.fare_first ff, F.fare_bus fb " +
-					"from Ticket T, trip t, Seat S, Flight F, departure d " +
+					"select T.ticket_num id, t.class class, F.fare_econ fe, F.fare_first ff, F.fare_bus fb " +
+					"from Ticket T, trip t, Flight F, departure d " +
 					"where T.ticket_num = t.ticket_num " +
-						"and t.seat_num = S.seat_num " +
 						"and t.flight_id = F.flight_id " +
 						"and F.flight_id = d.flight_id " +
 						"and d.depart_date >= \"" + year + "-" + month + "-01\" " + 
