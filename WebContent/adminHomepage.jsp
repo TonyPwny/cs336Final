@@ -20,6 +20,7 @@
 		<a href="airlineSearch_AdminCR.jsp">Airline Search</a><br>
 		<a href="airportSearch_AdminCR.jsp">Airport Search</a><br>
 		<a href="customerSearch_AdminCR.jsp">Customer Search</a><br>
+		<a href="ticketSearch_AdminCR.jsp">Ticket Search</a><br>
 		
 		<br><a href="logout.jsp">Logout</a>
 	</body>

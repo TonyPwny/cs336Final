@@ -29,7 +29,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	//Make a SELECT query from the Airport table with flightID specified by the 'flight_id' parameter at the flightSearch_AdminCR.jsp
 	String str, str_query, str_query_title;
 	if (flightID.isEmpty() || flightID.equals("getAll")) {
-		str = "SELECT * FROM DB1.Flight, DB1.Airline, DB1.Aircraft";
+		str = "SELECT * FROM DB1.Flight f, DB1.Airline al, DB1.Aircraft ac WHERE f.airline_id = al.airline_id and f.aircraft_id = ac.aircraft_id;";
 		if (flightID.isEmpty()) {
 			str_query = "No Flight ID given, showing all results:<br><br>";
 			str_query_title = "No search, showing all Flights";

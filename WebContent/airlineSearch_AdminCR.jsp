@@ -26,7 +26,5 @@
 			<form method="get" action="airlineResults_AdminCR.jsp" enctype=text/plain>
 				<button type="submit" name="airline_id" value="getAll">Get All</button>
 			</form>
-			
-		
 	</body>
 </html>
