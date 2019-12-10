@@ -18,37 +18,36 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	String login = (String) session.getAttribute("username");
 	String logintype = (String) session.getAttribute("usertype");
 	String loginURL = "login.jsp";
-	String flightInfo = "flightInfo_AdminCR.jsp";
+	String ticketInfo = "ticketInfo_AdminCR.jsp";
 
 	if (session.getAttribute("username") == null || logintype.equals("User")) {
 		response.sendRedirect(loginURL);
 	}
 
 	//Get the search from the flightSearch_AdminCR.jsp
-	String flightID = request.getParameter("flight_id");
+	String ticketNum = request.getParameter("ticket_num");
 	//Make a SELECT query from the Airport table with flightID specified by the 'flight_id' parameter at the flightSearch_AdminCR.jsp
 	String str, str_query, str_query_title;
-	if (flightID.isEmpty() || flightID.equals("getAll")) {
-		str = "SELECT * FROM DB1.Flight f, DB1.Airline al, DB1.Aircraft ac WHERE f.airline_id = al.airline_id AND f.aircraft_id = ac.aircraft_id;";
-		if (flightID.isEmpty()) {
-			str_query = "No Airline ID given, press back to search again.<br><br>";
+	if (ticketNum.isEmpty() || ticketNum.equals("getAll")) {
+		str = "SELECT * FROM DB1.Ticket";
+		if (ticketNum.isEmpty()) {
+			str_query = "No ticket number given, press back to search again.<br><br>";
 			str_query_title = "Empty Search";
 		} else {
-			str_query = "Querying for all Flights:<br><br>";
-			str_query_title = "Displaying All Flights";
+			str_query = "Querying for all Tickets:<br><br>";
+			str_query_title = "Displaying All Tickets";
 		}
 	} else {
-		str = "SELECT * FROM DB1.Flight f, DB1.Airline al, DB1.Aircraft ac WHERE f.flight_id LIKE '" + flightID
-				+ "%' AND f.airline_id = al.airline_id AND f.aircraft_id = ac.aircraft_id";
-		str_query = "Result for " + flightID + ":<br><br>";
-		str_query_title = flightID + " search results";
+		str = "SELECT * FROM DB1.Ticket t WHERE t.ticket_num LIKE '" + ticketNum + "%'";
+		str_query = "Result for " + ticketNum + ":<br><br>";
+		str_query_title = ticketNum + " search results";
 	}
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>[<%
 	out.println(logintype);
-%>] Flight Results - <%
+%>] Ticket Results - <%
 	out.println(str_query_title);
 %></title>
 </head>
@@ -60,7 +59,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	<br>
 	<br>
 	<%
-		if (flightID.isEmpty()) {
+		if (ticketNum.isEmpty()) {
 			out.print(str_query);
 		} else {
 			List<String> list = new ArrayList<String>();
@@ -88,19 +87,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				//make a column
 				out.print("<td>");
 				//print out column header
-				out.print("Flight ID");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				out.print("Airline");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				out.print("Aircraft");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				out.print("Capacity");
+				out.print("Ticket Number");
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
@@ -108,27 +95,15 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
-				out.print("Departure Time");
+				out.print("Booking Fee");
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
-				out.print("Arrival Time");
+				out.print("Total Fare");
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
-				out.print("Days");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				out.print("First Class Fare");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				out.print("Business Class Fare");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				out.print("Economy Class Fare");
+				out.print("Issue Date");
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
@@ -142,54 +117,30 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 					out.print("<tr>");
 					//make a column
 					out.print("<td>");
-					//Print out current flight_id:
-					out.print(result.getString("flight_id"));
+					//Print out current ticket_num:
+					out.print(result.getString("ticket_num"));
 					out.print("</td>");
 					out.print("<td>");
-					//Print out current airline_name:
-					out.print(result.getString("airline_name"));
+					//Print out current round_trip:
+					out.print(result.getString("round_trip"));
 					out.print("</td>");
 					out.print("<td>");
-					//Print out current aircraft_id:
-					out.print(result.getString("aircraft_id"));
+					//Print out current booking_fee:
+					out.print(result.getString("booking_fee"));
 					out.print("</td>");
 					out.print("<td>");
-					//Print out current capacity:
-					out.print(result.getString("capacity"));
+					//Print out current total_fare:
+					out.print(result.getString("total_fare"));
 					out.print("</td>");
 					out.print("<td>");
-					//Print out current flight_type:
-					out.print(result.getString("flight_type"));
-					out.print("</td>");
-					out.print("<td>");
-					//Print out current depart_time:
-					out.print(result.getString("depart_time"));
-					out.print("</td>");
-					out.print("<td>");
-					//Print out current arrive_time:
-					out.print(result.getString("arrive_time"));
-					out.print("</td>");
-					out.print("<td>");
-					//Print out current flight_days:
-					out.print(result.getString("flight_days"));
-					out.print("</td>");
-					out.print("<td>");
-					//Print out current fare_first:
-					out.print(result.getString("fare_first"));
-					out.print("</td>");
-					out.print("<td>");
-					//Print out current fare_bust:
-					out.print(result.getString("fare_bus"));
-					out.print("</td>");
-					out.print("<td>");
-					//Print out current fare_econ:
-					out.print(result.getString("fare_econ"));
+					//Print out current issue_date:
+					out.print(result.getString("issue_date"));
 					out.print("</td>");
 					out.print("<td>");
 					//Print out an edit button:
-					out.print("<form method='post' action='" + flightInfo + "'>");
+					out.print("<form method='post' action='" + ticketInfo + "'>");
 					out.print(
-							"<button type='submit' name='flight_id' value=" + result.getString("flight_id") + ">");
+							"<button type='submit' name='ticket_num' value=" + result.getString("ticket_num") + ">");
 					out.print("more info");
 					out.print("</button>");
 					out.print("</form>");

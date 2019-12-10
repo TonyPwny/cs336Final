@@ -49,20 +49,20 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	<%
 		try {
 
-			//Get the database connection
-			ApplicationDB db = new ApplicationDB();
-			Connection con = db.getConnection();
+		//Get the database connection
+		ApplicationDB db = new ApplicationDB();
+		Connection con = db.getConnection();
 
-			//Create a SQL statement
-			Statement stmt = con.createStatement();
+		//Create a SQL statement
+		Statement stmt = con.createStatement();
 
-			//Get parameters from the HTML form at airlineInfo_AdminCR.jsp
-			String airline_id = request.getParameter("airline_id");
-			String new_name = request.getParameter("airline_name");
-			String new_revenue = request.getParameter("airline_revenue");
+		//Get parameters from the HTML form at airlineInfo_AdminCR.jsp
+		String airline_id = request.getParameter("airline_id");
+		String new_name = request.getParameter("airline_name");
+		String new_revenue = request.getParameter("airline_revenue");
 
-			//Make an insert statement for the Sells table:
-			String update = "UPDATE Airline SET airline_name = ? WHERE airline_id = ?";
+		//Make an insert statement for the Airline table:
+		String update = "UPDATE Airline SET airline_name = ? WHERE airline_id = ?";
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			PreparedStatement ps = con.prepareStatement(update);
 

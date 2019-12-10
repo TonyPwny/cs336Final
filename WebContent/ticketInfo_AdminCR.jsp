@@ -8,7 +8,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 -->
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 
@@ -18,51 +18,133 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	String login = (String) session.getAttribute("username");
 	String logintype = (String) session.getAttribute("usertype");
 	String loginURL = "login.jsp";
+	String ticketSearch = "ticketSearch_AdminCR.jsp";
+	String ticketUpdate = "ticketUpdate_AdminCR.jsp";
 
 	if (session.getAttribute("username") == null || logintype.equals("User")) {
 		response.sendRedirect(loginURL);
 	}
+
+	if (request.getParameter("ticket_num") == null) {
+		response.sendRedirect(ticketSearch);
+	}
+
+	//Get the more info parameter from flightResults_AdminCR.jsp
+	String ticketNum = request.getParameter("ticketNum");
+	//Make a SELECT query to the Flight table with flightID specified by the more info parameter from flightResults_AdminCR.jsp
+	String str, str_query, str_query_title;
+	str = "SELECT * FROM Ticket t WHERE t.ticketNum = '" + ticketNum + "'";
+	str_query = "Result for " + ticketNum + ":<br><br>";
+	str_query_title = ticketNum;
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>[<%
 	out.println(logintype);
-%>] Ticket Information -
-</title>
+%>] Flight Information - <%
+	out.println(str_query_title);
+%></title>
 </head>
 <body>
 	<br> Logged in as:
 	<%
-		out.println(" <b>" + login + " - " + logintype);
+		out.println(" <b>" + login + "</b> - " + logintype);
 	%>
 	<br>
-	<br> Ticket Number:
+	<br>
 	<%
-		out.println(" <b></b><br>");
-	%>
-	Type:
-	<%
-		out.println(" <b></b><br>");
-	%>
-	Booking Fee:
-	<%
-		out.println(" <b></b><br>");
-	%>
-	Total Fare:
-	<%
-		out.println(" <b></b><br>");
-	%>
-	Issue Date:
-	<%
-		out.println(" <b></b><br>");
-	%>
-	Customer:
-	<%
-		out.println(" <b></b><br>");
-	%>
-	<br> Trip Information:
-	<%
-		out.println(" <b></b><br>");
+		try {
+
+			//Get the database connection
+			ApplicationDB db = new ApplicationDB();
+			Connection con = db.getConnection();
+
+			//Create a SQL statement
+			Statement stmt = con.createStatement();
+
+			//Run the query against the database.
+			ResultSet result = stmt.executeQuery(str);
+
+			//Show what kind of query is being processed
+			out.print(str_query);
+
+			//Make an HTML table to show the results in:
+			out.print("<table>");
+
+			//make a row
+			out.print("<tr>");
+			//make a column
+			out.print("<td>");
+			//print out column header
+			out.print("Ticket Number");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("Type");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("Booking Fee");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("Total Fare");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("Issue Date");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("");
+			out.print("</td>");
+			out.print("</tr>");
+
+			//parse out the results
+			while (result.next()) {
+				//make a row
+				out.print("<tr>");
+				//begin form to update Ticket Info
+				out.print("<form method='post' action='" + ticketUpdate + "'>");
+				//make a column
+				out.print("<td>");
+				//Print out current ticket_num:
+				out.print("<select name='ticket_num'>");
+				out.print("<option value='" + result.getString("ticket_num") + "'>" + result.getString("ticket_num")
+						+ "</option>");
+				out.print("</select>");
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current round_trip:
+				out.print(
+						"<input type='text' name='round_trip' value='" + result.getString("round_trip") + "'");
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current booking_fee:
+				out.print("<input type='text' name='booking_fee' value='" + result.getString("booking_fee") + "'");
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current total_fare:
+				out.print("<input type='text' name='total_fare' value='" + result.getString("total_fare") + "'");
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current issue_date:
+				out.print("<input type='text' name='issue_date' value='" + result.getString("issue_date") + "'");
+				out.print("</td>");
+				out.print("<td>");
+				//Print out an update button:
+				out.print("<input type='submit' value='update'>");
+				out.print("</form>");
+				out.print("</td>");
+				out.print("</tr>");
+			}
+			out.print("</table>");
+
+			//close the connection.
+			con.close();
+
+		} catch (Exception e) {
+		}
 	%>
 	<br>
 	<br>

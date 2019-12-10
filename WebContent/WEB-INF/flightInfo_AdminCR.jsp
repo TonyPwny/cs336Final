@@ -42,7 +42,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>[<%
 	out.println(logintype);
-%>] User Information - <%
+%>] Flight Information - <%
 	out.println(str_query_title);
 %></title>
 </head>

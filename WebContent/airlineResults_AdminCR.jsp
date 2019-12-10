@@ -31,8 +31,8 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	if (airlineID.isEmpty() || airlineID.equals("getAll")) {
 		str = "SELECT * FROM DB1.Airline";
 		if (airlineID.isEmpty()) {
-			str_query = "No Airline ID given, showing all results:<br><br>";
-			str_query_title = "No search, showing all Airlines";
+			str_query = "No Airline ID given, press back to search again.<br><br>";
+			str_query_title = "Empty search";
 		} else {
 			str_query = "Querying for all Airlines:<br><br>";
 			str_query_title = "Displaying All Airlines";
@@ -59,80 +59,85 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	<br>
 	<br>
 	<%
-		List<String> list = new ArrayList<String>();
-
-		try {
-
-			//Get the database connection
-			ApplicationDB db = new ApplicationDB();
-			Connection con = db.getConnection();
-
-			//Create a SQL statement
-			Statement stmt = con.createStatement();
-
-			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(str);
-
-			//Show what kind of query is being processed
+		if (airlineID.isEmpty()) {
 			out.print(str_query);
+		} else {
+			List<String> list = new ArrayList<String>();
 
-			//Make an HTML table to show the results in:
-			out.print("<table>");
+			try {
 
-			//make a row
-			out.print("<tr>");
-			//make a column
-			out.print("<td>");
-			//print out column header
-			out.print("Airline ID");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("Airline Name");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("Revenue Contribution");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("");
-			out.print("</td>");
-			out.print("</tr>");
+				//Get the database connection
+				ApplicationDB db = new ApplicationDB();
+				Connection con = db.getConnection();
 
-			//parse out the results
-			while (result.next()) {
+				//Create a SQL statement
+				Statement stmt = con.createStatement();
+
+				//Run the query against the database.
+				ResultSet result = stmt.executeQuery(str);
+
+				//Show what kind of query is being processed
+				out.print(str_query);
+
+				//Make an HTML table to show the results in:
+				out.print("<table>");
+
 				//make a row
 				out.print("<tr>");
 				//make a column
 				out.print("<td>");
-				//Print out current airport_id:
-				out.print(result.getString("airline_id"));
+				//print out column header
+				out.print("Airline ID");
 				out.print("</td>");
+				//make a column
 				out.print("<td>");
-				//Print out current name:
-				out.print(result.getString("airline_name"));
+				out.print("Airline Name");
 				out.print("</td>");
+				//make a column
 				out.print("<td>");
-				//Print out current city:
-				out.print("revenue contrib");
+				out.print("Revenue Contribution");
 				out.print("</td>");
+				//make a column
 				out.print("<td>");
-				//Print out a more info button:
-				out.print("<form method='post' action='" + airlineInfo + "'>");
-				out.print("<button type='submit' name='airline_id' value=" + result.getString("airline_id") + ">");
-				out.print("more info");
-				out.print("</button>");
-				out.print("</form>");
+				out.print("");
 				out.print("</td>");
 				out.print("</tr>");
+
+				//parse out the results
+				while (result.next()) {
+					//make a row
+					out.print("<tr>");
+					//make a column
+					out.print("<td>");
+					//Print out current airport_id:
+					out.print(result.getString("airline_id"));
+					out.print("</td>");
+					out.print("<td>");
+					//Print out current name:
+					out.print(result.getString("airline_name"));
+					out.print("</td>");
+					out.print("<td>");
+					//Print out current city:
+					out.print("revenue contrib");
+					out.print("</td>");
+					out.print("<td>");
+					//Print out a more info button:
+					out.print("<form method='post' action='" + airlineInfo + "'>");
+					out.print("<button type='submit' name='airline_id' value=" + result.getString("airline_id")
+							+ ">");
+					out.print("more info");
+					out.print("</button>");
+					out.print("</form>");
+					out.print("</td>");
+					out.print("</tr>");
+				}
+				out.print("</table>");
+
+				//close the connection.
+				con.close();
+
+			} catch (Exception e) {
 			}
-			out.print("</table>");
-
-			//close the connection.
-			con.close();
-
-		} catch (Exception e) {
 		}
 	%>
 	<br>
