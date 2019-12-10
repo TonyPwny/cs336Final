@@ -152,6 +152,11 @@ Project Final Group 4
 			stmt.setString(5, departing_port);
 			stmt.setString(6, arriving_port);
 			ResultSet flights = stmt.executeQuery();
+			
+
+			
+			
+		
 			out.print("<table>");
 
 			//make a row
@@ -239,33 +244,49 @@ Project Final Group 4
 					"and arrival.arrive_date >= ? " + 
 					"and arrival.arrive_date <= ? " +
 					"and departure.airport_id = ? " +
-					"and arrival.airport_id = ? " +
+					"and arrival.airport_id = ? ";
 					
-							
+					PreparedStatement stmt = conn.prepareStatement(str);
+					stmt.setString(1, takeoffd1);
+					stmt.setString(2, takeoffd2);
+					stmt.setString(3, arrived1);
+					stmt.setString(4, arrived2);
+					stmt.setString(5, takeoffd2);
+					stmt.setString(6, arrived2);
+					ResultSet flightsAB = stmt.executeQuery();
+					
+					String depart_date;
+					String depart_port;
+					String arrive_date;
+					String arrive_port;
+					
+					session.setAttribute("arrival.arive_date", arrive_date);
+					session.setAttribute("departure.depart_date", depart_date);
+					session.setAttribute("departure.airport_id", depart_port);
+					session.setAttribute("arrival.airport_id", arrive_port);
+					
+			String str2 =	
+					
 					"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id " +																											 										 
 					"from Flight, arrival, departure " +
 					"where Flight.flight_id = arrival.flight_id " +
 					"and Flight.flight_id = departure.flight_id " +
-					"and departure.depart_date >= adate1 " + 
-					"and departure.depart_date =< ? " +
-					"and arrival.arrive_date >= adate1 " + 
-					"and arrival.arrive_date <= ? " +
-					"and arrival.airport_id = depportid";
+					"and departure.depart_date = " + arrive_date +  
+					"and arrival.arrive_date >= " + arrive_date + 
+					" and arrival.arrive_date <= ? " +
+					"and arrival.airport_id = " + depart_port;
 					
-				
+					PreparedStatement stmt2 = conn.prepareStatement(str2);
+					stmt2.setString(1, arrived2);
+					ResultSet flightsBA = stmt.executeQuery();
 				
 					
-			PreparedStatement stmt = conn.prepareStatement(str);
-			stmt.setString(1, takeoffd1);
-			stmt.setString(2, takeoffd2);
-			stmt.setString(3, arrived1);
-			stmt.setString(4, arrived2);
-			stmt.setString(5, takeoffd2);
-			stmt.setString(6, arrived2);
-			ResultSet flights = stmt.executeQuery();
+			
 			
 			out.print("<table>");
-		
+			
+			flightid flight2 = flightsBA.next();
+			
 			//make a row
 			out.print("<tr>");
 			//make a column
@@ -293,7 +314,7 @@ Project Final Group 4
 			out.print("</td>");
 		
 			//parse out the results
-			while (flights.next()) {
+			while (flightsAB.next()) {
 				//make a row
 				out.print("<tr>");
 				//make a column

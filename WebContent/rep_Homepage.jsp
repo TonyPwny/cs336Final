@@ -15,9 +15,10 @@
 			out.println("Hello " + (String)session.getAttribute("username") + "!");
 		%><br>
 		
-		<a href="flight_Search.jsp">Flight Search</a><br>
-		<a href="customerSearch.jsp">Customer Search</a><br>
-		<a href="airport_Search.jsp">Airport Search</a><br>
+		<a href="flightSearch_AdminCR.jsp">Flight Search</a><br>
+		<a href="customerSearch_AdminCR.jsp">Customer Search</a><br>
+		<a href="airportSearch_AdminCR.jsp">Airport Search</a><br>
+		<a href="airlineSearch_AdminCR.jsp">Airline Search</a><br>
 		
 		<br><a href="logout.jsp">Logout</a>
 	</body>
