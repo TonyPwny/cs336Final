@@ -8,3 +8,5 @@
 .settings/org.eclipse.wst.jsdt.ui.superType.name
 .classpath
 bin/com/cs336/pkg/ApplicationDB.class
+build/classes/com/cs336/pkg/ApplicationDB.class
+build/classes/com/cs336/pkg/ApplicationDBeer.class
