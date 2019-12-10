@@ -25,7 +25,7 @@
 			
 			<form method="get" action="airlineResults_AdminCR.jsp" enctype=text/plain>
 				<td>Click here to get all: </td>
-				<td><input type = 'submit' name="airline_id" value = ""></td>
+				<td><input type = 'submit' name="airline_id" value = "getAll"></td>
 			</form>
 			
 		

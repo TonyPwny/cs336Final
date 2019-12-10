@@ -56,7 +56,7 @@
 	
 	<form method="get" action="flightResults_AdminCR.jsp" enctype=text/plain>
 		<td>Click here to get all: </td>
-		<td><input type = 'submit' name="flight_id" value = ""></td>
+		<td><input type = 'submit' name="flight_id" value = "getAll"></td>
 	</form>
 	
 	<br>
