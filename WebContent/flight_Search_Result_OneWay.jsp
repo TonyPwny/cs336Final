@@ -144,8 +144,8 @@ Project Final Group 4
 			PreparedStatement stmt = conn.prepareStatement(str);
 			stmt.setString(1, takeoffd1);
 			stmt.setString(2, takeoffd2);
-			stmt.setString(5, departing_port);
-			stmt.setString(6, arriving_port);
+			stmt.setString(3, departing_port);
+			stmt.setString(4, arriving_port);
 			ResultSet flights = stmt.executeQuery();
 			
 
