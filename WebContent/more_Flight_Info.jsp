@@ -125,7 +125,7 @@ String str =
 			out.print("<td>");
 
 			//Print out arrival airport id
-			out.print(flights.getString("arrival.arrive_time"));
+			out.print(flights.getString("Flight.arrive_time"));
 			out.print("</td>");
 			out.print("<td>");
 			
@@ -159,10 +159,10 @@ String str =
 	%>
 	
 
-
+<br>
+<br>
 
 	<a href = "flight_Search.jsp"> Make a new search?</a>
-	<a href = "flight_Search_result.jsp"> Go back to your search</a>
 	<a href="success.jsp">Want to go back?</a>
 
 </body>
