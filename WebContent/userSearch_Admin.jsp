@@ -12,7 +12,7 @@
 	<body>
 		<br>
 		<h3>Search for a customer.</h3>
-			<form method="get" action="customerResults_AdminCR.jsp" enctype=text/plain>
+			<form method="get" action="userResults_Admin.jsp" enctype=text/plain>
 				<table>
 					<tr>
 						<td>Username: </td>
@@ -23,7 +23,7 @@
 				<input type = 'submit' name="submit" value = "Submit">
 			</form>
 			
-			<form method="get" action="customerResults_AdminCR.jsp" enctype=text/plain>
+			<form method="get" action="userResults_Admin.jsp" enctype=text/plain>
 				<button type="submit" name="username" value="getAll">Get All</button>
 			</form>
 		

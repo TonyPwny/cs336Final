@@ -12,13 +12,14 @@
 	<body>
 		<br><b>Welcome</b><br><br>
 		<% 
-			out.println("Hello " + (String)session.getAttribute("username") + "!" + "You are a " + (String)session.getAttribute("usertype") + "!");
+			out.println("Hello " + (String)session.getAttribute("username") + "! You are a " + (String)session.getAttribute("usertype") + "!");
 		%><br>
 		Nice to meet you!<br><br>
 		
 		<br><br>How can I assist you today?<br>
 		<br><a href="flight_Search_OneWay.jsp">Search for One-Way Flights</a><br>
-		<a href="flight_Search_RoundTrip.jsp">Search for Round_Trip Flights</a>
+		<a href="flight_Search_RoundTrip.jsp">Search for Round_Trip Flights</a><br>
+		<a href="reservationSearch.jsp">Check your reservations here!</a><br>
 		
 		
 		<br><br> All done? <br>
