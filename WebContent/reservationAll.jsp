@@ -3,13 +3,13 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
-<!-- This page shows only reservations that occur after the current date -->
+<!-- This page shows ALL reservations both past and present -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <% 
 	String username = (String) session.getAttribute("username");
 	String str = "SELECT * FROM DB1.reserves r, DB1.trip t WHERE r.ticket_num = t.ticket_num AND r.username LIKE '" + username + "%'";
-	String str_query = "Hello, " + username + "! These are your upcoming reservations: ";
+	String str_query = "Hello, " + username + "! Here are all of your reservations: ";
 	
 	List<String> list = new ArrayList<String>();
 	try {
@@ -81,13 +81,4 @@
 	} catch (Exception e) {
 	}
 %>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Your Reservations</title>
-	</head>
-	<body>
-		<form method="get" action="reservationAll.jsp" enctype=text/plain>
-			<td><button type="submit" name="username" value="flight_id">View All Reservations</button></td>
-		</form>
-	</body>
 </html>
