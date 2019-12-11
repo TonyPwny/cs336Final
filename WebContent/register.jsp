@@ -32,7 +32,7 @@
 					return;
 				}
 				
-				String url = "jdbc:mysql://steve2.ckgj9bgqpyor.us-east-2.rds.amazonaws.com:3306/DB2";
+				String url = "jdbc:mysql://steve2.ckgj9bgqpyor.us-east-2.rds.amazonaws.com:3306/DB1";
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
 				//Connect to database
 				Connection conn = DriverManager.getConnection(url, "admin", "password");
