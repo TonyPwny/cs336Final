@@ -31,14 +31,13 @@ Project Final Group 4
 		
 String str = 
 
-	"SELECT DISTINCT Flight.flight_id, departure.airport_id, departure.depart_date, Flight.depart_time, "  
-		+ "arrival.airport_id, arrival.arrive_date, Flight.arrive_time, " 
+	"SELECT DISTINCT FlightDate.flight_id, FlightDate.airport_id, FlightDate.depart_date, Flight.depart_time, "  
+		+ "FlightDate.arrive_aid, FlightDate.arrive_date, Flight.arrive_time, " 
 		+ "Flight.airline_id, Airline.airline_name, " 
 		+ "Flight.fare_econ, Flight.fare_bus, Flight.fare_first " 
-		+ "FROM Flight, arrival, departure, Airline, Airport " 
+		+ "FROM FlightDate, Flight, Airline " 
 		+ "WHERE Flight.flight_id = ? " 
-		+ "AND Flight.flight_id = departure.flight_id " 
-		+ "AND Flight.flight_id = arrival.flight_id " 
+		+ "AND FlightDate.flight_id = Flight.flight_id " 
 		+ "AND Flight.airline_id = Airline.airline_id";
 
 		PreparedStatement stmt = conn.prepareStatement(str);
@@ -59,13 +58,17 @@ String str =
 		out.print("</td>");
 		//make a column
 		out.print("<td>");
-		out.print("departure time");
+		out.print("departure date");
 		out.print("</td>");
 		//print out column header
 		out.print("<td>");
-		out.print("arrival port");
+		out.print("depart time");
 		out.print("</td>");
 		//make a column
+		out.print("<td>");
+		out.print("arrival port");
+		out.print("</td>");
+		
 		out.print("<td>");
 		out.print("arrival date");
 		out.print("</td>");
@@ -107,11 +110,15 @@ String str =
 			//make a column
 			out.print("<td>");
 			//Print out current flightid:
-			out.print(flights.getString("Flight.flight_id"));
+			out.print(flights.getString("FlightDate.flight_id"));
 			out.print("</td>");
 			out.print("<td>");
 			//Print out current beer name:
-			out.print(flights.getString("departure.airport_id"));
+			out.print(flights.getString("FlightDate.depart_aid"));
+			out.print("</td>");
+			out.print("<td>");
+			//Print out current price
+			out.print(flights.getString("FlightDate.depart_date"));
 			out.print("</td>");
 			out.print("<td>");
 			//Print out current price
@@ -120,12 +127,12 @@ String str =
 			out.print("<td>");
 
 			//Print out arrival date
-			out.print(flights.getString("arrival.airport_Id"));
+			out.print(flights.getString("FlightDate.arrival_aid"));
 			out.print("</td>");
 			out.print("<td>");
 
 			//Print out arrival airport id
-			out.print(flights.getString("Flight.arrive_time"));
+			out.print(flights.getString("FlightDate.arrive_date"));
 			out.print("</td>");
 			out.print("<td>");
 			

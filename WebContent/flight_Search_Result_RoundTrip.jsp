@@ -15,7 +15,8 @@ Project Final Group 4
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Here are your results!</title>
+<title>Round Trip Results</title>
+<h3> Round Trip Results</h3>
 <h4>Filter by Price, Take off, Land time, Airline</h4>
 </head>
 <body>
@@ -40,14 +41,12 @@ Project Final Group 4
 
 			String str =
 
-					"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id " +
-					"from Flight, arrival, departure " +
-					"where Flight.flight_id = arrival.flight_id " +
-					"and Flight.flight_id = departure.flight_id " +
-					"and departure.depart_date >= ? " +
-					"and departure.depart_date <= ? " +
-					"and departure.airport_id = ? " +
-					"and arrival.airport_id = ?";
+					"SELECT FlightDate.flight_id, FlightDate.depart_date, FlightDate.depart_aid, FlightDate.arrive_date, FlightDate.arrive_aid " +
+					"from FlightDate " +
+					"and FlightDate.depart_date >= ? " +
+					"and FlightDate.depart_date <= ? " +
+					"and FlightDate.depart_aid = ? " +
+					"and FlightDate.arrive_aid = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(str);
 			stmt.setString(1, takeoffd1);
@@ -58,19 +57,16 @@ Project Final Group 4
 
 			if (flightsAB.next()) {
 
-				String fid = flightsAB.getString("Flight.flight_id");
 
 
 				String str2 =
 
-					"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id " +
-					"from Flight, arrival, departure " +
-					"where Flight.flight_id = arrival.flight_id " +
-					"and Flight.flight_id = departure.flight_id " +
-					"and departure.depart_date >= ?" +
-					"and departure.depart_date <= ? " +
-					"and departure.airport_id = ? " +
-					"and arrival.airport_id = ? ";
+					"SELECT FlightDate.flight_id, FlightDate.depart_date, FlightDate.depart_aid, FlightDate.arrive_date, FlightDate.arrive_aid " +
+					"from FlightDate " +
+					"and FlightDate.depart_date >= ?" +
+					"and FlightDate.depart_date <= ? " +
+					"and FlightDate.arrive_aid = ? " +
+					"and FlightDate.depart_aid = ? ";
 
 				PreparedStatement stmt2 = conn.prepareStatement(str2);
 				stmt2.setString(1, arrived1);
@@ -88,55 +84,62 @@ Project Final Group 4
 				out.print("</tr>");
 
 				//make a row
-				out.print("<tr>");
-				//make a column
-				out.print("<td>");
-				//print out column header
-				out.print("flight id");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				out.print("departure date");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				out.print("depart airport");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				//print out column header
-				out.print("arrive date");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				out.print("arrive airport");
-				out.print("</td>");
-				out.print("</tr>");
+				
 
 				//Store AB inf	
 
 				while (flightsBA.next()) {
+					
+					out.print("<tr>");
+					out.print("potential trip");
+					out.print("</tr>");
+					
+					out.print("<tr>");
+					//make a column
+					out.print("<td>");
+					//print out column header
+					out.print("flight id");
+					out.print("</td>");
+					//make a column
+					out.print("<td>");
+					out.print("departure date");
+					out.print("</td>");
+					//make a column
+					out.print("<td>");
+					out.print("depart airport");
+					out.print("</td>");
+					//make a column
+					out.print("<td>");
+					//print out column header
+					out.print("arrive date");
+					out.print("</td>");
+					//make a column
+					out.print("<td>");
+					out.print("arrive airport");
+					out.print("</td>");
+					out.print("</tr>");
+					
 				out.print("<tr>");
 				//make a column
 				out.print("<td>");
 				//print out column header
-				out.print(flightsAB.getString("Flight.flight_id"));
+				out.print(flightsAB.getString("FlightDate.flight_id"));
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
-				out.print(flightsAB.getString("departure.depart_date"));
+				out.print(flightsAB.getString("FlightDate.depart_date"));
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
-				out.print(flightsAB.getString("departure.airport_id"));
+				out.print(flightsAB.getString("FlightDate.airport_id"));
 				out.print("</td>");
 				//print out column header
 				out.print("<td>");
-				out.print(flightsAB.getString("arrival.arrive_date"));
+				out.print(flightsAB.getString("FlightDate.arrive_date"));
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
-				out.print(flightsAB.getString("arrival.airport_id"));
+				out.print(flightsAB.getString("FlightDate.airport_id"));
 				out.print("</td>");
 				
 				
@@ -149,23 +152,23 @@ Project Final Group 4
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current beer name:
-					out.print(flightsBA.getString("departure.depart_date"));
+					out.print(flightsBA.getString("FlightDate.depart_date"));
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current price
-					out.print(flightsBA.getString("departure.airport_id"));
+					out.print(flightsBA.getString("FlightDate.airport_id"));
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current beer name:
-					out.print(flightsBA.getString("arrival.arrive_date"));
+					out.print(flightsBA.getString("FlightDate.arrive_date"));
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current price
-					out.print(flightsBA.getString("arrival.airport_id"));
+					out.print(flightsBA.getString("FlightDate.airport_id"));
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current beer name:
-					
+					out.print("</tr>");
 	
 
 				}
