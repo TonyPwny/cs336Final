@@ -8,7 +8,7 @@
 <html>
 <% 
 	String username = (String) session.getAttribute("username");
-	String str = "SELECT * FROM DB1.reserves r, DB1.trip t WHERE r.ticket_num = t.ticket_num AND r.username LIKE '" + username + "%'";
+	String str = "SELECT * FROM DB1.reserves r, DB1.Ticket t WHERE r.ticket_num = t.ticket_num AND r.username LIKE '" + username + "%'";
 	String str_query = "Hello, " + username + "! Here are all of your reservations: ";
 	
 	List<String> list = new ArrayList<String>();
@@ -43,13 +43,20 @@
 		out.print("</td>");
 		//make a column
 		out.print("<td>");
-		out.print("Class");
+		out.print("Departure Date");
 		out.print("</td>");
 		//make a column
 		out.print("<td>");
-		out.print("Meals");
+		out.print("Round Trip");
 		out.print("</td>");
-
+		//make a column
+		out.print("<td>");
+		out.print("Total Fare");
+		out.print("</td>");
+		//make a column
+		out.print("<td>");
+		out.print("Date Reserved");
+		out.print("</td>");
 		//parse out the results
 		while (result.next()) {
 			//make a row
@@ -64,12 +71,20 @@
 			out.print(result.getString("flight_id"));
 			out.print("</td>");
 			out.print("<td>");
-			//Print out class of flight:
-			out.print(result.getString("class"));
+			//Print out departure date:
+			out.print(result.getString("depart_date"));
 			out.print("</td>");
 			out.print("<td>");
-			//Print out if they meals:
-			out.print(result.getString("meal"));
+			//Print out if it is a round trip:
+			out.print(result.getString("round_trip"));
+			out.print("</td>");
+			out.print("<td>");
+			//Print out total fare:
+			out.print(result.getString("total_fare"));
+			out.print("</td>");
+			out.print("<td>");
+			//Print out issue date:
+			out.print(result.getString("issue_date"));
 			out.print("</td>");
 			out.print("<td>");
 		}
@@ -81,4 +96,8 @@
 	} catch (Exception e) {
 	}
 %>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Your Reservations</title>
+	</head>
 </html>
