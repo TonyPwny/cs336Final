@@ -350,14 +350,13 @@ INSERT INTO Ticket VALUES('876657382', 'Yes', 21, 31, '2021-12-15');
 INSERT INTO Ticket VALUES('908765381', 'Yes', 23, 39, '2019-10-08');
 */
 
-/*
 INSERT INTO reserves Values('ssteven','199965070');
 INSERT INTO reserves Values('jnickey','166678901');
 INSERT INTO reserves Values('tanthony','199765890');
 INSERT INTO reserves Values('tsarah','189074550');
 INSERT INTO reserves Values('tregina','848229010');
 
-
+/*
 INSERT INTO buys VALUES('ssteven', '848229010');
 INSERT INTO buys Values('jnickey','166678901');
 INSERT INTO buys VALUES('tanthony','199965070');
@@ -365,7 +364,7 @@ INSERT INTO buys Values('tsarah','199765890');
 INSERT INTO buys Values('tregina','189074550');
 */
 
-
+INSERT INTO trip VALUES ('199765890', 'UG9863', 'Economy', 'false', '2020-01-13', '2020-01-13');
 /*
 Domestic
 INSERT INTO trip Values('848229010', 'BB6543', 'First', 'false');

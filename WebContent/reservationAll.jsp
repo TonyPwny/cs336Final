@@ -8,7 +8,7 @@
 <html>
 <% 
 	String username = (String) session.getAttribute("username");
-	String str = "SELECT * FROM DB1.reserves r, DB1.Ticket t WHERE r.ticket_num = t.ticket_num AND r.username LIKE '" + username + "%'";
+	String str = "SELECT * FROM DB1.reserves r, DB1.trip t WHERE r.ticket_num = t.ticket_num AND r.username LIKE '" + username + "%'";
 	String str_query = "Hello, " + username + "! Here are all of your reservations: ";
 	
 	List<String> list = new ArrayList<String>();
@@ -43,19 +43,19 @@
 		out.print("</td>");
 		//make a column
 		out.print("<td>");
+		out.print("Class");
+		out.print("</td>");
+		//make a column
+		out.print("<td>");
+		out.print("Meal");
+		out.print("</td>");
+		//make a column
+		out.print("<td>");
 		out.print("Departure Date");
 		out.print("</td>");
 		//make a column
 		out.print("<td>");
-		out.print("Round Trip");
-		out.print("</td>");
-		//make a column
-		out.print("<td>");
-		out.print("Total Fare");
-		out.print("</td>");
-		//make a column
-		out.print("<td>");
-		out.print("Date Reserved");
+		out.print("Arrival Date");
 		out.print("</td>");
 		//parse out the results
 		while (result.next()) {
@@ -71,20 +71,20 @@
 			out.print(result.getString("flight_id"));
 			out.print("</td>");
 			out.print("<td>");
-			//Print out departure date:
+			//Print out clss:
+			out.print(result.getString("class"));
+			out.print("</td>");
+			out.print("<td>");
+			//Print out if flier gets meals:
+			out.print(result.getString("meal"));
+			out.print("</td>");
+			out.print("<td>");
+			//Print out date of departure:
 			out.print(result.getString("depart_date"));
 			out.print("</td>");
 			out.print("<td>");
-			//Print out if it is a round trip:
-			out.print(result.getString("round_trip"));
-			out.print("</td>");
-			out.print("<td>");
-			//Print out total fare:
-			out.print(result.getString("total_fare"));
-			out.print("</td>");
-			out.print("<td>");
-			//Print out issue date:
-			out.print(result.getString("issue_date"));
+			//Print out date of arrival:
+			out.print(result.getString("arrive_date"));
 			out.print("</td>");
 			out.print("<td>");
 		}
