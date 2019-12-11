@@ -8,10 +8,6 @@ DROP TABLE IF EXISTS Ticket;
 DROP TABLE IF EXISTS Seat;
 DROP TABLE IF EXISTS owns;
 DROP TABLE IF EXISTS operates;
-
-/*DROP TABLE IF EXISTS flies_on;*/
-/*DROP TABLE IF EXISTS Days;*/
-/*DROP TABLE IF EXISTS has;*/
 DROP TABLE IF EXISTS FlightDate;
 DROP TABLE IF EXISTS Flight;
 DROP TABLE IF EXISTS Aircraft;
@@ -25,8 +21,6 @@ name_user VARCHAR(25) NOT NULL,
 user_type VARCHAR(9) NOT NULL,
 PRIMARY KEY(username)
 );
-
-
 
 CREATE TABLE Airline (
 airline_name CHAR(30) NOT NULL,
@@ -54,9 +48,6 @@ PRIMARY KEY(aircraft_id, airline_id),
 FOREIGN KEY(airline_id) REFERENCES Airline(airline_id)
 );
 
-
-
-
 CREATE TABLE owns (
 airline_id CHAR(2) NOT NULL,
 aircraft_id VARCHAR(8) NOT NULL,
@@ -64,8 +55,6 @@ PRIMARY KEY(airline_id, aircraft_id),
 FOREIGN KEY(airline_id) REFERENCES Airline(airline_id),
 FOREIGN KEY(aircraft_id) REFERENCES Aircraft(aircraft_id)
 );
-
-
 
 CREATE Table Flight (
 flight_id VARCHAR(6) NOT NULL,
@@ -89,7 +78,7 @@ arrive_date date NOT NULL,
 flight_id VARCHAR(6) NOT NULL,
 depart_aid VARCHAR(6) NOT NULL,
 arrive_aid VARCHAR(6) NOT NULL,
-PRIMARY KEY (depart_date, arrive_date, flight_id),
+PRIMARY KEY (depart_date, flight_id),
 FOREIGN KEY (flight_id) REFERENCES Flight(flight_id),
 FOREIGN KEY (depart_aid) REFERENCES Airport(airport_id),
 FOREIGN KEY (arrive_aid) REFERENCES Airport(airport_id)
@@ -108,14 +97,11 @@ FOREIGN KEY(aircraft_id) REFERENCES Aircraft(aircraft_id)
 CREATE TABLE Ticket (
 ticket_num INT8 NOT NULL,
 flight_id VARCHAR(6) NOT NULL,
-depart_date date NOT NULL,
 round_trip BOOLEAN NOT NULL,
 booking_fee DECIMAL(5,2) NOT NULL,
 total_fare DECIMAL(7,2) NOT NULL,
 issue_date DATETIME NOT NULL,
-PRIMARY KEY(ticket_num),
-FOREIGN KEY (flight_id) REFERENCES FlightDate(depart_aid),
-FOREIGN KEY (depart_date) REFERENCES FlightDate(depart_date)
+PRIMARY KEY(ticket_num)
 );
 
 
@@ -141,12 +127,13 @@ ticket_num INT8 NOT NULL,
 flight_id VARCHAR(6) NOT NULL,
 class VARCHAR(15) NOT NULL,
 meal BOOLEAN NOT NULL,
-PRIMARY KEY(ticket_num),
+depart_date date NOT NULL,
+arrive_date date NOT NULL,
+PRIMARY KEY(ticket_num, depart_date),
 FOREIGN KEY(ticket_num) REFERENCES Ticket(ticket_num),
-FOREIGN KEY(flight_id) REFERENCES Flight(flight_id)
+FOREIGN KEY (flight_id) REFERENCES FlightDate(flight_id),
+FOREIGN KEY (depart_date) REFERENCES FlightDate(depart_date)
 );
-
-
 
 INSERT INTO `User` VALUES('ssteven', 'Greens', 'Steven', 'Admin');
 INSERT INTO `User` VALUES('jnickey', 'Time12', 'Nickey','User');
