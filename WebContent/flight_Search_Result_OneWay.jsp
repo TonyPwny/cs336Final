@@ -38,9 +38,9 @@ Project Final Group 4
 			ApplicationDB db = new ApplicationDB();
 			Connection conn = db.getConnection();
 
-			String str = "SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id "
-					+ "from Flight, arrival, departure " + "where Flight.flight_id = ? "
-					+ "and arrival.flight_id = Flight.flight_id " + "and departure.flight_id = Flight.flight_id";
+			String str = "SELECT FlightDate.flight_id, FlightDate.depart_date, FlightDate.depart_aid, FlightDate.arrive_date, FlightDate.arrive_aid "
+					+ "from FlightDate " + "where FlightDate.flight_id = ? ";
+					
 
 			PreparedStatement stmt = conn.prepareStatement(str);
 			stmt.setString(1, flightid);
@@ -83,30 +83,30 @@ Project Final Group 4
 				//make a column
 				out.print("<td>");
 				//Print out current flightid:
-				out.print(flights.getString("Flight.flight_id"));
+				out.print(flights.getString("FlightDate.flight_id"));
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current beer name:
-				out.print(flights.getString("departure.depart_date"));
+				out.print(flights.getString("FlightDate.depart_date"));
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current price
-				out.print(flights.getString("departure.airport_id"));
+				out.print(flights.getString("FlightDate.depart_aid"));
 				out.print("</td>");
 				out.print("<td>");
 
 				//Print out arrival date
-				out.print(flights.getString("arrival.arrive_date"));
+				out.print(flights.getString("FlightDate.arrive_date"));
 				out.print("</td>");
 				out.print("<td>");
 
 				//Print out arrival airport id
-				out.print(flights.getString("arrival.airport_id"));
+				out.print(flights.getString("FlightDate.arrive_aid"));
 				out.print("</td>");
 				out.print("<td>");
 				//Print out a moreinfo button:
 				out.print("<form method='post' action='more_Flight_Info.jsp'>");
-				out.print("<button type='submit' name='more_info' +  value = \"" + flights.getString("Flight.flight_id") + "\">");
+				out.print("<button type='submit' name='more_info' +  value = \"" + flights.getString("FlightDate.flight_id") + "\">");
 				out.print("more info");
 				out.print("</button>");
 				out.print("</form>");
@@ -132,14 +132,12 @@ Project Final Group 4
 			
 			String str =
 
-					"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id "
-							+ "from Flight, arrival, departure " 
-							+ "where Flight.flight_id = arrival.flight_id "
-							+ "and Flight.flight_id = departure.flight_id " 
-							+ "and departure.depart_date >= ? "
-							+ "and departure.depart_date <= ? " 
-							+ "and departure.airport_id = ? "
-							+ "and arrival.airport_id = ?";
+					"SELECT FlightDate.flight_id, FlightDate.depart_date, FlightDate.depart_aid, FlightDate.arrive_date, FlightDate.arrive_aid "
+							+ "from FlightDate"
+							+ "and FlightDate.depart_date >= ? "
+							+ "and FlightDate.depart_date <= ? " 
+							+ "and FlightDate.depart_aid = ? "
+							+ "and FlightDate.arrive_aid = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(str);
 			stmt.setString(1, takeoffd1);
@@ -147,10 +145,7 @@ Project Final Group 4
 			stmt.setString(3, departing_port);
 			stmt.setString(4, arriving_port);
 			ResultSet flights = stmt.executeQuery();
-			
-
-			
-			
+		
 		
 			out.print("<table>");
 
@@ -185,29 +180,29 @@ Project Final Group 4
 				//make a column
 				out.print("<td>");
 				//Print out current flightid:
-				out.print(flights.getString("Flight.flight_id"));
+				out.print(flights.getString("FlightDate.flight_id"));
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current beer name:
-				out.print(flights.getString("departure.depart_date"));
+				out.print(flights.getString("FlightDate.depart_date"));
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current price
-				out.print(flights.getString("departure.airport_id"));
+				out.print(flights.getString("FlightDate.depart_aid"));
 				out.print("</td>");
 				out.print("<td>");
 
 				//Print out arrival date
-				out.print(flights.getString("arrival.arrive_date"));
+				out.print(flights.getString("FlightDate.arrive_date"));
 				out.print("</td>");
 				out.print("<td>");
 
 				//Print out arrival airport id
-				out.print(flights.getString("arrival.airport_id"));
+				out.print(flights.getString("FlightDate.arrive_aid"));
 				out.print("</td>");
 				out.print("<td>");
 				out.print("<form method='post' action='more_Flight_Info.jsp'>");
-				out.print("<button type='submit' name='more_info' +  value = \"" + flights.getString("Flight.flight_id") + "\">");
+				out.print("<button type='submit' name='more_info' +  value = \"" + flights.getString("FlightDate.flight_id") + "\">");
 				out.print("more info");
 				out.print("</button>");
 				out.print("</form>");
