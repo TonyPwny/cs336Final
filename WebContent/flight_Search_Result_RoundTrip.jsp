@@ -1,4 +1,4 @@
-<!-- 
+<!--
 Nicolas Gundersen
 CS336
 Professor Miranda
@@ -23,7 +23,7 @@ Project Final Group 4
 	<%
 		//Get arguments
 
-		
+
 		String takeoffd1 = request.getParameter("take_off_date");
 		String takeoffd2 = request.getParameter("take_off_date_2");
 		String arrived1 = request.getParameter("arrive_date");
@@ -34,48 +34,48 @@ Project Final Group 4
 		List<String> list = new ArrayList<String>();
 
 
-		
+
 			ApplicationDB db = new ApplicationDB();
 			Connection conn = db.getConnection();
-			
-			String str = 
-					
-					"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id " +																											 										 
+
+			String str =
+
+					"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id " +
 					"from Flight, arrival, departure " +
 					"where Flight.flight_id = arrival.flight_id " +
 					"and Flight.flight_id = departure.flight_id " +
-					"and departure.depart_date >= ? " + 
+					"and departure.depart_date >= ? " +
 					"and departure.depart_date <= ? " +
 					"and departure.airport_id = ? " +
 					"and arrival.airport_id = ?";
-					
+
 			PreparedStatement stmt = conn.prepareStatement(str);
 			stmt.setString(1, takeoffd1);
 			stmt.setString(2, takeoffd2);
 			stmt.setString(3, departing_port);
 			stmt.setString(4, arriving_port);
 			ResultSet flightsAB = stmt.executeQuery();
-					
+
 			if (flightsAB.next()) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 				String fid = flightsAB.getString("Flight.flight_id");
-				
+
 =======
 >>>>>>> f804c31cfe076534cc9b1f4a1a804c2ba64ab6d7
 =======
 >>>>>>> f804c31cfe076534cc9b1f4a1a804c2ba64ab6d7
-				String str2 =	
-						
-					"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id " +																											 										 
+				String str2 =
+
+					"SELECT Flight.flight_id, departure.depart_date, departure.airport_id, arrival.arrive_date, arrival.airport_id " +
 					"from Flight, arrival, departure " +
 					"where Flight.flight_id = arrival.flight_id " +
 					"and Flight.flight_id = departure.flight_id " +
-					"and departure.depart_date >= ?" +  
+					"and departure.depart_date >= ?" +
 					"and departure.depart_date <= ? " +
 					"and departure.airport_id = ? " +
 					"and arrival.airport_id = ? ";
-						
+
 				PreparedStatement stmt2 = conn.prepareStatement(str2);
 				stmt2.setString(1, arrived1);
 				stmt2.setString(2, arrived2);
@@ -84,23 +84,23 @@ Project Final Group 4
 				ResultSet flightsBA = stmt2.executeQuery();
 <<<<<<< HEAD
 <<<<<<< HEAD
-						
-						
-											
+
+
+
 =======
 >>>>>>> f804c31cfe076534cc9b1f4a1a804c2ba64ab6d7
-				
+
 				out.print("<table>");
 				out.print("<tr>");
 				out.print("potential trip");
 				out.print("</tr>");
 
 =======
-				
+
 <<<<<<< HEAD
 				out.print("<table>");
 >>>>>>> f804c31cfe076534cc9b1f4a1a804c2ba64ab6d7
-				
+
 =======
 >>>>>>> f804c31cfe076534cc9b1f4a1a804c2ba64ab6d7
 				//make a row
@@ -135,8 +135,8 @@ Project Final Group 4
 				String depAB_port = flightsAB.getString("departure.airport_id");
 				String arrAB_date = flightsAB.getString("arrival.arrive_date");
 				String arrAB_port = flightsAB.getString("arrival.airport_id");
-				
-				
+
+
 				//parse out the results
 				out.print("AB Flight: " + flightsAB.getString("Flight.flight_id") + "<br>");
 				while (flightsBA.next()) {
@@ -155,10 +155,6 @@ Project Final Group 4
 					out.print("<td>");
 					//Print out current price
 					out.print(flightsAB.getString("departure.airport_id"));
-=======
-					out.print(flightAB_id);
-=======
-					out.print(flightAB_id);
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current beer name:
@@ -166,8 +162,7 @@ Project Final Group 4
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current price
-					out.print(depAB_port);
->>>>>>> f804c31cfe076534cc9b1f4a1a804c2ba64ab6d7
+					out.print(arrAB_date);
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current beer name:
@@ -184,12 +179,8 @@ Project Final Group 4
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current price
-<<<<<<< HEAD
 <<<<<<< HEAD
 					out.print(flightsAB.getString("arrival.arrive_date"));
-=======
-					out.print(arrAB_date);
->>>>>>> f804c31cfe076534cc9b1f4a1a804c2ba64ab6d7
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current price
@@ -203,7 +194,7 @@ Project Final Group 4
 >>>>>>> f804c31cfe076534cc9b1f4a1a804c2ba64ab6d7
 					out.print("</td>");
 					out.print("</tr>");
-					
+
 					out.print("<tr>");
 					//make a column
 					out.print("<td>");
@@ -228,18 +219,18 @@ Project Final Group 4
 					out.print("</td>");
 					out.print("<td>");
 					out.print("</tr>");
-					
-		
+
+
 				}
 				out.print("</table>");
 				out.print("<br>All BA Flights above<br><br>");
-			}	
+			}
 			//close the connection
 			conn.close();
-		
-		
-		
-		
+
+
+
+
 	%>
 
 <br><br>
