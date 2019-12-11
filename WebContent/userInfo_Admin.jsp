@@ -18,25 +18,24 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	String login = (String) session.getAttribute("username");
 	String logintype = (String) session.getAttribute("usertype");
 	String loginURL = "login.jsp";
-	String flightSearch = "flightSearch_AdminCR.jsp";
-	String flightUpdate = "flightUpdate_AdminCR.jsp";
+	String userSearch = "userSearch_Admin.jsp";
+	String userUpdate = "userUpdate_Admin.jsp";
 
-	if (session.getAttribute("username") == null || logintype.equals("User")) {
+	if (session.getAttribute("username") == null || !logintype.equals("Admin")) {
 		response.sendRedirect(loginURL);
 	}
 
-	if (request.getParameter("flight_id") == null) {
-		response.sendRedirect(flightSearch);
+	if (request.getParameter("username") == null) {
+		response.sendRedirect(userSearch);
 	}
 
-	//Get the more info parameter from flightResults_AdminCR.jsp
-	String flightID = request.getParameter("flight_id");
-	//Make a SELECT query to the Flight table with flightID specified by the more info parameter from flightResults_AdminCR.jsp
+	//Get the more info parameter from userResults_Admin.jsp
+	String username = request.getParameter("username");
+	//Make a SELECT query to the User table with username specified by the more info parameter from userResults_Admin.jsp
 	String str, str_query, str_query_title;
-	str = "SELECT * FROM DB1.Flight f, DB1.Airline al, DB1.Aircraft ac WHERE f.flight_id = '" + flightID
-			+ "' AND f.airline_id = al.airline_id AND f.aircraft_id = ac.aircraft_id";
-	str_query = "Result for " + flightID + ":<br><br>";
-	str_query_title = flightID;
+	str = "SELECT * FROM DB1.User u WHERE u.username = '" + username + "'";
+	str_query = "Result for " + username + ":<br><br>";
+	str_query_title = username;
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -77,47 +76,19 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			//make a column
 			out.print("<td>");
 			//print out column header
-			out.print("Flight ID");
+			out.print("Username");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
-			out.print("Airline");
+			out.print("Password");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
-			out.print("Aircraft");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("Capacity");
+			out.print("Name");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
 			out.print("Type");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("Departure Time");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("Arrival Time");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("Days");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("First Class Fare");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("Business Class Fare");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("Economy Class Fare");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
@@ -129,56 +100,27 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			while (result.next()) {
 				//make a row
 				out.print("<tr>");
-				//begin form to update Flight Info
-				out.print("<form method='post' action='" + flightUpdate + "'>");
+				//begin form to update User Info
+				out.print("<form method='post' action='" + userUpdate + "'>");
 				//make a column
 				out.print("<td>");
-				//Print out current flight_id:
-				out.print("<select name='flight_id'>");
-				out.print("<option value='" + result.getString("flight_id") + "'>" + result.getString("flight_id")
+				//Print out current username:
+				out.print("<select name='username'>");
+				out.print("<option value='" + result.getString("username") + "'>" + result.getString("username")
 						+ "</option>");
 				out.print("</select>");
 				out.print("</td>");
 				out.print("<td>");
-				//Print out current airline_name:
-				out.print(
-						"<input type='text' name='airline_name' value='" + result.getString("airline_name") + "'");
+				//Print out current password:
+				out.print("<input type='text' name='password' value='" + result.getString("password") + "'");
 				out.print("</td>");
 				out.print("<td>");
-				//Print out current aircraft_id:
-				out.print("<input type='text' name='aircraft_id' value='" + result.getString("aircraft_id") + "'");
+				//Print out current name_user:
+				out.print("<input type='text' name='name_user' value='" + result.getString("name_user") + "'");
 				out.print("</td>");
 				out.print("<td>");
-				//Print out current capacity:
-				out.print("<input type='text' name='capacity' value='" + result.getString("capacity") + "'");
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current flight_type:
-				out.print("<input type='text' name='flight_type' value='" + result.getString("flight_type") + "'");
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current depart_time:
-				out.print("<input type='text' name='depart_time' value='" + result.getString("depart_time") + "'");
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current arrive_time:
-				out.print("<input type='text' name='arrive_time' value='" + result.getString("arrive_time") + "'");
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current flight_days:
-				out.print("<input type='text' name='flight_days' value='" + result.getString("flight_days") + "'");
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current fare_first:
-				out.print("<input type='text' name='fare_first' value='" + result.getString("fare_first") + "'");
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current fare_bus:
-				out.print("<input type='text' name='fare_bus' value='" + result.getString("fare_bus") + "'");
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current fare_econ:
-				out.print("<input type='text' name='fare_econ' value='" + result.getString("fare_econ") + "'");
+				//Print out current user_type:
+				out.print("<input type='text' name='user_type' value='" + result.getString("user_type") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out an update button:
