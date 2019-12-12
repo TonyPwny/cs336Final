@@ -48,8 +48,8 @@ SELECT		*\
 		FROM		DB1.Flight f,\
 				DB1.FlightDate fd\
 		WHERE	f.flight_id = fd.flight_id\
-			AND	f.depart_aid = 'EWR\'92) AS Trip1,\
-	SELECT		f.flight_id AS flight2_id,\
+			AND	f.depart_aid = \'93EWR\'94) AS Trip1,\
+	(SELECT		f.flight_id AS flight2_id,\
 				f.depart_aid AS depart2_aid,\
 				fd.depart_date AS depart2_date,\
 				f.depart_time AS depart2_time,\
@@ -57,6 +57,6 @@ SELECT		*\
 		FROM		DB1.Flight f,\
 				DB1.FlightDate fd\
 		WHERE	f.flight_id = fd.flight_id\
-			AND	f.arrive_aid = 'PEK\'92) AS Trip2\
+			AND	f.arrive_aid = \'93PEK\'94) AS Trip2\
 	WHERE		Trip1.stop1_aid = Trip2.depart2_aid\
 ;}
