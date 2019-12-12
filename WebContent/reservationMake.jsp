@@ -11,19 +11,19 @@
 	
 	//Information for Ticket
 	//ticket_num and issue_date will be derived later through logic
-	String roundTrip = (String) session.getAttribute("round_trip");
-	String bookingFee = (String) session.getAttribute("booking_fee");
-	String totalFare = (String) session.getAttribute("total_fare");
+	String roundTrip = request.getParameter("round_trip");
+	String bookingFee = request.getParameter("booking_fee");
+	String totalFare = request.getParameter("total_fare");
 	
 	//Information for reserves
 	String username = (String) session.getAttribute("username");
 			
 	//Information for trip
-	String flightID = (String) session.getAttribute("flight_id");
-	String flightClass = (String) session.getAttribute("class");
-	String meal = (String) session.getAttribute("meal");
-	String departDate = (String) session.getAttribute("depart_date");
-	String arriveDate = (String) session.getAttribute("arrive_date");
+	String flightID = request.getParameter("flight_id");
+	String flightClass = request.getParameter("class");
+	String meal = request.getParameter("meal");
+	String departDate = request.getParameter("depart_date");
+	String arriveDate = request.getParameter("arrive_date");
 	
 	/*
 	//Hardcoded test

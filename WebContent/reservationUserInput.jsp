@@ -92,6 +92,10 @@
 			out.print("<td>");
 			out.print("Meal");
 			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			out.print("");
+			out.print("</td>");
 			
 			out.print("</tr>");
 			//parse out the results
@@ -148,6 +152,36 @@
 				out.print("<option value='1'>Meal (+$15)</option>");
 				out.print("</select>");
 				out.print("</td>");
+				out.print("<td>");
+				//Print out reservation button
+				out.print("<input type = 'hidden' name = 'round_trip'");
+				out.print("value = '0'>");
+				
+				out.print("<input type = 'hidden' name = 'booking_fee'");
+				out.print("value = '25'>");
+				
+				out.print("<input type = 'hidden' name = 'total_fare'");
+				out.print("value = '" + result.getString("fare_econ") + "'>");
+				
+				out.print("<input type = 'hidden' name = 'flight_id'");
+				out.print("value = '" + result.getString("flight_id") + "'>");
+				
+				out.print("<input type = 'hidden' name = 'class'");
+				out.print("value = 'Economy'>");
+				
+				out.print("<input type = 'hidden' name = 'meal'");
+				out.print("value = '0'>");
+				
+				out.print("<input type = 'hidden' name = 'depart_date'");
+				out.print("value = '" + result.getString("depart_date") + "'>");
+				
+				out.print("<input type = 'hidden' name = 'arrive_date'");
+				out.print("value = '" + result.getString("arrive_date") + "'>");
+				
+				out.print("<button type = 'submit'>Confirm!</button>");
+				out.print("</td>");
+				
+				
 				
 				out.print("</tr>");
 				out.print("</form>");
