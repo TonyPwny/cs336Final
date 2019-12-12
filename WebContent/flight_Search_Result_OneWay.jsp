@@ -159,15 +159,15 @@ Project Final Group 4
 			Connection conn = db.getConnection();
 			String someVariable = "Flight.flightid";
 
-			//if(request.getParameter("sort" != null))
-		//	{
-		//		if(request.getParameter("sort".equals("fare_econ")))
-		//				{
+			if("sort" != null)
+			{
+				if("sort".equals("fare_econ"))
+						{
 					
-		//					someVariable = "Flight.fare_econ";
-		//				
-		//				}
-		//	}
+							someVariable = "Flight.fare_econ";
+						
+						}
+			}
 			
 
 			
