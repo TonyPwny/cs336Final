@@ -38,8 +38,8 @@ Project Final Group 4
 			ApplicationDB db = new ApplicationDB();
 			Connection conn = db.getConnection();
 
-			String str = "SELECT FlightDate.flight_id, FlightDate.depart_date, FlightDate.depart_aid, FlightDate.arrive_date, FlightDate.arrive_aid "
-					+ "from FlightDate " + "where FlightDate.flight_id = ? ";
+			String str = "SELECT FlightDate.flight_id, FlightDate.depart_date, Flight.depart_aid, FlightDate.arrive_date, Flight.arrive_aid "
+					+ "from FlightDate " + "where FlightDate.flight_id = Flight.flight_id AND FlightDate.flight_id = ? ";
 					
 
 			PreparedStatement stmt = conn.prepareStatement(str);
@@ -133,16 +133,16 @@ Project Final Group 4
 			//Search a one way by Airport ids and dates
 			ApplicationDB db = new ApplicationDB();
 			Connection conn = db.getConnection();
-			
 	
 			String str =
 
-					"SELECT FlightDate.flight_id, FlightDate.depart_date, FlightDate.depart_aid, FlightDate.arrive_date, FlightDate.arrive_aid "
-							+ "from FlightDate "
-							+ "WHERE FlightDate.depart_date >= ? "
+					"SELECT FlightDate.flight_id, FlightDate.depart_date, Flight.depart_aid, FlightDate.arrive_date, Flight.arrive_aid "
+							+ "from FlightDate, Flight "
+							+ "WHERE Flight.flight_id = FlightDate.flight_id "
+							+ "AND FlightDate.depart_date >= ? "
 							+ "and FlightDate.depart_date <= ? " 
-							+ "and FlightDate.depart_aid = ? "
-							+ "and FlightDate.arrive_aid = ?";
+							+ "and Flight.depart_aid = ? "
+							+ "and Flight.arrive_aid = ?" ;
 
 			PreparedStatement stmt = conn.prepareStatement(str);
 			stmt.setString(1, takeoffd1);
@@ -154,52 +154,42 @@ Project Final Group 4
 		
 			// Thanks to anthonys beautiful query
 			//Search a connecting one way by Airport ids and dates 
-			Statement s = null;
-			String updstr = 
-							"DROP TABLE IF EXISTS Departing; DROP TABLE IF EXISTS Arrival; "
-							+ "CREATE TABLE DB1.Departing ( "
-							+ "SELECT * FROM DB1.FlightDate fd "
-							+ "WHERE fd.depart_aid = ? "
-							+ "AND fd.depart_date >= ? "
-							+ "AND fd.depart_date <= ? ); "
-							
-							+ "CREATE TABLE DB1.Arriving ( "
-							+ "SELECT * FROM DB1.FlightDate fd "
-							+ "WHERE fd.arrive_aid = ? ); ";
-						
-						    s = conn.prepareStatement(updstr);
-							s.setString(1, departing_port);
-							s.setString(2, takeoffd1);
-							s.setString(3, takeoffd2);
-							s.setString(4, arriving_port);
-							s.executeUpdate();
+
 							
 				String str2 =		
 							
-							"SELECT DB1.d.depart_date AS depart1_date, "
-							+ "DB1.d.arrive_date AS arrive1_date, "
-							+ "DB1.d.flight_id AS flight1_id, "
-							+ "DB1.d.depart_aid AS depart1_aid, "
-							+ "DB1.d.arrive_aid AS arrive1_aid, "
-							+ "DB1.a.depart_date AS depart2_date, "
-							+ "DB1.a.arrive_date AS arrive2_date, "
-							+ "DB1.a.flight_id AS flight2_id, "
-							+ "DB1.a.depart_aid AS depart2_aid, "
-							+ "DB1.a.arrive_aid AS arrive2_aid "
-							+ "FROM DB1.Departing d, DB1.Arriving a "
-							+ "WHERE d.depart_aid = ? "
-							+ "AND a.arrive_aid = ? "
-							+ "AND d.arrive_aid = a.depart_aid";
-							
-							PreparedStatement stmt3 = conn.prepareStatement(str2);
-							stmt3.setString(1, departing_port);
-							stmt3.setString(2, takeoffd1);
-							stmt3.setString(3, takeoffd2);
-							stmt3.setString(4, arriving_port);
-							stmt3.setString(5, departing_port);
-							stmt3.setString(6, arriving_port);
+						"SELECT * "
+						+ "FROM (SELECT f.flight_id AS flight1_id, "
+						+ "f.depart_aid AS depart1_aid, "
+						+ "fd.depart_date AS depart1_date, "
+						+ "f.depart_time AS depart1_time, "
+						+ "f.arrive_aid AS stop1_aid, "
+						+ "fd.arrive_date AS arrive1_date, "
+						+ "f.arrive_time AS arrive1_time "
+						+ "FROM DB1.Flight f, DB1.FlightDate fd "
+						+ "WHERE f.flight_id = fd.flight_id "
+						+ "AND f.depart_aid = ? AND fd.depart_date >= ? AND fd.depart_date <= ? ) AS Trip1, " 
+						+ "(SELECT f.flight_id AS flight2_id, "
+						+ "f.depart_aid AS depart2_aid, "
+						+ "fd.depart_date AS depart2_date, "
+						+ "f.depart_time AS depart2_time, "
+						+ "f.arrive_aid AS stop2_aid, "
+						+ "fd.arrive_date AS arrive2_date, "
+						+ "f.arrive_time AS arrive2_time "
+						+ "FROM DB1.Flight f, DB1.FlightDate fd "
+						+ "WHERE f.flight_id = fd.flight_id "
+						+ "AND f.arrive_aid = ? ) AS Trip2 "
+						+ "WHERE Trip1.stop1_aid = Trip2.depart2_aid";
+				
+				
+				
+							PreparedStatement stmt2 = conn.prepareStatement(str2);
+							stmt2.setString(1, departing_port);
+							stmt2.setString(2, takeoffd1);
+							stmt2.setString(3, takeoffd2);
+							stmt2.setString(4, arriving_port);
 
-							ResultSet flightsCon1 = stmt3.executeQuery();
+							ResultSet flightsCon1 = stmt2.executeQuery();
 									
 									
 			out.print("<table>");
@@ -229,6 +219,12 @@ Project Final Group 4
 			out.print("<td>");
 			out.print("arriving airport");
 			out.print("</td>");
+			
+			
+			out.print("<td>");
+			out.print("");
+			out.print("</td>");
+			out.print("</tr>");
 
 			//parse out the results
 			
@@ -257,17 +253,20 @@ Project Final Group 4
 				out.print(flights.getString("FlightDate.arrive_aid"));
 				out.print("</td>");
 				out.print("<td>");
-				out.print("<form method='post' action='more_Flight_Info.jsp'>");
-				out.print("<button type='submit' name='more_info' +  value = \"" + flights.getString("FlightDate.flight_id") + "\">");
-				out.print("more info");
-				out.print("</button>");
-				out.print("</form>");
+				
+				//out.print("<form method='post' action='more_Flight_Info.jsp'>");
+			//	out.print("<button type='submit' name='more_info' +  value = \"" + flights.getString("FlightDate.flight_id") + "\">");
+			//	out.print("more info");
+			
+			//	out.print("</button>");
+			//	out.print("</form>");
+				
 				out.print("</td>");
 				out.print("</tr>");
 
 
 			}
-			else if(flightsCon1.next()){
+			else if(flightsCon1.next()){ 
 				//make a row
 				out.print("<tr>");
 				//make a column
@@ -277,73 +276,99 @@ Project Final Group 4
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
+				out.print("departure port");
+				out.print("</td>");
+				//make a column
+				out.print("<td>");
 				out.print("departure date");
 				out.print("</td>");
+				//print out column header
+				out.print("<td>");
+				out.print("depart time");
+				out.print("</td>");
 				//make a column
 				out.print("<td>");
-				out.print("arrive date");
+				out.print("arrive port");
 				out.print("</td>");
 				//print out column header
 				out.print("<td>");
-				out.print("flight id");
+				out.print("Arrive date");
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
-				out.print("arriving airport");
+				out.print("arrive time");
 				out.print("</td>");
+				//
 				out.print("<td>");
+				out.print("flight id2");
+				out.print("</td>");
+				//make a column
+				out.print("<td>");
+				out.print("departure port2");
+				out.print("</td>");
+				//make a column
+				out.print("<td>");
+				out.print("departure date2");
+				out.print("</td>");
 				//print out column header
-				out.print("depart date");
+				out.print("<td>");
+				out.print("depart time2");
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
-				out.print("arrive date");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				out.print("flight id");
+				out.print("arrive port2");
 				out.print("</td>");
 				//print out column header
 				out.print("<td>");
-				out.print("departing airport");
+				out.print("Arrive date2");
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
-				out.print("arriving airport");
+				out.print("arrive time2");
 				out.print("</td>");
+				//make a column
 				
+				out.print("<td>");
+				out.print("");
+				out.print("</td>");
+				out.print("</tr>");
+			
+				
+				
+				
+				//Results
 				// new row
 				out.print("<tr>");
 				//make a column
 				out.print("<td>");
 				//Print out current flightid:
-				out.print(flightsCon1.getString("depart1_date"));
+				out.print(flightsCon1.getString("flight1_id"));
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current beer name:
-				out.print(flightsCon1.getString("arrive1_date"));
+				out.print(flightsCon1.getString("depart1_aid"));
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current price
-				out.print(flightsCon1.getString("flight1_id"));
+				out.print(flightsCon1.getString("depart1_date"));
 				out.print("</td>");
 				out.print("<td>");
 
 				//Print out arrival date
-				out.print(flightsCon1.getString("depart1_aid"));
+				out.print(flightsCon1.getString("depart1_time"));
 				out.print("</td>");
 				out.print("<td>");
 
 				//Print out arrival airport id
-				out.print(flightsCon1.getString("arrive1_aid"));
+				out.print(flightsCon1.getString("stop1_aid"));
 				out.print("</td>");
 				out.print("<td>");
 				
-				out.print(flightsCon1.getString("depart2_date"));
+				out.print(flightsCon1.getString("arrive1_date"));
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current beer name:
-				out.print(flightsCon1.getString("arrive2_date"));
+				out.print(flightsCon1.getString("arrive1_time"));
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current price
@@ -357,10 +382,27 @@ Project Final Group 4
 				out.print("<td>");
 
 				//Print out arrival airport id
-				out.print(flightsCon1.getString("arrive2_aid"));
+				out.print(flightsCon1.getString("depart2_date"));
+				out.print("</td>");
+				out.print("<td>");
+				
+				out.print(flightsCon1.getString("depart2_time"));
 				out.print("</td>");
 				out.print("<td>");
 			
+				out.print(flightsCon1.getString("stop2_aid"));
+				out.print("</td>");
+				out.print("<td>");
+				
+				out.print(flightsCon1.getString("arrive2_date"));
+				out.print("</td>");
+				out.print("<td>");
+				
+				out.print(flightsCon1.getString("arrive2_time"));
+				out.print("</td>");
+				out.print("</tr>");
+			
+				
 			}
 			out.print("</table>");
 
@@ -371,9 +413,10 @@ Project Final Group 4
 	
 			conn.close();
 
-	
-	
-		
+			out.print("<br>");
+			out.print("Here are your flights");
+			out.print("<br>");
+
 		
 	%>
 
