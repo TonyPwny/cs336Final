@@ -31,7 +31,7 @@ Project Final Group 4
 		
 String str = 
 
-	"SELECT FlightDate.flight_id, Flight.depart_aid, FlightDate.depart_date, Flight.depart_time, "  
+	"SELECT DISTINCT FlightDate.flight_id, Flight.depart_aid, FlightDate.depart_date, Flight.depart_time, "  
 		+ "Flight.arrive_aid, FlightDate.arrive_date, Flight.arrive_time, " 
 		+ "Flight.airline_id, Airline.airline_name, " 
 		+ "Flight.fare_econ, Flight.fare_bus, Flight.fare_first " 
@@ -158,9 +158,10 @@ String str =
 			
 			out.print(flights.getString("Flight.fare_first"));
 			out.print("</td>");
-			out.print("<td>");
 			
 			out.print("<td>");
+			
+		
 			
 			out.print("<form method='post' action='reservationMake.jsp'>");
 			out.print("<button type='submit' name='book_now' +  value = \"" + flights.getString("flight1_id") + "\">");
