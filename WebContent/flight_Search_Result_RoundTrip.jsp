@@ -31,6 +31,12 @@ Project Final Group 4
 		String arrived2 = request.getParameter("arrive_date_2");
 		String departing_port = request.getParameter("depport");
 		String arriving_port = request.getParameter("arrivport");
+		String flight1id;
+		String flight2id;
+		String flight3id;
+		String flight4id;
+		String flight5id;
+		String flight6id;
 
 		List<String> list = new ArrayList<String>();
 
@@ -228,6 +234,23 @@ Project Final Group 4
 					out.print("</td>");
 					out.print("<td>");
 					
+					//Button to display direct round trip
+					out.print("<form method='post' action='reservationUserInput.jsp'>");
+					out.print("<button type='submit' name='book_now' onclick=\"" 
+							+ "session.setAttribute(\"flight1id\", " + (flightsAB.getString("Flight.flight_id")) + ") " 
+							+ "session.setAttribute(\"flight2id\", " + (flightsBA.getString("Flight.flight_id")) + ") " + ">");
+
+
+					
+					
+					
+					out.print("Book now!");
+				
+					out.print("</button>");
+					out.print("</form>");
+					
+					out.print("</td>");
+					
 		
 					
 					out.print("</tr>");
@@ -334,14 +357,23 @@ Project Final Group 4
 					
 					out.print("<td>");
 					
-						out.print("<form method='post' action='reservationMake.jsp'>");
-						out.print("<button type='submit' name='book_now' +  value = \"" + flightsABCon1.getString("flight1_id") + "\">");
-						out.print("Book now!");
+					out.print("<form method='post' action='reservationUserInput.jsp'>");
+					out.print("<button type='submit' name='book_now' onclick=\"" 
+					+ "session.setAttribute(\"flight3id\", " + (flightsABCon1.getString("flight1_id")) + ") " 
+					+ "session.setAttribute(\"flight4id\", " + (flightsABCon1.getString("flight2_id")) + ") " 
+					+ "session.setAttribute(\"flight5id\", " + (flightsBACon1.getString("flight1_id")) + ") " 
+					+ "session.setAttribute(\"flight6id\", " + (flightsBACon1.getString("flight2_id")) + ") " + ">");
+
+
 					
-						out.print("</button>");
-						out.print("</form>");
-						
-						out.print("</td>");
+					
+					
+					out.print("Book now!");
+				
+					out.print("</button>");
+					out.print("</form>");
+					
+					out.print("</td>");
 					
 						out.print("</tr>");
 
@@ -525,16 +557,11 @@ Project Final Group 4
 					out.print(flightsABCon1.getString("farefirst2"));
 					out.print("</td>");
 					
-					//out.print("<td>");
+			
 					
-				//	out.print("<form method='post' action='reservationMake.jsp'>");
-			//		out.print("<button type='submit' name='book_now' +  value = \"" + flightsCon1.getString("flight1_id") + "\">");
-			//		out.print("Book now!");
-				
-			//		out.print("</button>");
-			//		out.print("</form>");
 					
-			//		out.print("</td>");
+					
+					
 					
 					out.print("<td>");
 					out.print("");

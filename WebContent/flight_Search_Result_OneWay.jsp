@@ -15,7 +15,7 @@ Project Final Group 4
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>One wau</title>
+<title>One way flights</title>
 <h4>Filter by Price, Take off, Land time, Airline</h4>
 </head>
 <body>
