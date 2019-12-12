@@ -132,9 +132,10 @@ Project Final Group 4
 				out.print("</form>");
 				out.print("</td>");
 				
-				out.print("<form method='post' action='make_Reservation.jsp'>");
-				out.print("<button type='submit' name='Book now!' +  value = \"" + flights.getString("FlightDate.flight_id") + "\">"
-				+ "session.setAttribute(\"depdate1\", " + (flights.getString("FlightDate.FlightDate.depart_date")) + ") " + ">");
+				out.print("<form method='post' action='reservationUserInput.jsp'>");
+				out.print("<button type='submit' name='book_now' onclick=\"" 
+				+ "session.setAttribute(\"flight1id\", " + (flights.getString("FlightDate.flight_id") + ") " + ">")
+				+ "session.setAttribute(\"depdate1\", " + (flights.getString("FlightDate.depart_date")) + ") " + ">");
 				
 				out.print("</button>");
 				out.print("</form>");
@@ -270,8 +271,8 @@ Project Final Group 4
 					
 					out.print("<form method='post' action='reservationUserInput.jsp'>");
 					out.print("<button type='submit' name='book_now' onclick=\"" 
-					+ "session.setAttribute(\"flight1id\", " + (flights.getString("FlightDate.flight_id") + ") " + ">")
-					+ "session.setAttribute(\"depdate1\", " + (flights.getString("FlightDate.FlightDate.depart_date")) + ") " + ">");
+					+ "session.setAttribute(\"flight1id\", " + (flights.getString("FlightDate.flight_id")) + ") "
+					+ "session.setAttribute(\"depdate1\", " + (flights.getString("FlightDate.depart_date")) + ") " + ">");
 
 					out.print("Book now!");
 				
@@ -529,8 +530,8 @@ Project Final Group 4
 				out.print("<form method='post' action='reservationUserInput.jsp'>");
 				out.print("<button type='submit' name='book_now' onclick=\"" 
 						+ "session.setAttribute(\"flight2id\", " + (flightsCon1.getString("flight1_id")) + ") " 
-						+ "session.setAttribute(\"flight3id\", " + (flightsCon1.getString("flight2_id")) + ") " + ">"
-						+ "session.setAttribute(\"depdate1\", " + (flightsCon1.getString("depart1_date")) + ") " + ">"
+						+ "session.setAttribute(\"flight3id\", " + (flightsCon1.getString("flight2_id")) + ") " 
+						+ "session.setAttribute(\"depdate1\", " + (flightsCon1.getString("depart1_date")) + ") "
 						+ "session.setAttribute(\"depdate2\", " + (flightsCon1.getString("depart2_date")) + ") " + ">");
 
 
