@@ -1,5 +1,5 @@
 <!-- 
-Nicolas Gundersen
+Nicolas Gundersen neg62
 CS336
 Professor Miranda
 Project Final Group 4
@@ -212,6 +212,7 @@ Project Final Group 4
 					out.print("</td>");
 					out.print("<td>");
 					
+					//GENERATE A BUTTON TO BOOK
 					out.print("<form method='post' action='more_Flight_Info.jsp'>");
 					out.print("<button type='submit' name='more_info' +  value = \"" + flights.getString("FlightDate.flight_id") + "\">");
 					out.print("more info");
@@ -220,6 +221,27 @@ Project Final Group 4
 					out.print("</form>");
 					
 					out.print("</td>");
+					
+					
+					//GENERATE A BUTTON TO BOOK
+					out.print("<td>");
+					
+					out.print("<form method='post' action='reservationMake.jsp'>");
+					out.print("<button type='submit' name='book_now' +  value = \"" + flights.getString("FlightDate.flight_id") + "\">");
+					out.print("Book now!");
+				
+					out.print("</button>");
+					out.print("</form>");
+					
+					out.print("</td>");
+					
+					
+					
+					
+					
+					
+					
+					
 					out.print("</tr>");
 
 				
@@ -401,7 +423,21 @@ Project Final Group 4
 				
 				out.print(flightsCon1.getString("arrive2_time"));
 				out.print("</td>");
+				
+				out.print("<td>");
+				
+				out.print("<form method='post' action='reservationMake.jsp'>");
+				out.print("<button type='submit' name='book_now' +  value = \"" + flightsCon1.getString("flight1_id") + "\">");
+				out.print("Book now!");
+			
+				out.print("</button>");
+				out.print("</form>");
+				
+				out.print("</td>");
+				
+				
 				out.print("</tr>");
+				
 			
 				
 			}
