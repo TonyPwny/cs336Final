@@ -30,7 +30,7 @@
 		}
 	} else {
 		str = "SELECT * FROM DB1.User u WHERE u.usertype = 'User' AND u.username LIKE '" + username + "%'";
-		str_query = "Result for " + username + ":<br><br>";
+		str_query = "Search Results for " + username + ":<br><br>";
 		str_query_title = username + " search results";
 	}
 %>
@@ -43,91 +43,106 @@
 %></title>
 </head>
 <body>
-	<br> Logged in as:
 	<%
-		out.println(" <b>" + login + "</b> - " + logintype);
-	%>
-	<br>
-	<br>
-	<%
+		out.println("Logged in as: <b>" + login + "</b> - " + logintype + "<br><br>");
+	
 		if (username.isEmpty()) {
 			out.print(str_query);
 		} else {
-			List<String> list = new ArrayList<String>();
-
 			try {
 
-				//Get the database connection
-				ApplicationDB db = new ApplicationDB();
-				Connection con = db.getConnection();
+				String url = "jdbc:mysql://steve2.ckgj9bgqpyor.us-east-2.rds.amazonaws.com:3306/DB1";
+				Class.forName("com.mysql.jdbc.Driver").newInstance();
+				//Connect to database
+				Connection conn = DriverManager.getConnection(url, "admin", "password");
 
-				//Create a SQL statement
-				Statement stmt = con.createStatement();
+				PreparedStatement stmt = conn.prepareStatement(str);
 
 				//Run the query against the database.
-				ResultSet result = stmt.executeQuery(str);
+				ResultSet result = stmt.executeQuery();
 
 				//Show what kind of query is being processed
 				out.print(str_query);
 
-				//Make an HTML table to show the results in:
-				out.print("<table>");
-
-				//make a row
-				out.print("<tr>");
-				//make a column
-				out.print("<td>");
-				//print out column header
-				out.print("Username");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				out.print("Name");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				out.print("Type");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
-				out.print("Fare Totals");
-				out.print("</td>");
+				out.print(
+					"<form action=userInfo_Admin.jsp><table><tr>" + 
+						"<td>" + 
+							"Username" + 
+						"</td>" + 
+						"<td>" + 
+							"Name" + 
+						"</td>" + 
+						"<td>" + 
+							"Usertype" + 
+						"</td>" + 
+						"<td>" + 
+							"Revenue" + 
+						"</td>" +
+						"<td>" +
+							"" +
+						"</td>"
+				);
 
 				//parse out the results
 				while (result.next()) {
 					//Make a query for the sum of the user's total fares
-					String str2 = "SELECT sum(total_fare) as fare_sum from DB1.reserves r, DB1.Ticket t" +
-					"WHERE r.ticket_num = t.ticket_num AND r.username LIKE '" + result.getString("username") + "';";
-					//Create a SQL statement
-					Statement stmt2 = con.createStatement();
-					//Run the query against the database.
-					ResultSet result2 = stmt2.executeQuery(str);
+					String str2 = 
+						"select sum(T.booking_fee) fare_sum " +
+						"from buys b, Ticket T " +
+						"where b.username = ? " +
+						"and b.ticket_num = T.ticket_num " +
+						"group by (b.username)";
+					PreparedStatement stmt2 = conn.prepareStatement(str2);
+					stmt2.setString(1, result.getString("username"));
+					
+					//Get sum of 
+					ResultSet result2 = stmt2.executeQuery();
 					//make a row
-					out.print("<tr>");
-					//make a column
-					out.print("<td>");
-					//Print out current username:
-					out.print(result.getString("username"));
-					out.print("</td>");
-					out.print("<td>");
-					//Print out current name_user:
-					out.print(result.getString("name_user"));
-					out.print("</td>");
-					out.print("<td>");
-					//Print out current user_type:
-					out.print(result.getString("usertype"));
-					out.print("</td>");
-					out.print("<td>");
-					//Print out total fares:
-					out.print(result2.getString("fare_sum"));
-					out.print("</td>");
+					if (result2.next()) {
+						out.print(
+							String.format(
+								"<tr>" +
+									"<td>%s</td>" + 
+									"<td>%s</td>" +
+									"<td>%s</td>" + 
+									"<td>%.2f</td>",
+								result.getString("username"),
+								result.getString("name_user"),
+								result.getString("usertype"),
+								result2.getDouble("fare_sum")
+							)
+						);
+					} else {
+						out.print(
+							String.format(
+								"<tr>" +
+									"<td>%s</td>" + 
+									"<td>%s</td>" +
+									"<td>%s</td>" + 
+									"<td>%s</td>",
+								result.getString("username"),
+								result.getString("name_user"),
+								result.getString("usertype"),
+								"0.00"
+							)
+						);
+					}
+					out.print(
+						String.format(
+							"<td><button type='submit' name='username' value='%s'>More Info</button></td>" +
+							"</tr>",
+							result.getString("username")
+						)
+					);
+					
 				}
-				out.print("</table>");
+				out.print("</table></form>");
 
 				//close the connection.
-				con.close();
+				conn.close();
 
 			} catch (Exception e) {
+				out.print(e);
 			}
 		}
 	%>
