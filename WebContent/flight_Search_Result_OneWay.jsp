@@ -252,7 +252,7 @@ Project Final Group 4
 					//GENERATE A BUTTON TO BOOK
 					out.print("<td>");
 					
-					out.print("<form method='post' action='reservationMake.jsp'>");
+					out.print("<form method='post' action='reservationUserInput.jsp'>");
 					out.print("<button type='submit' name='book_now' onclick=\"" 
 					+ "session.setAttribute(\"flight1id\", " + (flights.getString("FlightDate.flight_id")) + ") " + ">");
 					out.print("Book now!");
@@ -508,7 +508,7 @@ Project Final Group 4
 			
 				out.print("<td>");
 				
-				out.print("<form method='post' action='reservationMake.jsp'>");
+				out.print("<form method='post' action='reservationUserInput.jsp'>");
 				out.print("<button type='submit' name='book_now' onclick=\"" 
 						+ "session.setAttribute(\"flight2id\", " + (flightsCon1.getString("flight1_id")) + ") " 
 						+ "session.setAttribute(\"flight3id\", " + (flightsCon1.getString("flight2_id")) + ") " + ">");
