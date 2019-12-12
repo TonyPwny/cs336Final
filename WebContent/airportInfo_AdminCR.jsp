@@ -20,6 +20,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	String loginURL = "login.jsp";
 	String airportSearch = "airportSearch_AdminCR.jsp";
 	String airportUpdate = "airportUpdate_AdminCR.jsp";
+	String airportDelete = "airportDelete_Admin.jsp";
 
 	if (session.getAttribute("username") == null || logintype.equals("User")) {
 		response.sendRedirect(loginURL);
@@ -109,10 +110,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				//make a column
 				out.print("<td>");
 				//Print out current airport_id:
-				out.print("<select name='airport_id'>");
-				out.print("<option value='" + result.getString("airport_id") + "'>" + result.getString("airport_id")
-						+ "</option>");
-				out.print("</select>");
+				out.print("<input type='text' name='new_airport_id' value='" + result.getString("airport_id") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current name:
@@ -138,6 +136,16 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				out.print("</tr>");
 			}
 			out.print("</table>");
+			
+			if (logintype.equals("Admin")) {
+				out.print("<table><tr><td>[ADMIN MODE]: </td>");
+				out.print("<td><form method='post' action='" + airportDelete + "'>");
+				out.print("<button type='submit' name='airport_id' value='" + airportID + "'>");
+				out.print("delete");
+				out.print("</button>");
+				out.print("</form></td></tr></table>");
+			}
+
 
 			//close the connection.
 			con.close();

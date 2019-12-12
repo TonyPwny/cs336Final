@@ -56,17 +56,18 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 
 		//Get parameters from the HTML form at airlineInfo_AdminCR.jsp
 		String airline_id = request.getParameter("airline_id");
+		String new_airline_id = request.getParameter("new_airline_id");
 		String new_name = request.getParameter("airline_name");
-		String new_revenue = request.getParameter("airline_revenue");
 
 		//Make an update statement for the Airline table:
-		String update = "UPDATE Airline SET airline_name = ? WHERE airline_id = ?";
+		String update = "UPDATE Airline SET airline_id = ?, airline_name = ? WHERE airline_id = ?";
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			PreparedStatement ps = con.prepareStatement(update);
 
 			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
-			ps.setString(1, new_name);
-			ps.setString(2, airline_id);
+			ps.setString(1, new_airline_id);
+			ps.setString(2, new_name);
+			ps.setString(3, airline_id);
 			//Run the query against the DB
 			ps.executeUpdate();
 
