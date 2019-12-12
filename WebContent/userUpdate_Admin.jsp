@@ -59,17 +59,17 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			//Get parameters from the HTML form at userInfo_Admin.jsp
 			String new_password = request.getParameter("password");
 			String new_name_user = request.getParameter("name_user");
-			String new_user_type = request.getParameter("user_type");
+			String new_usertype = request.getParameter("usertype");
 
 			//Make an insert statement for the User table:
-			String update = "UPDATE User SET password = ?, name_user = ?, user_type = ? WHERE username = ?";
+			String update = "UPDATE User SET password = ?, name_user = ?, usertype = ? WHERE username = ?";
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			PreparedStatement ps = con.prepareStatement(update);
 
 			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
 			ps.setString(1, new_password);
 			ps.setString(2, new_name_user);
-			ps.setString(3, new_user_type);
+			ps.setString(3, new_usertype);
 			ps.setString(4, username);
 
 			//Run the query against the DB
