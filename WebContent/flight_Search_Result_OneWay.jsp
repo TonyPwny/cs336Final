@@ -111,6 +111,11 @@ Project Final Group 4
 				out.print("</button>");
 				out.print("</form>");
 				out.print("</td>");
+				
+			//	out.print("<form method='post' action='make_Reservation.jsp'>");
+			//	out.print("<button type='submit' name='Book now!' +  value = \"" + flights.getString("FlightDate.flight_id") + "\">");
+			//	out.print("</button>");
+			//	out.print("</form>");
 				out.print("</tr>");
 				
 				
@@ -149,18 +154,26 @@ Project Final Group 4
 		
 			// Thanks to anthonys beautiful query
 			//Search a connecting one way by Airport ids and dates 
-			
-			String str2 = 
+			String updstr = 
 							"DROP TABLE IF EXISTS Departing; DROP TABLE IF EXISTS Arrival; "
-							+ "CREATE TEMPORARY TABLE DB1.Departing ( "
+							+ "CREATE TABLE DB1.Departing ( "
 							+ "SELECT * FROM DB1.FlightDate fd "
 							+ "WHERE fd.depart_aid = ? "
 							+ "AND fd.depart_date >= ? "
 							+ "AND fd.depart_date <= ? ); "
 							
-							+ "CREATE TEMPORARY TABLE DB1.Arriving ( "
+							+ "CREATE TABLE DB1.Arriving ( "
 							+ "SELECT * FROM DB1.FlightDate fd "
-							+ "WHERE fd.arrive_aid = ? ); "
+							+ "WHERE fd.arrive_aid = ? ); ";
+						
+						    s = conn.PreparedStatement(updstr);
+							stmt2.setString(1, departing_port);
+							stmt2.setString(2, takeoffd1);
+							stmt2.setString(3, takeoffd2);
+							stmt2.setString(4, arriving_port);
+							s.ExecuteUpdate(updstr);
+							
+							
 							
 							+ "SELECT DB1.d.depart_date AS depart1_date, "
 							+ "DB1.d.arrive_date AS arrive1_date, "
@@ -185,7 +198,7 @@ Project Final Group 4
 							stmt2.setString(5, departing_port);
 							stmt2.setString(6, arriving_port);
 
-							ResultSet flightsCon1 = stmt2.executeQuery();
+							ResultSet flightsCon1 = stmt2.execute();
 									
 									
 			out.print("<table>");

@@ -30,7 +30,7 @@
 				Connection conn = DriverManager.getConnection(url, "admin", "password");
 				
 				Statement s = conn.createStatement();
-				String str = "select * from login where username=\"" + username + "\" and password=\"" + password + "\"";
+				String str = "select * from User where username=\"" + username + "\" and password=\"" + password + "\"";
 				
 				//gets all tuples from A
 				ResultSet result = s.executeQuery(str);
