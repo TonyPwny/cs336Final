@@ -46,7 +46,7 @@ Project Final Group 4
 		    out.print("First-Class Fare"); out.print("<input type='radio' name='sort' value='fare_first'>"); 
 		    out.print("   ");
 		    out.print("Airline: "); out.print("<input type='text' name='sort' value='airline'>");
-		    out.print("   ");  out.print("<INPUT TYPE='submit' VALUE='SORT'>");
+		    out.print("   ");  out.print("<INPUT TYPE='submit' NAME='SORT'>");
 		out.print("</tr>");
 		
 		
@@ -57,7 +57,8 @@ Project Final Group 4
 			//Connect to database
 			ApplicationDB db = new ApplicationDB();
 			Connection conn = db.getConnection();
-
+			String someVariable = "Flight.flightid";
+			
 			String str = "SELECT FlightDate.flight_id, FlightDate.depart_date, Flight.depart_aid, FlightDate.arrive_date, Flight.arrive_aid "
 					+ "from FlightDate " + "where FlightDate.flight_id = Flight.flight_id AND FlightDate.flight_id = ? ";
 					
@@ -156,7 +157,20 @@ Project Final Group 4
 			//Search a one way by Airport ids and dates
 			ApplicationDB db = new ApplicationDB();
 			Connection conn = db.getConnection();
-	
+			String someVariable = "Flight.flightid";
+
+			//if(request.getParameter("sort" != null))
+		//	{
+		//		if(request.getParameter("sort".equals("fare_econ")))
+		//				{
+					
+		//					someVariable = "Flight.fare_econ";
+		//				
+		//				}
+		//	}
+			
+
+			
 			String str =
 
 					"SELECT FlightDate.flight_id, FlightDate.depart_date, Flight.depart_aid, FlightDate.arrive_date, Flight.arrive_aid, "
@@ -166,7 +180,8 @@ Project Final Group 4
 							+ "AND FlightDate.depart_date >= ? "
 							+ "and FlightDate.depart_date <= ? " 
 							+ "and Flight.depart_aid = ? "
-							+ "and Flight.arrive_aid = ?";
+							+ "and Flight.arrive_aid = ? ";
+						//	+  "ORDER BY " + someVariable + " ";
 
 			PreparedStatement stmt = conn.prepareStatement(str);
 			stmt.setString(1, takeoffd1);
