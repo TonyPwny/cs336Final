@@ -86,22 +86,11 @@
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
-				out.print("Type");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
 				out.print("Fare Totals");
 				out.print("</td>");
 
 				//parse out the results
 				while (result.next()) {
-					//Make a query for the sum of the user's total fares
-					String str2 = "SELECT sum(total_fare) as fare_sum from DB1.reserves r, DB1.Ticket t" +
-					"WHERE r.ticket_num = t.ticket_num AND r.username LIKE '" + result.getString("username") + "';";
-					//Create a SQL statement
-					Statement stmt2 = con.createStatement();
-					//Run the query against the database.
-					ResultSet result2 = stmt2.executeQuery(str);
 					//make a row
 					out.print("<tr>");
 					//make a column
@@ -114,12 +103,27 @@
 					out.print(result.getString("name_user"));
 					out.print("</td>");
 					out.print("<td>");
-					//Print out current user_type:
-					out.print(result.getString("usertype"));
-					out.print("</td>");
-					out.print("<td>");
-					//Print out total fares:
-					out.print(result2.getString("fare_sum"));
+					
+					//Make a query for the sum of the user's total fares
+					/*String str2 = "SELECT sum(total_fare) as fare_sum from DB1.reserves r, DB1.Ticket t" +
+					"WHERE r.ticket_num = t.ticket_num AND r.username LIKE '" + result.getString("username") + "';";*/
+					String str2 = "SELECT sum(total_fare) as fare_sum from DB1.reserves r, DB1.Ticket t "
+						+ "WHERE r.ticket_num = t.ticket_num AND r.username LIKE '" + result.getString("username") + "';";
+					//Create a SQL statement
+					Statement stmt2 = con.createStatement();
+					//Run the query against the database.
+					ResultSet result2 = stmt2.executeQuery(str2);
+					
+					//Check to see if total fares is null; if so, just print 0
+					if(!result2.first()){
+						out.print("0");
+					} else{
+						if(result2.getString("fare_sum") == null){
+							out.print("0");
+						} else{
+							out.print(result2.getString("fare_sum"));
+						}
+					}
 					out.print("</td>");
 				}
 				out.print("</table>");
