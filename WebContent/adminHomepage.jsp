@@ -18,6 +18,7 @@
 		<a href="salesReportSearch.jsp">Sales Report Search</a><br>
 		<a href="flightSearch_AdminCR.jsp">Flight Search</a><br>
 		<a href="airlineSearch_AdminCR.jsp">Airline Search</a><br>
+		<a href="airlineRevenue_AdminCR.jsp">Airline Revenues</a><br>
 		<a href="airportSearch_AdminCR.jsp">Airport Search</a><br>
 		<a href="ticketSearch_AdminCR.jsp">Ticket Search</a><br>
 		<a href="userSearch_Admin.jsp">Search All Users</a><br>
