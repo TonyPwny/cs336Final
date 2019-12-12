@@ -20,6 +20,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	String loginURL = "login.jsp";
 	String flightSearch = "flightSearch_AdminCR.jsp";
 	String flightUpdate = "flightUpdate_AdminCR.jsp";
+	String flightDelete = "flightDelete_Admin.jsp";
 	String flightDateUpdate = "flightDateUpdate_AdminCR.jsp";
 	String flightDateAdd = "flightDateAdd_AdminCR.jsp";
 	String flightDateDelete = "flightDateDelete_AdminCR.jsp";
@@ -148,10 +149,8 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				//make a column
 				out.print("<td>");
 				//Print out current flight_id:
-				out.print("<select name='flight_id'>");
-				out.print("<option value='" + flightInfoResult.getString("flight_id") + "'>"
-						+ flightInfoResult.getString("flight_id") + "</option>");
-				out.print("</select>");
+				out.print("<input type='text' name='flight_id' value='"
+						+ flightInfoResult.getString("flight_id") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current airline_name:
@@ -221,6 +220,15 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				out.print("</tr>");
 			}
 			out.print("</table>");
+			
+			if (logintype.equals("Admin")) {
+				out.print("<table><tr><td>[ADMIN MODE]: </td>");
+				out.print("<td><form method='post' action='" + flightDelete + "'>");
+				out.print("<button type='submit' name='flight_id' value='" + flightID + "'>");
+				out.print("delete");
+				out.print("</button>");
+				out.print("</form></td></tr></table>");
+			}
 
 			//Make an HTML table to show the flightDateResults in:
 			out.print("<table>");

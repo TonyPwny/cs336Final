@@ -23,17 +23,17 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 		response.sendRedirect(loginURL);
 	}
 
-	//Get the airline_id from the airlineInfo_AdminCR.jsp
-	String airlineID = request.getParameter("airline_id");
+	//Get the flight_id from the flightInfo_AdminCR.jsp
+	String flightID = request.getParameter("flight_id");
 	
 	String str_query_title;
-	str_query_title = airlineID;
+	str_query_title = flightID;
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>[<%
 	out.println(logintype);
-%>] Airline Delete - <%
+%>] Flight Delete - <%
 	out.println(str_query_title);
 %></title>
 </head>
@@ -55,13 +55,13 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			Statement stmt = con.createStatement();
 
 
-			//Make a delete statement for the Airline table:
-			String update = "DELETE FROM Airline WHERE airline_id = ?";
+			//Make a delete statement for the Flight table:
+			String update = "DELETE FROM Flight WHERE flight_id = ?";
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			PreparedStatement ps = con.prepareStatement(update);
 
 			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
-			ps.setString(1, airlineID);
+			ps.setString(1, flightID);
 			//Run the query against the DB
 			ps.executeUpdate();
 

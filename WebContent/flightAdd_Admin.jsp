@@ -23,17 +23,17 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 		response.sendRedirect(loginURL);
 	}
 
-	//Get the airline_id from the airlineInfo_AdminCR.jsp
-	String airlineID = request.getParameter("airline_id");
-	
+	//Get the new flight_id from the flightAddForm_Admin.jsp
+	String flightID = request.getParameter("flight_id");
+
 	String str_query_title;
-	str_query_title = airlineID;
+	str_query_title = flightID;
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>[<%
 	out.println(logintype);
-%>] Airline Delete - <%
+%>] Flight Add - <%
 	out.println(str_query_title);
 %></title>
 </head>
@@ -54,14 +54,36 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 
+			String airline_id = request.getParameter("airline_id");
+			String aircraft_id = request.getParameter("aircraft_id");
+			String depart_aid = request.getParameter("depart_aid");
+			String arrive_aid = request.getParameter("arrive_aid");
+			String depart_time = request.getParameter("depart_time");
+			String arrive_time = request.getParameter("arrive_time");
+			String flight_days = request.getParameter("flight_days");
+			String flight_type = request.getParameter("flight_type");
+			String fare_econ = request.getParameter("fare_econ");
+			String fare_first = request.getParameter("fare_first");
+			String fare_bus = request.getParameter("fare_bus");
 
-			//Make a delete statement for the Airline table:
-			String update = "DELETE FROM Airline WHERE airline_id = ?";
+			//Make an insert statement for the Flight table:
+			String update = "INSERT INTO Flight VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			PreparedStatement ps = con.prepareStatement(update);
 
 			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
-			ps.setString(1, airlineID);
+			ps.setString(1, flightID);
+			ps.setString(2, airline_id);
+			ps.setString(3, aircraft_id);
+			ps.setString(4, depart_aid);
+			ps.setString(5, arrive_aid);
+			ps.setString(6, depart_time);
+			ps.setString(7, arrive_time);
+			ps.setString(8, flight_days);
+			ps.setString(9, flight_type);
+			ps.setString(10, fare_econ);
+			ps.setString(11, fare_first);
+			ps.setString(12, fare_bus);
 			//Run the query against the DB
 			ps.executeUpdate();
 

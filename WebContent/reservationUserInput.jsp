@@ -22,11 +22,13 @@
 		//String departDate1 = (String) session.getAttribute("depdate1");
 		String str1, str2, str3, str4 = null;
 		
+		/*
 		out.print("<tr>");
 		out.print(username);
 		out.print(flightID1);
 		out.print(departDate1);
 		out.print("</tr>");
+		*/
 		
 		//We're guaranteed at least one flight_id, so make it into a query
 		str1 = "SELECT * FROM DB1.FlightDate fd, DB1.Flight f "
