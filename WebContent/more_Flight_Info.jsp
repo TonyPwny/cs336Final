@@ -1,5 +1,5 @@
 <!-- 
-Nicolas Gundersen
+Nicolas Gundersen neg62
 CS336
 Professor Miranda
 Project Final Group 4
@@ -160,6 +160,18 @@ String str =
 			out.print(flights.getString("Flight.fare_first"));
 			out.print("</td>");
 			out.print("<td>");
+			
+			out.print("<td>");
+			
+			out.print("<form method='post' action='reservationMake.jsp'>");
+			out.print("<button type='submit' name='book_now' +  value = \"" + flights.getString("flight1_id") + "\">");
+			out.print("Book now!");
+		
+			out.print("</button>");
+			out.print("</form>");
+			
+			out.print("</td>");
+			
 		}
 
 		
