@@ -29,7 +29,12 @@ Project Final Group 4
 		String flightid = request.getParameter("flight_id");
 		String departing_port = request.getParameter("depport");
 		String arriving_port = request.getParameter("arrivport");
-
+		String flight1id;
+		String flight2id;
+		String flight3id;
+		
+		
+		
 		List<String> list = new ArrayList<String>();
 		//Search a one way flight by flightid
 		if (!flightid.isEmpty()){
@@ -106,16 +111,16 @@ Project Final Group 4
 				out.print("<td>");
 				//Print out a moreinfo button:
 				out.print("<form method='post' action='more_Flight_Info.jsp'>");
-				out.print("<button type='submit' name='more_info' +  value = \"" + flights.getString("FlightDate.flight_id") + "\">");
+				out.print("<button type='submit' name='more_info' +  value = \""  + flights.getString("FlightDate.flight_id") + "\">");
 				out.print("more info");
 				out.print("</button>");
 				out.print("</form>");
 				out.print("</td>");
 				
-			//	out.print("<form method='post' action='make_Reservation.jsp'>");
-			//	out.print("<button type='submit' name='Book now!' +  value = \"" + flights.getString("FlightDate.flight_id") + "\">");
-			//	out.print("</button>");
-			//	out.print("</form>");
+				out.print("<form method='post' action='make_Reservation.jsp'>");
+				out.print("<button type='submit' name='Book now!' +  value = \"" + flights.getString("FlightDate.flight_id") + "\">");
+				out.print("</button>");
+				out.print("</form>");
 				out.print("</tr>");
 				
 				
@@ -248,7 +253,8 @@ Project Final Group 4
 					out.print("<td>");
 					
 					out.print("<form method='post' action='reservationMake.jsp'>");
-					out.print("<button type='submit' name='book_now' +  value = \"" + flights.getString("FlightDate.flight_id") + "\">");
+					out.print("<button type='submit' name='book_now' onclick=\""  
+					+ "session.setAttribute(\"flight1id\", " + (flights.getString("flight1_id")) + ") " + ">");
 					out.print("Book now!");
 				
 					out.print("</button>");
@@ -503,7 +509,14 @@ Project Final Group 4
 				out.print("<td>");
 				
 				out.print("<form method='post' action='reservationMake.jsp'>");
-				out.print("<button type='submit' name='book_now' +  value = \"" + flightsCon1.getString("flight1_id") + "\">");
+				out.print("<button type='submit' name='book_now' onclick=\"" 
+						+ "session.setAttribute(\"flight2id\", " + (flightsCon1.getString("flight2_id")) + ") " 
+						+ "session.setAttribute(\"flight3id\", " + (flightsCon1.getString("flight3_id")) + ") " + ">");
+
+
+				
+				
+				
 				out.print("Book now!");
 			
 				out.print("</button>");
