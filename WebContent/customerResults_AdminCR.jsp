@@ -88,6 +88,10 @@
 				out.print("<td>");
 				out.print("Fare Totals");
 				out.print("</td>");
+				//make a column
+				out.print("<td>");
+				out.print("");
+				out.print("</td>");
 
 				//parse out the results
 				while (result.next()) {
@@ -125,6 +129,15 @@
 						}
 					}
 					out.print("</td>");
+					out.print("<td>");
+					//Create a button for admins/sales reps to view reservations
+					out.print("<form method='get' action='customerReservation_AdminCR.jsp' enctype=text/plain>");
+						out.print("<button type='submit' name='username' value=" + result.getString("username") + ">");
+							out.print("Check Reservations");
+						out.print("</button>");
+					out.print("</form>");
+					out.print("</td>");
+					out.print("</tr>");
 				}
 				out.print("</table>");
 
