@@ -285,13 +285,24 @@ Project Final Group 4
 					out.print("<td>");
 					
 					out.print("<form method='post' action='reservationUserInput.jsp'>");
+					/*Nicky's Original Code
 					out.print("<button type='submit' name='book_now' onclick=\"" 
 					+ "session.setAttribute(\"flight1id\", " + (flights.getString("FlightDate.flight_id")) + ") "
 					+ "session.setAttribute(\"depdate1\", " + (flights.getString("FlightDate.depart_date")) + ") " + ">");
 
 					out.print("Book now!");
 				
-					out.print("</button>");
+					out.print("</button>");*/
+					
+					//Added by Tom
+					out.print("<input type = 'hidden' name = 'flight1id'");
+					out.print("value = '" + flights.getString("FlightDate.flight_id") + "'>");
+					
+					out.print("<input type = 'hidden' name = 'depdate1'");
+					out.print("value = '" + flights.getString("FlightDate.depart_date") + "'>");
+					
+					out.print("<button type = 'submit'>Book now!</button>");
+					
 					out.print("</form>");
 					
 					out.print("</td>");
@@ -543,6 +554,7 @@ Project Final Group 4
 				out.print("<td>");
 				
 				out.print("<form method='post' action='reservationUserInput.jsp'>");
+				/*Nicky's Original Code
 				out.print("<button type='submit' name='book_now' onclick=\"" 
 						+ "session.setAttribute(\"flight2id\", " + (flightsCon1.getString("flight1_id")) + ") " 
 						+ "session.setAttribute(\"flight3id\", " + (flightsCon1.getString("flight2_id")) + ") " 
@@ -556,7 +568,21 @@ Project Final Group 4
 				
 				out.print("Book now!");
 			
-				out.print("</button>");
+				out.print("</button>");*/
+				
+				//Added by Tom
+				out.print("<input type = 'hidden' name = 'flight2id'");
+				out.print("value = '" + flights.getString("FlightDate.flight1_id") + "'>");
+				out.print("<input type = 'hidden' name = 'flight3id'");
+				out.print("value = '" + flights.getString("FlightDate.flight2_id") + "'>");
+				
+				out.print("<input type = 'hidden' name = 'depdate2'");
+				out.print("value = '" + flights.getString("FlightDate.depart1_date") + "'>");
+				out.print("<input type = 'hidden' name = 'depdate3'");
+				out.print("value = '" + flights.getString("FlightDate.depart2_date") + "'>");
+				
+				out.print("<button type = 'submit'>Book now!</button>");
+				
 				out.print("</form>");
 				
 				out.print("</td>");
