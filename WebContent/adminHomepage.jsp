@@ -15,7 +15,7 @@
 			out.println("Hello " + (String)session.getAttribute("username") + "!");
 		%><br>
 		
-		<a href="salesReportSearch.jsp">Sales Report Search</a><br>
+		<a onclick='<% session.setAttribute("test","ok"); session.setAttribute("test2","ok"); %>' href="salesReportSearch.jsp">Sales Report Search</a><br>
 		<a href="flightSearch_AdminCR.jsp">Flight Search</a><br>
 		<a href="airlineSearch_AdminCR.jsp">Airline Search or Add</a><br>
 		<a href="airlineRevenue_AdminCR.jsp">Airline Revenues</a><br>

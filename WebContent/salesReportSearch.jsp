@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		<br><b>Sales Report Search</b><br><br>
-		
+		<% out.print(session.getAttribute("test")); out.print(session.getAttribute("test2")); %>
 		<form method="post" action=salesReportResult.jsp>
 			Month<select name="month">
 				<option value="1" >January</option>
