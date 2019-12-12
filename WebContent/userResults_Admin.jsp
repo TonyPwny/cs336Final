@@ -130,7 +130,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 					out.print("</td>");
 					out.print("<td>");
 					//Print out an edit button:
-					out.print("<form method='post' action='" + username + "'>");
+					out.print("<form method='post' action='" + userInfo + "'>");
 					out.print(
 							"<button type='submit' name='username' value=" + result.getString("username") + ">");
 					out.print("more info");
