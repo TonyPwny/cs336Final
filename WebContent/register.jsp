@@ -38,7 +38,7 @@
 				Connection conn = DriverManager.getConnection(url, "admin", "password");
 				
 				Statement s = conn.createStatement();
-				String str = "select * from login where username=\"" + username + "\"";
+				String str = "select * from User where username=\"" + username + "\"";
 				
 				//gets all tuples from A
 				ResultSet result = s.executeQuery(str);
@@ -48,7 +48,7 @@
 					conn.close();
 				} else {
 					session.setAttribute("username", username);
-					str = "insert into login(username, password) values(\"" + username + "\", \"" + password + "\")";
+					str = "insert into User(username, password) values(\"" + username + "\", \"" + password + "\")";
 					s.executeUpdate(str);
 					
 					conn.close();
