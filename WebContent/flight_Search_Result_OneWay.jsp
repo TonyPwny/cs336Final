@@ -253,8 +253,8 @@ Project Final Group 4
 					out.print("<td>");
 					
 					out.print("<form method='post' action='reservationMake.jsp'>");
-					out.print("<button type='submit' name='book_now' onclick=\""  
-					+ "session.setAttribute(\"flight1id\", " + (flights.getString("flight1_id")) + ") " + ">");
+					out.print("<button type='submit' name='book_now' onclick=\"" 
+					+ "session.setAttribute(\"flight1id\", " + (flights.getString("FlightDate.flight_id")) + ") " + ">");
 					out.print("Book now!");
 				
 					out.print("</button>");
