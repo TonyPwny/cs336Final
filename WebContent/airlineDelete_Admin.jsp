@@ -19,23 +19,21 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	String logintype = (String) session.getAttribute("usertype");
 	String loginURL = "login.jsp";
 
-	if (session.getAttribute("username") == null || logintype.equals("User")) {
+	if (session.getAttribute("username") == null || !logintype.equals("Admin")) {
 		response.sendRedirect(loginURL);
 	}
 
-	//Get the search from the airportSearch_AdminCR.jsp
-	String airportID = request.getParameter("airport_id");
-	//Make a SELECT query from the Airport table with airportID specified by the 'airport_id' parameter from airportSearch_AdminCR.jsp
-	String str, str_query, str_query_title;
-	str = "SELECT * FROM DB1.Airport ap WHERE ap.airport_id = '" + airportID + "'";	str_query = "Result for " + airportID + " updates:<br><br>";
-
-	str_query_title = airportID;
+	//Get the search from the airlineInfo_AdminCR.jsp
+	String airlineID = request.getParameter("airline_id");
+	
+	String str_query_title;
+	str_query_title = airlineID;
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>[<%
 	out.println(logintype);
-%>] Airport Update Information - <%
+%>] Airline Delete - <%
 	out.println(str_query_title);
 %></title>
 </head>
@@ -56,26 +54,14 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 
-			//Get parameters from the HTML form at airportInfo_AdminCR.jsp
-			String airport_id = request.getParameter("airport_id");
-			String new_airport_id = request.getParameter("new_airport_id");
-			String new_name = request.getParameter("name");
-			String new_city = request.getParameter("city");
-			String new_state = request.getParameter("state");
-			String new_country = request.getParameter("country");
 
-			//Make an insert statement for the Sells table:
-			String update = "UPDATE Airport SET airport_id = ?, name = ?, city = ?, state = ?, country = ? WHERE airport_id = ?";
+			//Make a delete statement for the Airline table:
+			String update = "DELETE FROM Airline WHERE airline_id = ?";
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			PreparedStatement ps = con.prepareStatement(update);
 
 			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
-			ps.setString(1, new_airport_id);
-			ps.setString(2, new_name);
-			ps.setString(3, new_city);
-			ps.setString(4, new_state);
-			ps.setString(5, new_country);
-			ps.setString(6, airport_id);
+			ps.setString(1, airlineID);
 			//Run the query against the DB
 			ps.executeUpdate();
 
