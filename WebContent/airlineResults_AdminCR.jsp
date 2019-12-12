@@ -95,10 +95,6 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
-				out.print("Revenue Contribution");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
 				out.print("");
 				out.print("</td>");
 				out.print("</tr>");
@@ -109,23 +105,19 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 					out.print("<tr>");
 					//make a column
 					out.print("<td>");
-					//Print out current airport_id:
+					//Print out current airline_id:
 					out.print(result.getString("airline_id"));
 					out.print("</td>");
 					out.print("<td>");
-					//Print out current name:
+					//Print out current airline_name:
 					out.print(result.getString("airline_name"));
 					out.print("</td>");
 					out.print("<td>");
-					//Print out current city:
-					out.print("revenue contrib");
-					out.print("</td>");
-					out.print("<td>");
-					//Print out a more info button:
+					//Print out an edit button:
 					out.print("<form method='post' action='" + airlineInfo + "'>");
 					out.print("<button type='submit' name='airline_id' value=" + result.getString("airline_id")
 							+ ">");
-					out.print("more info");
+					out.print("edit");
 					out.print("</button>");
 					out.print("</form>");
 					out.print("</td>");
