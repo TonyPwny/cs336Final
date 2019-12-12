@@ -60,7 +60,7 @@
 		
 		//Use Random to generate a random flight number
 		Random rnd = new Random();
-		int ticketNum = 100000000 + rnd.nextInt(999999999);
+		int ticketNum = 100000000 + rnd.nextInt(899999999);
 		
 		//Create a while loop to make sure there are no duplicate flight numbers
 		boolean duplicate = true;
