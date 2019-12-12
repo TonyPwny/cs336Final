@@ -38,7 +38,7 @@
 				if (result.next()) {
 					session.setAttribute("username", username);
 				// gets usertype from column 3 and sets it to usertype object
-					String usertype = result.getString(3);
+					String usertype = result.getString(4);
 					session.setAttribute("usertype", usertype);
 				
 				// checks what type of guest is on the site

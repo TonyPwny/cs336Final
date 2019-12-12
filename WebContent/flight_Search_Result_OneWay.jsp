@@ -154,6 +154,7 @@ Project Final Group 4
 		
 			// Thanks to anthonys beautiful query
 			//Search a connecting one way by Airport ids and dates 
+			Statement s = null;
 			String updstr = 
 							"DROP TABLE IF EXISTS Departing; DROP TABLE IF EXISTS Arrival; "
 							+ "CREATE TABLE DB1.Departing ( "
@@ -166,16 +167,16 @@ Project Final Group 4
 							+ "SELECT * FROM DB1.FlightDate fd "
 							+ "WHERE fd.arrive_aid = ? ); ";
 						
-						    s = conn.PreparedStatement(updstr);
-							stmt2.setString(1, departing_port);
-							stmt2.setString(2, takeoffd1);
-							stmt2.setString(3, takeoffd2);
-							stmt2.setString(4, arriving_port);
-							s.ExecuteUpdate(updstr);
+						    s = conn.prepareStatement(updstr);
+							s.setString(1, departing_port);
+							s.setString(2, takeoffd1);
+							s.setString(3, takeoffd2);
+							s.setString(4, arriving_port);
+							s.executeUpdate();
 							
+				String str2 =		
 							
-							
-							+ "SELECT DB1.d.depart_date AS depart1_date, "
+							"SELECT DB1.d.depart_date AS depart1_date, "
 							+ "DB1.d.arrive_date AS arrive1_date, "
 							+ "DB1.d.flight_id AS flight1_id, "
 							+ "DB1.d.depart_aid AS depart1_aid, "
@@ -190,15 +191,15 @@ Project Final Group 4
 							+ "AND a.arrive_aid = ? "
 							+ "AND d.arrive_aid = a.depart_aid";
 							
-							PreparedStatement stmt2 = conn.prepareStatement(str2);
-							stmt2.setString(1, departing_port);
-							stmt2.setString(2, takeoffd1);
-							stmt2.setString(3, takeoffd2);
-							stmt2.setString(4, arriving_port);
-							stmt2.setString(5, departing_port);
-							stmt2.setString(6, arriving_port);
+							PreparedStatement stmt3 = conn.prepareStatement(str2);
+							stmt3.setString(1, departing_port);
+							stmt3.setString(2, takeoffd1);
+							stmt3.setString(3, takeoffd2);
+							stmt3.setString(4, arriving_port);
+							stmt3.setString(5, departing_port);
+							stmt3.setString(6, arriving_port);
 
-							ResultSet flightsCon1 = stmt2.execute();
+							ResultSet flightsCon1 = stmt3.executeQuery();
 									
 									
 			out.print("<table>");
