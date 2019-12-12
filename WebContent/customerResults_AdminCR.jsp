@@ -65,7 +65,7 @@
 				out.print(str_query);
 
 				out.print(
-					"<form action=userInfo_Admin.jsp><table><tr>" + 
+					"<table><tr>" + 
 						"<td>" + 
 							"Username" + 
 						"</td>" + 
@@ -129,12 +129,17 @@
 					}
 					out.print(
 						String.format(
-							"<td><button type='submit' name='username' value='%s'>More Info</button></td>" +
+							"<td><form action=userInfo_Admin.jsp>" +
+								"<button type='submit' name='username' value='%s'>More Info</button></td>" +
+							"</form></td>" +
+							"<td><form action=customerReservation_AdminCR.jsp>" +
+								"<button type='submit' name='username' value='%s'>Check Reservations</button></td>" +
+							"</form></td>" +
 							"</tr>",
+							result.getString("username"),
 							result.getString("username")
 						)
 					);
-					
 				}
 				out.print("</table></form>");
 

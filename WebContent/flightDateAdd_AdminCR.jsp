@@ -23,20 +23,17 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 		response.sendRedirect(loginURL);
 	}
 
-	//Get the search from the flightSearch_AdminCR.jsp
+	//Get the flight_id from the flightInfo_AdminCR.jsp
 	String flightID = request.getParameter("flight_id");
-	//Make a SELECT query from the flight table with flightID specified by the 'flight_id' parameter from flightSearch_AdminCR.jsp
-	String str, str_query, str_query_title;
-	str = "SELECT * FROM DB1.Flight f, DB1.Airline al, DB1.Aircraft ac WHERE f.flight_id = '" + flightID
-			+ "' AND f.airline_id = al.airline_id AND f.aircraft_id = ac.aircraft_id";
-	str_query = "Result for " + flightID + " updates:<br><br>";
+	
+	String str_query_title;
 	str_query_title = flightID;
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>[<%
 	out.println(logintype);
-%>] Flight Update Information - <%
+%>] Flight Date Add - <%
 	out.println(str_query_title);
 %></title>
 </head>
@@ -59,30 +56,18 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 
 			//Get parameters from the HTML form at flightInfo_AdminCR.jsp
 			String flight_id = request.getParameter("flight_id");
-			String new_aircraft_id = request.getParameter("aircraft_id");
-			String new_depart_time = request.getParameter("depart_time");
-			String new_arrive_time = request.getParameter("arrive_time");
-			String new_flight_days = request.getParameter("flight_days");
-			String new_flight_type = request.getParameter("flight_type");
-			String new_fare_econ = request.getParameter("fare_econ");
-			String new_fare_first = request.getParameter("fare_first");
-			String new_fare_bus = request.getParameter("fare_bus");
+			String new_depart_date = request.getParameter("depart_date");
+			String new_arrive_date = request.getParameter("arrive_date");
 
-			//Make an insert statement for the Flight table:
-			String update = "UPDATE Flight SET aircraft_id = ?, depart_time = ?, arrive_time = ?, flight_days = ?, flight_type = ?, fare_econ = ?, fare_first = ?, fare_bus = ? WHERE flight_id = ?";
+			//Make an insert statement for the FlightDate table:
+			String update = "INSERT INTO FlightDate VALUES (?, ?, ?)";
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			PreparedStatement ps = con.prepareStatement(update);
 
 			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
-			ps.setString(1, new_aircraft_id);
-			ps.setString(2, new_depart_time);
-			ps.setString(3, new_arrive_time);
-			ps.setString(4, new_flight_days);
-			ps.setString(5, new_flight_type);
-			ps.setString(6, new_fare_econ);
-			ps.setString(7, new_fare_first);
-			ps.setString(8, new_fare_bus);
-			ps.setString(9, flight_id);
+			ps.setString(1, new_depart_date);
+			ps.setString(2, new_arrive_date);
+			ps.setString(3, flight_id);
 			//Run the query against the DB
 			ps.executeUpdate();
 

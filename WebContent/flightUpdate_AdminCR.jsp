@@ -26,10 +26,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	//Get the search from the flightSearch_AdminCR.jsp
 	String flightID = request.getParameter("flight_id");
 	//Make a SELECT query from the flight table with flightID specified by the 'flight_id' parameter from flightSearch_AdminCR.jsp
-	String str, str_query, str_query_title;
-	str = "SELECT * FROM DB1.Flight f, DB1.Airline al, DB1.Aircraft ac WHERE f.flight_id = '" + flightID
-			+ "' AND f.airline_id = al.airline_id AND f.aircraft_id = ac.aircraft_id";
-	str_query = "Result for " + flightID + " updates:<br><br>";
+	String str_query_title;
 	str_query_title = flightID;
 %>
 <head>

@@ -202,7 +202,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 					out.print(result.getString("fare_econ"));
 					out.print("</td>");
 					out.print("<td>");
-					//Print out an edit button:
+					//Print out an more info button:
 					out.print("<form method='post' action='" + flightInfo + "'>");
 					out.print(
 							"<button type='submit' name='flight_id' value=" + result.getString("flight_id") + ">");
