@@ -23,7 +23,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 		response.sendRedirect(loginURL);
 	}
 
-	//Get the search from the airportInfo_AdminCR.jsp
+	//Get the airport_id from the airportInfo_AdminCR.jsp
 	String airportID = request.getParameter("airport_id");
 	
 	String str_query_title;

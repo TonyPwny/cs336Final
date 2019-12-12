@@ -70,11 +70,11 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			//make a column
 			out.print("<td>");
 			//text box to enter in new airline_id
-			out.print("<input type='text' name='airline_id' value='ID'");
+			out.print("<input type='text' name='airline_id' value='ID'>");
 			out.print("</td>");
 			out.print("<td>");
 			//text box to enter in new airline_name
-			out.print("<input type='text' name='airline_name' value='New Airline Name'");
+			out.print("<input type='text' name='airline_name' value='New Airline Name'>");
 			out.print("</td>");
 			out.print("<td>");
 			//Print out an add button:

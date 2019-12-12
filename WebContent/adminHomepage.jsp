@@ -16,12 +16,16 @@
 		%><br>
 		
 		<a href="salesReportSearch.jsp">Sales Report Search</a><br>
+		<a href="flightAddForm_Admin.jsp">Flight Add</a><br>
 		<a href="flightSearch_AdminCR.jsp">Flight Search</a><br>
+		<a href="airlineAddForm_Admin.jsp">Airline Add</a><br>
 		<a href="airlineSearch_AdminCR.jsp">Airline Search</a><br>
-		<a href="airlineRevenue_AdminCR.jsp">Airline Revenues</a><br>
+		<a href="airlineRevenue_Admin.jsp">Airline Revenues</a><br>
+		<a href="airportAddForm_Admin.jsp">Airport Add</a><br>
 		<a href="airportSearch_AdminCR.jsp">Airport Search</a><br>
 		<a href="ticketSearch_AdminCR.jsp">Ticket Search</a><br>
-		<a href="userSearch_Admin.jsp">Search All Users</a><br>
+		<a href="flightAddForm_Admin.jsp">User Add</a><br>
+		<a href="userSearch_Admin.jsp">User Search</a><br>
 		<a href="customerSearch_AdminCR.jsp">Search Customers</a><br>
 		
 		<br><a href="logout.jsp">Logout</a>

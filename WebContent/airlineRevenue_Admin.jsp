@@ -98,7 +98,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current airline_name:
-				out.print(result.getString("revenue"));
+				out.print("$" + result.getString("revenue"));
 				out.print("</td>");
 				out.print("</tr>");
 			}

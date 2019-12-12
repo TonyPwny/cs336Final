@@ -23,7 +23,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 		response.sendRedirect(loginURL);
 	}
 
-	//Get the search from the ticketSearch_AdminCR.jsp
+	//Get the ticket_num from the ticketSearch_AdminCR.jsp
 	String ticketNum = request.getParameter("ticket_num");
 	
 	String str_query_title;
