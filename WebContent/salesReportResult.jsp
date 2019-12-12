@@ -17,7 +17,7 @@
 			
 			//Check arguments
 			boolean validInput = true;
-			if (!year.isEmpty()) {
+			if (year != null && !year.isEmpty()) {
 				try {
 					Integer.parseInt(year);
 				} catch (NumberFormatException e) {
@@ -38,10 +38,11 @@
 				out.println("<br><b>Sales Report for " + month + "/" + year + "</b><br><br>");
 				
 				//Get end of month
-				String year2 = Integer.toString(Integer.parseInt(year)+1);
+				String year2 = year;
 				String month2 = Integer.toString(Integer.parseInt(month)+1);
 				if (month2.equals("13")) {
 					month2 = "01";
+					year2 = Integer.toString(Integer.parseInt(year)+1);
 				}
 				if (month2.length() == 1) {
 					month2 = "0" + month2;
@@ -52,25 +53,25 @@
 				//Connect to database
 				Connection conn = DriverManager.getConnection(url, "admin", "password");
 				String str = 
-						"select F.flight_id id, F.fare_econ fe, F.fare_first ff, F.fare_bus fb, d.depart_date depart_date, F.depart_time depart_time " +
-						"from Flight F, departure d " +
-						"where F.flight_id = d.flight_id " +
-							"and d.depart_date >= \"" + year + "-" + month + "-01\" " + 
-							"and d.depart_date < \"" + year2 + "-" + month2 + "-01\" " +
-						"group by (F.flight_id)" +
-						"order by d.depart_date asc";
+						"select F.flight_id id, F.fare_econ fe, F.fare_first ff, F.fare_bus fb, FD.depart_date depart_date, F.depart_time depart_time " +
+						"from Flight F, FlightDate FD " +
+						"where F.flight_id = FD.flight_id " +
+							"and FD.depart_date >= \"" + year + "-" + month + "-01\" " + 
+							"and FD.depart_date < \"" + year2 + "-" + month2 + "-01\" " +
+						"group by (id)" +
+						"order by FD.depart_date asc";
 				PreparedStatement stmt = conn.prepareStatement(str);
 				//gets all flights within month with ID, profit, and # of customers
 				ResultSet flights = stmt.executeQuery();
 				
 				str =
 					"select T.ticket_num id, t.class class, F.fare_econ fe, F.fare_first ff, F.fare_bus fb " +
-					"from Ticket T, trip t, Flight F, departure d " +
+					"from Ticket T, trip t, Flight F, FlightDate FD " +
 					"where T.ticket_num = t.ticket_num " +
 						"and t.flight_id = F.flight_id " +
-						"and F.flight_id = d.flight_id " +
-						"and d.depart_date >= \"" + year + "-" + month + "-01\" " + 
-						"and d.depart_date < \"" + year2 + "-" + month2 + "-01\" ";
+						"and F.flight_id = FD.flight_id " +
+						"and FD.depart_date >= \"" + year + "-" + month + "-01\" " + 
+						"and FD.depart_date < \"" + year2 + "-" + month2 + "-01\" ";
 				stmt = conn.prepareStatement(str);
 				//gets all tickets, their seat's class, and all prices for that flight
 				ResultSet costs = stmt.executeQuery();
@@ -128,7 +129,7 @@
 								flights.getDouble("ff"),
 								flights.getDouble("fb"),
 								flights.getDate("depart_date").toString(),
-								flights.getDate("depart_time").toString()
+								flights.getTime("depart_time").toString()
 							)
 						);
 					} while (flights.next());

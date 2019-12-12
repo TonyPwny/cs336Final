@@ -17,8 +17,8 @@
 				out.println("<br><b>Flight " + flightid + "</b><br><br>");
 				
 				out.println(
-					"View Flight Info <form method=\"post\" action=flightInfo.jsp>" +
-						"<input type=\"submit\" name=\"flightid\" value=\"" + flightid + "\"" + ">" +
+					"View Flight Info <form method=\"post\" action=flightResults_AdminCR.jsp>" +
+						"<input type=\"submit\" name=\"flight_id\" value=\"" + flightid + "\"" + ">" +
 					"</form><br>"
 				);
 				
@@ -36,64 +36,69 @@
 				stmt.setString(1, flightid);
 				//gets flight info
 				ResultSet flight = stmt.executeQuery();
-				flight.next();
 				
 				str = 
-					"select buys.username username, Ticket.total_fare cost " +
+					"select buys.username username, Ticket.booking_fee cost " +
 					"from buys, Ticket, trip " + 
 					"where buys.ticket_num = Ticket.ticket_num " +
 						"and Ticket.ticket_num = trip.ticket_num " +
-						"and trip.flight_id = ?";
+						"and trip.flight_id = ? " +
+					"group by (buys.ticket_num)";
 				stmt = conn.prepareStatement(str);
 				stmt.setString(1, flightid);
 				//gets customers on flight
 				ResultSet customers = stmt.executeQuery();
 				
-				
-				if (flight.getInt("numCustomers") > 0) {
-					double totalProfit = 0.0;
-					
-					//Sums all costs to get totalProfit
-					while (customers.next()) {
-						totalProfit += customers.getDouble("cost");
-					}
-					
-					out.println(
-						String.format(
-							"<br>Profit: %.2f" +
-							"<br>Number of Customers: %d" +
-							"<br>",
-							totalProfit,
-							flight.getInt("numCustomers")
-						)
-					);
-					
-					out.println("<table><form method=\"post\" action=customerSearchResult.jsp>" +
-						"<tr>" +
-							"<th>Customer ID</th>" +
-						"<tr>"
-					);
-					
-					customers.first();
-					do {
+				if (flight.next()) {
+					if (customers.first()) {
+						double totalProfit = 0.0;
+						
+						//Sums all costs to get totalProfit
+						do {
+							totalProfit += customers.getDouble("cost");
+						} while (customers.next());
+						
 						out.println(
 							String.format(
-								"<tr><input type=\"submit\" name=\"customerid\" value=\"?\">" +
-									"<td>%s</td>" +
-								"</tr>",
-								customers.getString("username"),
-								customers.getString("username")
+								"<br>Profit: %.2f" +
+								"<br>Number of Customers: %d" +
+								"<br>",
+								totalProfit,
+								flight.getInt("numCustomers")
 							)
 						);
-					} while (customers.next());
-					
-					out.println("</form></table><br><br>");
+						
+						out.println("<form method=\"post\" action=userInfo_Admin.jsp><table>" +
+							"<tr>" +
+								"<th>Customer ID</th>" +
+							"<tr>"
+						);
+						
+						customers.first();
+						do {
+							out.println(
+								String.format(
+									"<tr><td>" + 
+										"<input type=\"submit\" name=\"username\" value=\"%s\">" +
+									"</td></tr>",
+									customers.getString("username")
+								)
+							);
+						} while (customers.next());
+						
+						out.println("</table></form><br><br>");
+					} else {
+						out.println(
+							"<br>Profit: 0.00" +
+							"<br>Number of Customers: None" +
+							"<br><br>"
+						);
+					}
 				} else {
 					out.println(
+						"<br><b>:O</b> No customers on this flight" +
 						"<br>Profit: 0.00" +
-						"<br>Number of Customers: None" +
-						"<br><br><br>"
-					);
+						"<br><br>");
 				}
 				conn.close();
 			} else {
