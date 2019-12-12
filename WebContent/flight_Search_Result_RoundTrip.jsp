@@ -61,8 +61,8 @@ Project Final Group 4
 
 				String str2 =
 
-					"SELECT FlightDate.flight_id, FlightDate.depart_date, FlightDate.depart_aid, FlightDate.arrive_date, FlightDate.arrive_aid " +
-					"from FlightDate " +
+					"SELECT FlightDate.flight_id, FlightDate.depart_date, Flight.depart_aid, FlightDate.arrive_date, Flight.arrive_aid " +
+					"from FlightDate, Flight " +
 					"and FlightDate.depart_date >= ?" +
 					"and FlightDate.depart_date <= ? " +
 					"and FlightDate.arrive_aid = ? " +
@@ -131,7 +131,7 @@ Project Final Group 4
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
-				out.print(flightsAB.getString("FlightDate.airport_id"));
+				out.print(flightsAB.getString("Flight.arrival_aid"));
 				out.print("</td>");
 				//print out column header
 				out.print("<td>");
@@ -139,7 +139,7 @@ Project Final Group 4
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
-				out.print(flightsAB.getString("FlightDate.airport_id"));
+				out.print(flightsAB.getString("Flight.depart_aid"));
 				out.print("</td>");
 				
 				
@@ -156,7 +156,7 @@ Project Final Group 4
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current price
-					out.print(flightsBA.getString("FlightDate.airport_id"));
+					out.print(flightsBA.getString("Flight.depart_aid"));
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current beer name:
@@ -164,7 +164,7 @@ Project Final Group 4
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current price
-					out.print(flightsBA.getString("FlightDate.airport_id"));
+					out.print(flightsBA.getString("Fligh.depart_aid"));
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current beer name:

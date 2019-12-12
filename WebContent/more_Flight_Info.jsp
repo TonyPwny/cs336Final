@@ -31,12 +31,13 @@ Project Final Group 4
 		
 String str = 
 
-	"SELECT DISTINCT FlightDate.flight_id, FlightDate.airport_id, FlightDate.depart_date, Flight.depart_time, "  
-		+ "FlightDate.arrive_aid, FlightDate.arrive_date, Flight.arrive_time, " 
+	"SELECT DISTINCT FlightDate.flight_id, Flight.depart_aid, FlightDate.depart_date, Flight.depart_time, "  
+		+ "Flight.arrive_aid, FlightDate.arrive_date, Flight.arrive_time, " 
 		+ "Flight.airline_id, Airline.airline_name, " 
 		+ "Flight.fare_econ, Flight.fare_bus, Flight.fare_first " 
 		+ "FROM FlightDate, Flight, Airline " 
-		+ "WHERE Flight.flight_id = ? " 
+		+ "WHERE Flight.flight_id = FlightDate.flight_id "
+		+ "AND Flight.flight_id = ? " 
 		+ "AND FlightDate.flight_id = Flight.flight_id " 
 		+ "AND Flight.airline_id = Airline.airline_id";
 
@@ -114,7 +115,7 @@ String str =
 			out.print("</td>");
 			out.print("<td>");
 			//Print out current beer name:
-			out.print(flights.getString("FlightDate.depart_aid"));
+			out.print(flights.getString("Flight.depart_aid"));
 			out.print("</td>");
 			out.print("<td>");
 			//Print out current price
@@ -127,7 +128,7 @@ String str =
 			out.print("<td>");
 
 			//Print out arrival date
-			out.print(flights.getString("FlightDate.arrival_aid"));
+			out.print(flights.getString("Flight.arrive_aid"));
 			out.print("</td>");
 			out.print("<td>");
 

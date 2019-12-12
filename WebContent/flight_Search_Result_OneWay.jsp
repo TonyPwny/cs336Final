@@ -15,7 +15,7 @@ Project Final Group 4
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Here are your results!</title>
+<title>One wau</title>
 <h4>Filter by Price, Take off, Land time, Airline</h4>
 </head>
 <body>
@@ -91,7 +91,7 @@ Project Final Group 4
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current price
-				out.print(flights.getString("FlightDate.depart_aid"));
+				out.print(flights.getString("Flight.depart_aid"));
 				out.print("</td>");
 				out.print("<td>");
 
@@ -101,7 +101,7 @@ Project Final Group 4
 				out.print("<td>");
 
 				//Print out arrival airport id
-				out.print(flights.getString("FlightDate.arrive_aid"));
+				out.print(flights.getString("Flight.arrive_aid"));
 				out.print("</td>");
 				out.print("<td>");
 				//Print out a moreinfo button:
@@ -151,6 +151,79 @@ Project Final Group 4
 			stmt.setString(4, arriving_port);
 			ResultSet flights = stmt.executeQuery();
 
+			out.print("<table>");
+
+			while(flights.next()){
+				
+				out.print("<tr>");
+				//make a column
+				out.print("<td>");
+				//print out column header
+				out.print("flight id");
+				out.print("</td>");
+				//make a column
+				out.print("<td>");
+				out.print("departure date");
+				out.print("</td>");
+				//make a column
+				out.print("<td>");
+				out.print("departure airport");
+				out.print("</td>");
+				//print out column header
+				out.print("<td>");
+				out.print("arrive date");
+				out.print("</td>");
+				//make a column
+				out.print("<td>");
+				out.print("arriving airport");
+				out.print("</td>");
+				
+				
+				out.print("<td>");
+				out.print("");
+				out.print("</td>");
+				out.print("</tr>");
+
+				//parse out the results
+				
+					out.print("<tr>");
+					//make a column
+					out.print("<td>");
+					//Print out current flightid:
+					out.print(flights.getString("FlightDate.flight_id"));
+					out.print("</td>");
+					out.print("<td>");
+					//Print out current beer name:
+					out.print(flights.getString("FlightDate.depart_date"));
+					out.print("</td>");
+					out.print("<td>");
+					//Print out current price
+					out.print(flights.getString("Flight.depart_aid"));
+					out.print("</td>");
+					out.print("<td>");
+
+					//Print out arrival date
+					out.print(flights.getString("FlightDate.arrive_date"));
+					out.print("</td>");
+					out.print("<td>");
+
+					//Print out arrival airport id
+					out.print(flights.getString("Flight.arrive_aid"));
+					out.print("</td>");
+					out.print("<td>");
+					
+					out.print("<form method='post' action='more_Flight_Info.jsp'>");
+					out.print("<button type='submit' name='more_info' +  value = \"" + flights.getString("FlightDate.flight_id") + "\">");
+					out.print("more info");
+				
+					out.print("</button>");
+					out.print("</form>");
+					
+					out.print("</td>");
+					out.print("</tr>");
+
+				
+			}
 		
 			// Thanks to anthonys beautiful query
 			//Search a connecting one way by Airport ids and dates 
@@ -192,81 +265,9 @@ Project Final Group 4
 							ResultSet flightsCon1 = stmt2.executeQuery();
 									
 									
-			out.print("<table>");
 							
-			while(flights.next() || flightsCon1.next()){	
-			if(flights.next()){
-			//make a row
-			out.print("<tr>");
-			//make a column
-			out.print("<td>");
-			//print out column header
-			out.print("flight id");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("departure date");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("departure airport");
-			out.print("</td>");
-			//print out column header
-			out.print("<td>");
-			out.print("arrive date");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
-			out.print("arriving airport");
-			out.print("</td>");
-			
-			
-			out.print("<td>");
-			out.print("");
-			out.print("</td>");
-			out.print("</tr>");
-
-			//parse out the results
-			
-				out.print("<tr>");
-				//make a column
-				out.print("<td>");
-				//Print out current flightid:
-				out.print(flights.getString("FlightDate.flight_id"));
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current beer name:
-				out.print(flights.getString("FlightDate.depart_date"));
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current price
-				out.print(flights.getString("FlightDate.depart_aid"));
-				out.print("</td>");
-				out.print("<td>");
-
-				//Print out arrival date
-				out.print(flights.getString("FlightDate.arrive_date"));
-				out.print("</td>");
-				out.print("<td>");
-
-				//Print out arrival airport id
-				out.print(flights.getString("FlightDate.arrive_aid"));
-				out.print("</td>");
-				out.print("<td>");
-				
-				//out.print("<form method='post' action='more_Flight_Info.jsp'>");
-			//	out.print("<button type='submit' name='more_info' +  value = \"" + flights.getString("FlightDate.flight_id") + "\">");
-			//	out.print("more info");
-			
-			//	out.print("</button>");
-			//	out.print("</form>");
-				
-				out.print("</td>");
-				out.print("</tr>");
-
-
-			}
-			else if(flightsCon1.next()){ 
+			while(flightsCon1.next()){	
+	
 				//make a row
 				out.print("<tr>");
 				//make a column
@@ -407,7 +408,7 @@ Project Final Group 4
 			out.print("</table>");
 
 			
-			}
+			
 
 			//close the connection
 	
