@@ -1,5 +1,3 @@
-/*Salman Saeed sms786*/
-
 USE DB1;
 
 DROP TABLE IF EXISTS reserves;
@@ -16,7 +14,6 @@ DROP TABLE IF EXISTS Aircraft;
 DROP TABLE IF EXISTS Airline;
 DROP TABLE IF EXISTS Airport;
 
-
 CREATE TABLE `User` (
 username VARCHAR(25) NOT NULL,
 password VARCHAR(25) NOT NULL,
@@ -24,8 +21,6 @@ name_user VARCHAR(25) NOT NULL,
 usertype VARCHAR(9) NOT NULL,
 PRIMARY KEY(username)
 );
-
-
 
 CREATE TABLE Airline (
 airline_name CHAR(30) NOT NULL,
@@ -51,6 +46,8 @@ business_capacity INT NOT NULL,
 economy_capacity INT NOT NULL,
 PRIMARY KEY(aircraft_id, airline_id),
 FOREIGN KEY(airline_id) REFERENCES Airline(airline_id)
+	on delete cascade
+    on update cascade
 );
 
 
@@ -60,8 +57,12 @@ CREATE TABLE owns (
 airline_id CHAR(2) NOT NULL,
 aircraft_id VARCHAR(8) NOT NULL,
 PRIMARY KEY(airline_id, aircraft_id),
-FOREIGN KEY(airline_id) REFERENCES Airline(airline_id),
+FOREIGN KEY(airline_id) REFERENCES Airline(airline_id)
+	on delete cascade
+    on update cascade,
 FOREIGN KEY(aircraft_id) REFERENCES Aircraft(aircraft_id)
+	on delete cascade
+    on update cascade
 );
 
 
@@ -80,10 +81,18 @@ fare_econ DECIMAL(6, 2) NOT NULL,
 fare_first DECIMAL(7, 2) NOT NULL,
 fare_bus DECIMAL(7, 2) NOT NULL,
 PRIMARY KEY(flight_id),
-FOREIGN KEY(depart_aid) REFERENCES Airport(airport_id),
-FOREIGN KEY(arrive_aid) REFERENCES Airport(airport_id),
-FOREIGN KEY(airline_id) REFERENCES Airline(airline_id),
+FOREIGN KEY(depart_aid) REFERENCES Airport(airport_id)
+	on delete cascade
+    on update cascade,
+FOREIGN KEY(arrive_aid) REFERENCES Airport(airport_id)
+	on delete cascade
+    on update cascade,
+FOREIGN KEY(airline_id) REFERENCES Airline(airline_id)
+	on delete cascade
+    on update cascade,
 FOREIGN KEY(aircraft_id) REFERENCES Aircraft(aircraft_id)
+	on delete cascade
+    on update cascade
 );
 
 CREATE Table FlightDate (
@@ -92,6 +101,8 @@ arrive_date date NOT NULL,
 flight_id VARCHAR(6) NOT NULL,
 PRIMARY KEY (depart_date, arrive_date, flight_id),
 FOREIGN KEY (flight_id) REFERENCES Flight(flight_id)
+	on delete cascade
+    on update cascade
 );
 
 CREATE Table operates (
@@ -99,9 +110,15 @@ flight_id VARCHAR(6) NOT NULL,
 airline_id CHAR(2) NOT NULL,
 aircraft_id VARCHAR(6) NOT NULL,
 PRIMARY KEY(flight_id, airline_id, aircraft_id),
-FOREIGN KEY(flight_id) REFERENCES Flight(flight_id),
-FOREIGN KEY(airline_id) REFERENCES Airline(airline_id),
+FOREIGN KEY(flight_id) REFERENCES Flight(flight_id)
+	on delete cascade
+    on update cascade,
+FOREIGN KEY(airline_id) REFERENCES Airline(airline_id)
+	on delete cascade
+    on update cascade,
 FOREIGN KEY(aircraft_id) REFERENCES Aircraft(aircraft_id)
+	on delete cascade
+    on update cascade
 );
 
 CREATE TABLE Ticket (
@@ -118,16 +135,24 @@ CREATE TABLE reserves (
 username VARCHAR(25) NOT NULL,
 ticket_num INT8 NOT NULL, 
 PRIMARY KEY(username, ticket_num),
-FOREIGN KEY(username) REFERENCES `User`(username),
+FOREIGN KEY(username) REFERENCES `User`(username)
+	on delete cascade
+    on update cascade,
 FOREIGN KEY(ticket_num) REFERENCES Ticket(ticket_num)
+	on delete cascade
+    on update cascade
 );
 
 CREATE TABLE buys (
 username VARCHAR(25) NOT NULL,
 ticket_num INT8 NOT NULL, 
 PRIMARY KEY(username, ticket_num),
-FOREIGN KEY(username) REFERENCES `User`(username),
+FOREIGN KEY(username) REFERENCES `User`(username)
+	on delete cascade
+    on update cascade,
 FOREIGN KEY(ticket_num) REFERENCES Ticket(ticket_num)
+	on delete cascade
+    on update cascade
 );
 
 
@@ -139,9 +164,15 @@ meal BOOLEAN NOT NULL,
 depart_date date NOT NULL,
 arrive_date date NOT NULL,
 PRIMARY KEY(ticket_num, flight_id),
-FOREIGN KEY(ticket_num) REFERENCES Ticket(ticket_num),
-FOREIGN KEY (depart_date) REFERENCES FlightDate(depart_date),
+FOREIGN KEY(ticket_num) REFERENCES Ticket(ticket_num)
+	on delete cascade
+    on update cascade,
+FOREIGN KEY (depart_date) REFERENCES FlightDate(depart_date)
+	on delete cascade
+    on update cascade,
 FOREIGN KEY(flight_id) REFERENCES Flight(flight_id)
+	on delete cascade
+    on update cascade
 );
 
 
@@ -211,6 +242,7 @@ INSERT INTO Flight VALUES('BB6543', 'BB', 'B33R3', 'MIA', 'EWR', '11:02', '14:10
 INSERT INTO FlightDate VALUES('2020-01-29', '2020-01-29', 'BB6543');
 INSERT INTO Flight VALUES('BB9863','BB','B33R3', 'EWR', 'MIA', '10:02', '13:15', 'SuFSa', 'domestic', 170, 500, 30);
 INSERT INTO FlightDate VALUES('2020-01-13', '2020-01-13', 'BB9863');
+INSERT INTO FlightDate VALUES('2020-01-29', '2020-01-29', 'BB9863');
 
 
 /*Make flight from Newark-San Franciso, 3 seperates days and times (Arrrival and departure)
@@ -241,6 +273,7 @@ INSERT INTO FlightDate VALUES('2020-07-11', '2020-07-11', 'UG0987');
 INSERT INTO Flight VALUES('TP4568','TP','A23D3', 'SFO', 'PEK', '20:46','12:35','SuMTWRFSa', 'international', 180, 230, 30);
 INSERT INTO FlightDate VALUES('2020-08-12', '2020-08-13', 'TP4568');
 INSERT INTO FlightDate VALUES('2020-08-13', '2020-08-14', 'TP4568');
+INSERT INTO FlightDate VALUES('2020-08-11', '2020-08-12', 'TP4568');
 INSERT INTO FlightDate VALUES('2020-07-11', '2020-07-12', 'TP4568');
 
 
@@ -284,7 +317,7 @@ INSERT INTO FlightDate VALUES('2020-03-21', '2020-03-21', 'DL1980');
 
 
 INSERT INTO Flight Values('AA1789','AA', 'E78P8', 'MDW', 'EWR', '11:30', '16:20', 'SuMTWR', 'domestic', 190, 600, 30);
-INSERT INTO FlightDate VALUES('2021-12-19', '2020-12-19', 'AA1789');
+INSERT INTO FlightDate VALUES('2020-12-19', '2020-12-19', 'AA1789');
 INSERT INTO Flight Values('AA1237','AA', 'E78P8',  'EWR', 'MDW', '14:00', '19:40', 'SuMTWR', 'domestic', 180, 300, 18);
 INSERT INTO FlightDate VALUES('2022-02-02', '2022-02-02', 'AA1237');
 INSERT INTO FlightDate VALUES('2022-02-03', '2022-02-03', 'AA1237');
@@ -325,25 +358,25 @@ INSERT INTO FlightDate VALUES('2021-12-25', '2021-12-26', 'VA8790');
 INSERT INTO Flight VALUES('VA1234','VA', 'P09K2', 'SYD', 'DUB', '10:00', '2:00', 'MTW','international', 140, 710, 18);
 INSERT INTO FlightDate VALUES('2022-01-23', '2022-01-24', 'VA1234');
 
-
-
-INSERT INTO Ticket VALUES (212121212, 1, 5, 135,'2020-12-11');
-INSERT INTO Ticket VALUES (121212121,0,5,235,'2020-12-14');
-INSERT INTO Ticket VALUES (123456780, 1, 6, 140,'2020-12-12');
+INSERT INTO Ticket VALUES (212121212, 1, 2, 135,'2019-12-11');
+/* INSERT INTO Ticket VALUES (212121212, 0, 3, 137,'2019-12-16'); duplicate? */
+INSERT INTO Ticket VALUES (121212121, 1, 5,235,'2020-06-14');
+/* INSERT INTO Ticket VALUES (121212121,0,3,238,'2020-06-15'); */
+INSERT INTO Ticket VALUES (123456780, 1, 6, 140,'2019-12-12');
 INSERT INTO Ticket Values(766828919, 1, 7, 166, '2022-01-11');
-INSERT INTO Ticket Values(836789191, 0, 8, 139, '2020-01-15');
+INSERT INTO Ticket Values(836789191, 0, 8, 139, '2021-01-15');
 INSERT INTO Ticket Values(908898187, 1, 90, 195,'2020-06-19');
 INSERT INTO Ticket Values(187563629, 1, 7, 141, '2020-06-11');
 INSERT INTO Ticket Values(374782718, 0, 8, 130, '2020-06-11');
 INSERT INTO Ticket Values(189383787, 1, 9, 136, 2020-07-05);
 INSERT INTO Ticket Values(718776276, 0, 10, 139, 2020-07-05);
 INSERT INTO Ticket Values(908987123, 0, 12, 134, '2019-12-20');
-INSERT INTO Ticket Values(987654321, 1, 13, 131, '2020-05-18');
+INSERT INTO Ticket Values(987654321, 1, 13, 131, '2020-06-09');
 INSERT INTO Ticket Values(732444965, 0, 14, 151, '2020-06-06');
 INSERT INTO Ticket Values(123565463, 1, 15, 152, '2020-06-15');
-INSERT INTO Ticket Values(175680172, 0, 16, 154, '2020-05-20');
+INSERT INTO Ticket Values(175680172, 0, 16, 154, '2020-06-04');
 INSERT INTO Ticket Values(234767881, 1, 17, 155, '2020-06-01');
-INSERT INTO Ticket Values(973456920, 0, 18, 132, '2021-11-01');
+INSERT INTO Ticket Values(973456920, 0, 18, 132, '2020-11-01');
 INSERT INTO Ticket Values(876527394, 1, 19, 120, '2022-01-02');
 INSERT INTO Ticket Values(197284784, 0, 20, 154, '2020-01-20');
 INSERT INTO Ticket Values(098274928, 1, 21, 155, '2020-01-03');
@@ -353,9 +386,9 @@ INSERT INTO Ticket Values(199765890, 0, 24, 156, '2020-11-19');
 INSERT INTO Ticket Values(189074550, 1, 25, 157, '2022-01-04');
 INSERT INTO Ticket Values(908532135, 0, 26, 149, '2019-12-20');
 INSERT INTO Ticket Values(758362917, 1, 27, 170, '2020-05-15');
-INSERT INTO Ticket Values(567893031, 0, 28, 156, '2021-04-19');
-INSERT INTO Ticket Values(645838929, 1, 32, 157, '2021-11-04');
-INSERT INTO Ticket Values(876657382, 0, 50, 149, '2021-12-02');
+INSERT INTO Ticket Values(567893031, 0, 28, 156, '2021-12-03');
+INSERT INTO Ticket Values(645838929, 1, 32, 157, '2022-02-04');
+INSERT INTO Ticket Values(876657382, 0, 50, 149, '2019-11-02');
 INSERT INTO Ticket Values(908765381, 1, 43, 170, '2021-12-13');
 INSERT INTO Ticket Values(998389183, 0, 29, 143, '2021-11-18');
 INSERT INTO Ticket Values(984847827, 1, 30, 155, '2021-05-05');
@@ -391,10 +424,10 @@ INSERT INTO trip Values(836789191, 'AA1237', 'Business', 0, '2022-02-04', '2022-
 
 INSERT INTO trip Values(908898187,'BA8765','Economy', 1, '2020-07-14', '2020-07-14');
 INSERT INTO trip Values(187563629, 'TP4568', 'First', 1, '2020-07-11', '2020-07-12');
-INSERT INTO trip Values(374782718, 'TP4568', 'Business', 0, '2020-08-12', '2020-07-13');
+INSERT INTO trip Values(374782718, 'TP4568', 'Business', 0, '2020-08-12', '2020-08-13');
 INSERT INTO trip Values(189383787, 'TP4568', 'Economy', 0, '2020-08-13', '2020-08-14');
 
-INSERT INTO trip Values(718776276, 'TP4568', 'Economy', 0, '2020-08-13', '2020-08-14');
+INSERT INTO trip Values(718776276, 'TP4568', 'Economy', 0, '2020-08-11', '2020-08-12');
 INSERT INTO trip VALUES (212121212, 'BB9863', 'Economy', 0, '2020-01-13', '2020-01-13');
 INSERT INTO trip VALUES (212121212, 'BB6543', 'Economy', 0, '2020-01-29', '2020-01-29');
 INSERT INTO trip VALUES (121212121, 'DL6781', 'Economy', 0, '2020-07-05', '2020-07-05');
@@ -416,7 +449,7 @@ INSERT INTO trip Values(098274928,'BB1232', 'First', 1, '2020-02-19', '2020-02-1
 
 INSERT INTO trip Values(199965070,'DL0950', 'First', 0, '2021-02-21', '2021-02-21');
 INSERT INTO trip Values(166678901,'DL1980', 'Business', 1, '2020-03-21', '2020-03-21');
-INSERT INTO trip Values(199765890,'AA1789', 'Economy', 0, '2021-12-19', '2020-12-19');
+INSERT INTO trip Values(199765890,'AA1789', 'Economy', 0, '2020-12-19', '2020-12-19');
 INSERT INTO trip Values(189074550,'AA1237', 'Business', 1, '2022-02-02', '2022-02-02');
 
 INSERT INTO trip Values(908532135,'BB3579', 'First', 1, '2020-01-30', '2020-01-30');
