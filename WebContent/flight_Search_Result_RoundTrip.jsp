@@ -41,7 +41,8 @@ Project Final Group 4
 
 			String str =
 
-					"SELECT FlightDate.flight_id, FlightDate.depart_date, Flight.depart_aid, FlightDate.arrive_date, Flight.arrive_aid " +
+					"SELECT FlightDate.flight_id, FlightDate.depart_date, Flight.depart_aid, FlightDate.arrive_date, Flight.arrive_aid, " +
+					"Flight.fare_econ, Flight.fare_bus, Flight.fare_first "+
 					"from FlightDate, Flight " +
 					"WHERE FlightDate.flight_id = Flight.flight_id " +
 					"and FlightDate.depart_date >= ? " +
@@ -64,7 +65,8 @@ Project Final Group 4
 
 				String str2 =
 
-					"SELECT FlightDate.flight_id, FlightDate.depart_date, Flight.depart_aid, FlightDate.arrive_date, Flight.arrive_aid " +
+					"SELECT FlightDate.flight_id, FlightDate.depart_date, Flight.depart_aid, FlightDate.arrive_date, Flight.arrive_aid, " +
+					"Flight.fare_econ, Flight.fare_bus, Flight.fare_first "+
 					"from FlightDate, Flight " +
 					"and FlightDate.depart_date >= ?" +
 					"and FlightDate.depart_date <= ? " +
@@ -80,11 +82,7 @@ Project Final Group 4
 
 
 				
-				
-				out.print("<tr>");
-				out.print("potential trip");
-				out.print("</tr>");
-
+			
 				//make a row
 				
 
@@ -92,8 +90,20 @@ Project Final Group 4
 
 				while (flightsBA.next()) {
 					
+					
 					out.print("<tr>");
 					out.print("potential trip");
+					out.print("<td>");
+					
+					out.print("<form method='post' action='reservationMake.jsp'>");
+					out.print("<button type='submit' name='book_now' +  value = \"" + flightsBA.getString("FlightDate.flight_id") + "\">");
+					out.print("Book now!");
+				
+					out.print("</button>");
+					out.print("</form>");
+					
+					out.print("</td>");
+					
 					out.print("</tr>");
 					
 					out.print("<tr>");
@@ -119,7 +129,29 @@ Project Final Group 4
 					out.print("<td>");
 					out.print("arrive airport");
 					out.print("</td>");
+					
+					out.print("<td>");
+					out.print("Economy Fare");
+					out.print("</td>");
+					
+					out.print("<td>");
+					out.print("Business Fare");
+					out.print("</td>");
+					
+					out.print("<td>");
+					out.print("First Class Fare");
+					out.print("</td>");
+					
 					out.print("</tr>");
+					
+					
+					
+					
+					
+					
+					
+					
+					
 					
 				out.print("<tr>");
 				//make a column
@@ -143,6 +175,20 @@ Project Final Group 4
 				out.print("<td>");
 				out.print(flightsAB.getString("Flight.depart_aid"));
 				out.print("</td>");
+				
+				out.print("<td>");
+				out.print(flightsAB.getString("Flight.fare_econ"));
+				out.print("</td>");
+				//print out column header
+				out.print("<td>");
+				out.print(flightsAB.getString("Flight.fare_bus"));
+				out.print("</td>");
+				//make a column
+				out.print("<td>");
+				out.print(flightsAB.getString("Flight.fare_first"));
+				out.print("</td>");
+				
+				
 				
 				
 			
@@ -170,16 +216,19 @@ Project Final Group 4
 					out.print("</td>");
 					out.print("<td>");
 					
+					out.print(flightsBA.getString("Flight.fare_econ"));
+					out.print("</td>");
+					out.print("<td>");
+					//Print out current beer name:
+					out.print(flightsBA.getString("Flight.fare_bus"));
+					out.print("</td>");
+					out.print("<td>");
+					//Print out current price
+					out.print(flightsBA.getString("Flight.fare_first"));
+					out.print("</td>");
 					out.print("<td>");
 					
-					out.print("<form method='post' action='reservationMake.jsp'>");
-					out.print("<button type='submit' name='book_now' +  value = \"" + flightsBA.getString("FlightDate.flight_id") + "\">");
-					out.print("Book now!");
-				
-					out.print("</button>");
-					out.print("</form>");
-					
-					out.print("</td>");
+		
 					
 					out.print("</tr>");
 	
@@ -197,7 +246,10 @@ Project Final Group 4
 					+ "f.depart_time AS depart1_time, "
 					+ "f.arrive_aid AS stop1_aid, "
 					+ "fd.arrive_date AS arrive1_date, "
-					+ "f.arrive_time AS arrive1_time "
+					+ "f.arrive_time AS arrive1_time, "
+					+ "f.fare_econ AS fareecon1, "
+					+ "f.fare_bus AS farebus1, "
+					+ "f.fare_first AS farefirst1 "
 					+ "FROM DB1.Flight f, DB1.FlightDate fd "
 					+ "WHERE f.flight_id = fd.flight_id "
 					+ "AND f.depart_aid = ? AND fd.depart_date >= ? AND fd.depart_date <= ? ) AS Trip1, " 
@@ -207,7 +259,10 @@ Project Final Group 4
 					+ "f.depart_time AS depart2_time, "
 					+ "f.arrive_aid AS stop2_aid, "
 					+ "fd.arrive_date AS arrive2_date, "
-					+ "f.arrive_time AS arrive2_time "
+					+ "f.arrive_time AS arrive2_time, "
+					+ "f.fare_econ AS fareecon2, "
+					+ "f.fare_bus AS farebus2, "
+					+ "f.fare_first AS farefirst2 "	
 					+ "FROM DB1.Flight f, DB1.FlightDate fd "
 					+ "WHERE f.flight_id = fd.flight_id "
 					+ "AND f.arrive_aid = ? ) AS Trip2 "
@@ -239,7 +294,10 @@ Project Final Group 4
 					+ "f.depart_time AS depart1_time, "
 					+ "f.arrive_aid AS stop1_aid, "
 					+ "fd.arrive_date AS arrive1_date, "
-					+ "f.arrive_time AS arrive1_time "
+					+ "f.arrive_time AS arrive1_time, "
+					+ "f.fare_econ AS fareecon1, "
+					+ "f.fare_bus AS farebus1, "
+					+ "f.fare_first AS farefirst1 "
 					+ "FROM DB1.Flight f, DB1.FlightDate fd "
 					+ "WHERE f.flight_id = fd.flight_id "
 					+ "AND f.depart_aid = ? AND fd.depart_date >= ? AND fd.depart_date <= ? ) AS Trip1, " 
@@ -249,7 +307,10 @@ Project Final Group 4
 					+ "f.depart_time AS depart2_time, "
 					+ "f.arrive_aid AS stop2_aid, "
 					+ "fd.arrive_date AS arrive2_date, "
-					+ "f.arrive_time AS arrive2_time "
+					+ "f.arrive_time AS arrive2_time, "
+					+ "f.fare_econ AS fareecon2, "
+					+ "f.fare_bus AS farebus2, "
+					+ "f.fare_first AS farefirst2 "	
 					+ "FROM DB1.Flight f, DB1.FlightDate fd "
 					+ "WHERE f.flight_id = fd.flight_id "
 					+ "AND f.arrive_aid = ? ) AS Trip2 "
@@ -318,6 +379,18 @@ Project Final Group 4
 					out.print("</td>");
 					//
 					out.print("<td>");
+					out.print("Economy Fare");
+					out.print("</td>");
+				
+					out.print("<td>");
+					out.print("Business Fare");
+					out.print("</td>");
+					
+					out.print("<td>");
+					out.print("First Class Fare");
+					out.print("</td>");
+					
+					out.print("<td>");
 					out.print("flight id2");
 					out.print("</td>");
 					//make a column
@@ -345,6 +418,17 @@ Project Final Group 4
 					out.print("arrive time2");
 					out.print("</td>");
 					//make a column
+					out.print("<td>");
+					out.print("Economy Fare");
+					out.print("</td>");
+				
+					out.print("<td>");
+					out.print("Business Fare");
+					out.print("</td>");
+				
+					out.print("<td>");
+					out.print("First Class Fare");
+					out.print("</td>");
 					
 					out.print("<td>");
 					out.print("");
@@ -388,6 +472,18 @@ Project Final Group 4
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current price
+					out.print(flightsABCon1.getString("fareecon1"));
+					out.print("</td>");
+					out.print("<td>");
+					
+					out.print(flightsABCon1.getString("farebus1"));
+					out.print("</td>");
+					out.print("<td>");
+				
+					out.print(flightsABCon1.getString("farefirst1"));
+					out.print("</td>");
+					out.print("<td>");
+					
 					out.print(flightsABCon1.getString("flight2_id"));
 					out.print("</td>");
 					out.print("<td>");
@@ -415,6 +511,18 @@ Project Final Group 4
 					out.print("<td>");
 					
 					out.print(flightsABCon1.getString("arrive2_time"));
+					out.print("</td>");
+					out.print("<td>");
+					
+					out.print(flightsABCon1.getString("fareecon2"));
+					out.print("</td>");
+					out.print("<td>");
+					
+					out.print(flightsABCon1.getString("farebus2"));
+					out.print("</td>");
+					out.print("<td>");
+					
+					out.print(flightsABCon1.getString("farefirst2"));
 					out.print("</td>");
 					
 					//out.print("<td>");
@@ -469,6 +577,18 @@ Project Final Group 4
 					out.print(flightsBACon1.getString("arrive1_time"));
 					out.print("</td>");
 					out.print("<td>");
+					
+					out.print(flightsBACon1.getString("fareecon1"));
+					out.print("</td>");
+					out.print("<td>");
+					
+					out.print(flightsBACon1.getString("farebus1"));
+					out.print("</td>");
+					out.print("<td>");
+					
+					out.print(flightsBACon1.getString("farefirst1"));
+					out.print("</td>");
+					out.print("<td>");
 					//Print out current price
 					out.print(flightsBACon1.getString("flight2_id"));
 					out.print("</td>");
@@ -497,6 +617,19 @@ Project Final Group 4
 					out.print("<td>");
 					
 					out.print(flightsBACon1.getString("arrive2_time"));
+					out.print("</td>");
+					out.print("<td>");
+
+					
+					out.print(flightsBACon1.getString("fareecon2"));
+					out.print("</td>");
+					out.print("<td>");
+					
+					out.print(flightsBACon1.getString("farebus2"));
+					out.print("</td>");
+					out.print("<td>");
+					
+					out.print(flightsBACon1.getString("farefirst2"));
 					out.print("</td>");
 					
 					//out.print("<td>");
