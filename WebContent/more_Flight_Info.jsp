@@ -31,14 +31,13 @@ Project Final Group 4
 		
 String str = 
 
-	"SELECT DISTINCT FlightDate.flight_id, Flight.depart_aid, FlightDate.depart_date, Flight.depart_time, "  
+	"SELECT FlightDate.flight_id, Flight.depart_aid, FlightDate.depart_date, Flight.depart_time, "  
 		+ "Flight.arrive_aid, FlightDate.arrive_date, Flight.arrive_time, " 
 		+ "Flight.airline_id, Airline.airline_name, " 
 		+ "Flight.fare_econ, Flight.fare_bus, Flight.fare_first " 
 		+ "FROM FlightDate, Flight, Airline " 
 		+ "WHERE Flight.flight_id = FlightDate.flight_id "
 		+ "AND Flight.flight_id = ? " 
-		+ "AND FlightDate.flight_id = Flight.flight_id " 
 		+ "AND Flight.airline_id = Airline.airline_id";
 
 		PreparedStatement stmt = conn.prepareStatement(str);
