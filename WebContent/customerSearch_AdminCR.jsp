@@ -8,12 +8,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Search for All Users</title>
+		<title>Search for Customers</title>
 	</head>
 	<body>
 		<br>
-		<h3>Search for a user.</h3>
-			<form method="get" action="userResults_Admin.jsp" enctype=text/plain>
+		<h3>Search for a customer.</h3>
+			<form method="get" action="customerResults_AdminCR.jsp" enctype=text/plain>
 				<table>
 					<tr>
 						<td>Username: </td>
@@ -24,7 +24,7 @@
 				<input type = 'submit' name="submit" value = "Submit">
 			</form>
 			
-			<form method="get" action="userResults_Admin.jsp" enctype=text/plain>
+			<form method="get" action="customerResults_AdminCR.jsp" enctype=text/plain>
 				<button type="submit" name="username" value="getAll">Get All</button>
 			</form>
 		
