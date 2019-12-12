@@ -91,10 +91,6 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
-				out.print("Flight ID");
-				out.print("</td>");
-				//make a column
-				out.print("<td>");
 				out.print("Type");
 				out.print("</td>");
 				//make a column
@@ -125,12 +121,15 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 					out.print(result.getString("ticket_num"));
 					out.print("</td>");
 					out.print("<td>");
-					//Print out current flight_id:
-					out.print(result.getString("flight_id"));
-					out.print("</td>");
-					out.print("<td>");
 					//Print out current round_trip:
-					out.print(result.getString("round_trip"));
+					String value;
+					if (result.getBoolean("round_trip")) {
+						value = "Round Trip";
+					}
+					else {
+						value = "One-Way";
+					}
+					out.print(value);
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current booking_fee:

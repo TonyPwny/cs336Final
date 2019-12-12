@@ -238,9 +238,27 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
-			//Print out a more info button:
+			out.print("");
+			out.print("</td>");
+			out.print("</tr>");
+
+			//make a row
+			out.print("<tr>");
+			//begin form to update Flight Info
 			out.print("<form method='post' action='" + flightDateAdd + "'>");
-			out.print("<button type='submit' name='flight_id' value=" + flightID + ">");
+			//make a column
+			out.print("<td>");
+			//Print out current airline_name:
+			out.print("<input type='text' name='depart_date' value='YEAR-MM-DD'>");
+			out.print("</td>");
+			out.print("<td>");
+			//Print out current airline_name:
+			out.print("<input type='text' name='arrive_date' value='YEAR-MM-DD'>");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
+			//Print out a more info button:
+			out.print("<button type='submit' name='flight_id' value=" + flightID + " >");
 			out.print("add");
 			out.print("</button>");
 			out.print("</form>");
@@ -262,9 +280,9 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				out.print("</td>");
 				out.print("<td>");
 				//Print out a delete button:
+				String deleteDate = "depart_date = \"" + flightDateResult.getString("depart_date") + "\" AND flight_id = \"" + flightID + "\"";
 				out.print("<form method='post' action='" + flightDateDelete + "'>");
-				out.print("<button type='submit' name='flight_dates' value=" + flightID + " "
-						+ flightDateResult.getString("depart_date") + ">");
+				out.print("<button type='submit' name='dateDelete' value='" + deleteDate + "'>");
 				out.print("delete");
 				out.print("</button>");
 				out.print("</form>");

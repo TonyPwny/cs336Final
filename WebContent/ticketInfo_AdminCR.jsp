@@ -29,19 +29,19 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 		response.sendRedirect(ticketSearch);
 	}
 
-	//Get the more info parameter from flightResults_AdminCR.jsp
-	String ticketNum = request.getParameter("ticketNum");
-	//Make a SELECT query to the Flight table with flightID specified by the more info parameter from flightResults_AdminCR.jsp
+	//Get the more info parameter from ticketResults_AdminCR.jsp
+	String ticketNum = request.getParameter("ticket_num");
+	//Make a SELECT query to the Ticket table with ticket_num specified by the more info parameter from ticketResults_AdminCR.jsp
 	String str, str_query, str_query_title;
-	str = "SELECT * FROM Ticket t WHERE t.ticketNum = '" + ticketNum + "'";
-	str_query = "Result for " + ticketNum + ":<br><br>";
+	str = "SELECT * FROM Ticket t, trip tr WHERE t.ticket_num = '" + ticketNum + "' AND t.ticket_num = tr.ticket_num";
+	str_query = "Ticket Number: " + ticketNum + "<br><br>";
 	str_query_title = ticketNum;
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>[<%
 	out.println(logintype);
-%>] Flight Information - <%
+%>] Ticket Information - <%
 	out.println(str_query_title);
 %></title>
 </head>
@@ -76,15 +76,11 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			//make a column
 			out.print("<td>");
 			//print out column header
-			out.print("Ticket Number");
-			out.print("</td>");
-			//make a column
-			out.print("<td>");
 			out.print("Flight ID");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
-			out.print("Type");
+			out.print("Round Trip");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
@@ -112,21 +108,14 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				out.print("<form method='post' action='" + ticketUpdate + "'>");
 				//make a column
 				out.print("<td>");
-				//Print out current ticket_num:
-				out.print("<select name='ticket_num'>");
-				out.print("<option value='" + result.getString("ticket_num") + "'>" + result.getString("ticket_num")
-						+ "</option>");
-				out.print("</select>");
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current associated flight_id's:
+				//Print out associated flight_id's:
 				out.print(
 						"<input type='text' name='flight_id' value='" + result.getString("flight_id") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current round_trip:
 				out.print(
-						"<input type='text' name='round_trip' value='" + result.getString("round_trip") + "'");
+						"<input type='text' name='round_trip' value='" + result.getBoolean("round_trip") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current booking_fee:

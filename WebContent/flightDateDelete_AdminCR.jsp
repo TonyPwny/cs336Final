@@ -23,17 +23,17 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 		response.sendRedirect(loginURL);
 	}
 
-	//Get the airline_id from the airlineInfo_AdminCR.jsp
-	String airlineID = request.getParameter("airline_id");
-	
+	//Get the flight_id from the flightInfo_AdminCR.jsp
+	String flightID = request.getParameter("flight_id");
+
 	String str_query_title;
-	str_query_title = airlineID;
+	str_query_title = flightID;
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>[<%
 	out.println(logintype);
-%>] Airline Update Information - <%
+%>] Flight Date Delete - <%
 	out.println(str_query_title);
 %></title>
 </head>
@@ -47,26 +47,24 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	<%
 		try {
 
-		//Get the database connection
-		ApplicationDB db = new ApplicationDB();
-		Connection con = db.getConnection();
+			//Get the database connection
+			ApplicationDB db = new ApplicationDB();
+			Connection con = db.getConnection();
 
-		//Create a SQL statement
-		Statement stmt = con.createStatement();
+			//Create a SQL statement
+			Statement stmt = con.createStatement();
 
-		//Get parameters from the HTML form at airlineInfo_AdminCR.jsp
-		String airline_id = request.getParameter("airline_id");
-		String new_name = request.getParameter("airline_name");
-		String new_revenue = request.getParameter("airline_revenue");
+			//Get parameters from the HTML form at flightInfo_AdminCR.jsp
+			String dateDelete = request.getParameter("dateDelete");
 
-		//Make an update statement for the Airline table:
-		String update = "UPDATE Airline SET airline_name = ? WHERE airline_id = ?";
+			//Make a delete statement for the FlightDate table:
+			String update = "DELETE FROM FlightDate WHERE " + dateDelete;
+
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			PreparedStatement ps = con.prepareStatement(update);
 
 			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
-			ps.setString(1, new_name);
-			ps.setString(2, airline_id);
+			//			ps.setString(1, dateDelete);
 			//Run the query against the DB
 			ps.executeUpdate();
 
