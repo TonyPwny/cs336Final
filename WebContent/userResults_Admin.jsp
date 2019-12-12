@@ -126,7 +126,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current user_type:
-					out.print(result.getString("user_type"));
+					out.print(result.getString("usertype"));
 					out.print("</td>");
 					out.print("<td>");
 					//Print out an edit button:

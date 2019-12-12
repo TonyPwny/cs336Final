@@ -108,7 +108,15 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
+				out.print("Departure Airport");
+				out.print("</td>");
+				//make a column
+				out.print("<td>");
 				out.print("Departure Time");
+				out.print("</td>");
+				//make a column
+				out.print("<td>");
+				out.print("Arrival Airport");
 				out.print("</td>");
 				//make a column
 				out.print("<td>");
@@ -163,7 +171,15 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current depart_time:
+					out.print(result.getString("depart_aid"));
+					out.print("</td>");
+					out.print("<td>");
+					//Print out current depart_time:
 					out.print(result.getString("depart_time"));
+					out.print("</td>");
+					out.print("<td>");
+					//Print out current arrive_time:
+					out.print(result.getString("arrive_aid"));
 					out.print("</td>");
 					out.print("<td>");
 					//Print out current arrive_time:

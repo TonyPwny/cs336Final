@@ -137,7 +137,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 					out.print(result.getString("country"));
 					out.print("</td>");
 					out.print("<td>");
-					//Print out an edit button:
+					//Print out a more info button:
 					out.print("<form method='post' action='" + airportInfo + "'>");
 					out.print("<button type='submit' name='airport_id' value=" + result.getString("airport_id")
 							+ ">");

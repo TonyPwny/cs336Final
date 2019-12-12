@@ -21,6 +21,8 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	String flightSearch = "flightSearch_AdminCR.jsp";
 	String flightUpdate = "flightUpdate_AdminCR.jsp";
 	String flightDateUpdate = "flightDateUpdate_AdminCR.jsp";
+	String flightDateAdd = "flightDateAdd_AdminCR.jsp";
+	String flightDateDelete = "flightDateDelete_AdminCR.jsp";
 
 	if (session.getAttribute("username") == null || logintype.equals("User")) {
 		response.sendRedirect(loginURL);
@@ -105,11 +107,11 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
-			out.print("Arrival Airport");
+			out.print("Departure Time");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
-			out.print("Departure Time");
+			out.print("Arrival Airport");
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
@@ -147,58 +149,69 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				out.print("<td>");
 				//Print out current flight_id:
 				out.print("<select name='flight_id'>");
-				out.print("<option value='" + flightInfoResult.getString("flight_id") + "'>" + flightInfoResult.getString("flight_id")
-						+ "</option>");
+				out.print("<option value='" + flightInfoResult.getString("flight_id") + "'>"
+						+ flightInfoResult.getString("flight_id") + "</option>");
 				out.print("</select>");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current airline_name:
-				out.print(
-						"<input type='text' name='airline_name' value='" + flightInfoResult.getString("airline_name") + "'");
+				out.print("<input type='text' name='airline_name' value='"
+						+ flightInfoResult.getString("airline_name") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current aircraft_id:
-				out.print("<input type='text' name='aircraft_id' value='" + flightInfoResult.getString("aircraft_id") + "'");
+				out.print("<input type='text' name='aircraft_id' value='"
+						+ flightInfoResult.getString("aircraft_id") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current capacity:
-				out.print("<input type='text' name='capacity' value='" + flightInfoResult.getString("capacity") + "'");
+				out.print("<input type='text' name='capacity' value='" + flightInfoResult.getString("capacity")
+						+ "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current flight_type:
-				out.print("<input type='text' name='flight_type' value='" + flightInfoResult.getString("flight_type") + "'");
+				out.print("<input type='text' name='flight_type' value='"
+						+ flightInfoResult.getString("flight_type") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current depart_aid:
-				out.print("<input type='text' name='depart_aid' value='" + flightInfoResult.getString("depart_aid") + "'");
-				out.print("</td>");
-				out.print("<td>");
-				//Print out current arrive_aid:
-				out.print("<input type='text' name='arrive_aid' value='" + flightInfoResult.getString("arrive_aid") + "'");
+				out.print("<input type='text' name='depart_aid' value='" + flightInfoResult.getString("depart_aid")
+						+ "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current depart_time:
-				out.print("<input type='text' name='depart_time' value='" + flightInfoResult.getString("depart_time") + "'");
+				out.print("<input type='text' name='depart_time' value='"
+						+ flightInfoResult.getString("depart_time") + "'");
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current arrive_aid:
+				out.print("<input type='text' name='arrive_aid' value='" + flightInfoResult.getString("arrive_aid")
+						+ "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current arrive_time:
-				out.print("<input type='text' name='arrive_time' value='" + flightInfoResult.getString("arrive_time") + "'");
+				out.print("<input type='text' name='arrive_time' value='"
+						+ flightInfoResult.getString("arrive_time") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current flight_days:
-				out.print("<input type='text' name='flight_days' value='" + flightInfoResult.getString("flight_days") + "'");
+				out.print("<input type='text' name='flight_days' value='"
+						+ flightInfoResult.getString("flight_days") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current fare_first:
-				out.print("<input type='text' name='fare_first' value='" + flightInfoResult.getString("fare_first") + "'");
+				out.print("<input type='text' name='fare_first' value='" + flightInfoResult.getString("fare_first")
+						+ "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current fare_bus:
-				out.print("<input type='text' name='fare_bus' value='" + flightInfoResult.getString("fare_bus") + "'");
+				out.print("<input type='text' name='fare_bus' value='" + flightInfoResult.getString("fare_bus")
+						+ "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current fare_econ:
-				out.print("<input type='text' name='fare_econ' value='" + flightInfoResult.getString("fare_econ") + "'");
+				out.print("<input type='text' name='fare_econ' value='" + flightInfoResult.getString("fare_econ")
+						+ "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out an update button:
@@ -225,7 +238,12 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
-			out.print("");
+			//Print out a more info button:
+			out.print("<form method='post' action='" + flightDateAdd + "'>");
+			out.print("<button type='submit' name='flight_id' value=" + flightID + ">");
+			out.print("add");
+			out.print("</button>");
+			out.print("</form>");
 			out.print("</td>");
 			out.print("</tr>");
 
@@ -235,19 +253,19 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				out.print("<tr>");
 				//make a column
 				out.print("<td>");
-				//Print out current flight_id:
+				//Print out current depart_date:
 				out.print(flightDateResult.getString("depart_date"));
 				out.print("</td>");
 				out.print("<td>");
-				//Print out current airline_name:
+				//Print out current arrive_date:
 				out.print(flightDateResult.getString("arrive_date"));
 				out.print("</td>");
 				out.print("<td>");
-				//Print out an edit button:
-				out.print("<form method='post' action='" + flightDateUpdate + "'>");
-				out.print(
-						"<button type='submit' name='flight_dates' value=" + flightID + " " + flightDateResult.getString("depart_date") + ">");
-				out.print("more info");
+				//Print out a delete button:
+				out.print("<form method='post' action='" + flightDateDelete + "'>");
+				out.print("<button type='submit' name='flight_dates' value=" + flightID + " "
+						+ flightDateResult.getString("depart_date") + ">");
+				out.print("delete");
 				out.print("</button>");
 				out.print("</form>");
 				out.print("</td>");
