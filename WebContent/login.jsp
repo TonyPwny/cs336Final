@@ -19,17 +19,12 @@ Project Final Group 4
 	<body>
 		<%
 			  try {
-				if (session.getAttribute("username") != null) {
-				
-						response.sendRedirect("success.jsp");
-						
-					}
-				
-				
 				//Get arguments
 				String username = request.getParameter("username");
 				String password = request.getParameter("password");
 		
+				if (username == null) username = "";
+				if (password == null) password = "";
 				
 				String url = "jdbc:mysql://steve2.ckgj9bgqpyor.us-east-2.rds.amazonaws.com:3306/DB1";
 				Class.forName("com.mysql.jdbc.Driver").newInstance();

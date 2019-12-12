@@ -120,7 +120,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current user_type:
-				out.print("<input type='text' name='user_type' value='" + result.getString("usertype") + "'");
+				out.print("<input type='text' name='usertype' value='" + result.getString("usertype") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out an update button:
