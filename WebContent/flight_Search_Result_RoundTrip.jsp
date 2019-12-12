@@ -99,16 +99,6 @@ Project Final Group 4
 					
 					out.print("<tr>");
 					out.print("potential trip");
-					out.print("<td>");
-					
-					out.print("<form method='post' action='reservationMake.jsp'>");
-					out.print("<button type='submit' name='book_now' +  value = \"" + flightsBA.getString("FlightDate.flight_id") + "\">");
-					out.print("Book now!");
-				
-					out.print("</button>");
-					out.print("</form>");
-					
-					out.print("</td>");
 					
 					out.print("</tr>");
 					
