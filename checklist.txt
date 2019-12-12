@@ -1,0 +1,50 @@
+Checklist
+
+Table Setup - Salman
+Data Input - Salman
+ER Diag - 
+Home - Steve
+Login - Steve
+Register - Steve
+
+User Home - 
+User Flight Search - Nick
+User Flight Results - Nick
+User Flight Info - 
+User Airport Info - 
+User Ticket Reservations -  
+User Ticket Purchases - 
+User Reservation Create - 
+User Ticket Cancel -  
+User View Previous Tickets - 
+User View Current Tickets -
+User View Current Waits in Waitlist - 
+User View Reservation Tickets - 
+
+Admin Home - Steve 
+Sales Report Search - Steve
+Monthly Sales Report Info - Steve
+Admin Flight Report Info - Steve
+Admin Flight Search - 
+Admin Flight Search Results - 
+Flight Edit - 
+Admin Airport Search - 
+Admin Airport Search Results - 
+Admin Airport Info - 
+Airport Edit - 
+Admin Airline Search - 
+Admin Airline Search Results - 
+Admin Airline Info - 
+Airline Edit - 
+Admin Ticket Search - 
+Admin Ticket Search Results - 
+Admin Ticket Info - 
+Ticket Edit - 
+Admin User Search - 
+Admin User Search Results - 
+Admin User Info - 
+User Edit - 
+
+Rep Home - 
+Rep Reserve Ticket - ?
+Rep Flight Waitlist - ?
