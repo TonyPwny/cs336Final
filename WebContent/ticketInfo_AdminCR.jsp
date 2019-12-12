@@ -80,6 +80,10 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			out.print("</td>");
 			//make a column
 			out.print("<td>");
+			out.print("Flight ID");
+			out.print("</td>");
+			//make a column
+			out.print("<td>");
 			out.print("Type");
 			out.print("</td>");
 			//make a column
@@ -113,6 +117,11 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				out.print("<option value='" + result.getString("ticket_num") + "'>" + result.getString("ticket_num")
 						+ "</option>");
 				out.print("</select>");
+				out.print("</td>");
+				out.print("<td>");
+				//Print out current associated flight_id's:
+				out.print(
+						"<input type='text' name='flight_id' value='" + result.getString("flight_id") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current round_trip:

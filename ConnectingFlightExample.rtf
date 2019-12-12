@@ -1,49 +1,61 @@
 {\rtf1\ansi\ansicpg1252\cocoartf2511
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c100000\c100000\c100000\c0;}
 \margl1440\margr1440\vieww17000\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\deftab720
+\pard\pardeftab720\partightenfactor0
 
-\f0\fs24 \cf0 #Drop temporary tables if you already generated them\
-#DROP TABLE DB1.Departing;\
-#DROP TABLE DB1.Arriving;\
+\f0\fs24 \cf2 \cb3 /*\
+\ul Anthony\ulnone  \ul Tiongson\ulnone \
+CS336 Section 07\
+Professor \ul Miranda\ulnone \
+Project Final Group 4\
 \
-# Create a temporary table with starting airport\
-CREATE TEMPORARY TABLE	DB1.Departing (\
-	SELECT		*\
-		FROM		DB1.FlightDate fd\
-		WHERE	fd.depart_aid = 'EWR'\
-);\
+Query for a one stop connecting flight.\
+*/\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\pardirnatural\partightenfactor0
+\cf2 \
+SELECT		f.flight_id AS flight1_id,\
+			f.depart_aid AS depart1_aid,\
+			fd.depart_date AS depart1_date,\
+			f.depart_time AS depart1_time,\
+			f.arrive_aid AS stop1_aid\
+	FROM		DB1.Flight f,\
+			DB1.FlightDate fd\
+	WHERE	f.flight_id = fd.flight_id\
+		AND	f.depart_aid = 'EWR'\
+;\
 \
-#Create a temporary table with ending airport\
-CREATE TEMPORARY TABLE	DB1.Arriving (\
-	SELECT		*\
-		FROM		DB1.FlightDate fd\
-		WHERE	fd.arrive_aid = 'PEK'\
-);\
+SELECT		f.flight_id AS flight2_id,\
+			fd.depart_date AS depart2_date,\
+			f.depart_time AS depart2_time,\
+			f.arrive_aid\
+	FROM		DB1.Flight f,\
+			DB1.FlightDate fd\
+	WHERE	f.flight_id = fd.flight_id\
+		AND	f.arrive_aid = 'PEK'\
+;\
 \
-# Select all, has similar column names so it\'92s not very useful\
 SELECT		*\
-	FROM		DB1.Departing d,\
-			DB1.Arriving a\
-	WHERE	d.depart_aid = 'EWR'\
-		AND	a.arrive_aid = 'PEK'\
-		AND	d.arrive_aid = a.depart_aid;\
-\
-# Select with labels to make each column unique for Java code\
-SELECT		DB1.d.depart_date AS depart1_date,\
-			DB1.d.arrive_date AS arrive1_date,\
-			DB1.d.flight_id AS flight1_id,\
-			DB1.d.depart_aid AS depart1_aid,\
-			DB1.d.arrive_aid AS arrive1_aid,\
-			DB1.a.depart_date AS depart2_date,\
-			DB1.a.arrive_date AS arrive2_date,\
-			DB1.a.flight_id AS flight2_id,\
-			DB1.a.depart_aid AS depart2_aid,\
-			DB1.a.arrive_aid AS arrive2_aid\
-	FROM		DB1.Departing d,\
-			DB1.Arriving a\
-	WHERE	d.depart_aid = 'EWR'\
-		AND	a.arrive_aid = 'PEK'\
-		AND	d.arrive_aid = a.depart_aid;}
+	FROM\
+	(SELECT		f.flight_id AS flight1_id,\
+				f.depart_aid AS depart1_aid,\
+				fd.depart_date AS depart1_date,\
+				f.depart_time AS depart1_time,\
+				f.arrive_aid AS stop1_aid\
+		FROM		DB1.Flight f,\
+				DB1.FlightDate fd\
+		WHERE	f.flight_id = fd.flight_id\
+			AND	f.depart_aid = 'EWR\'92) AS Trip1,\
+	SELECT		f.flight_id AS flight2_id,\
+				f.depart_aid AS depart2_aid,\
+				fd.depart_date AS depart2_date,\
+				f.depart_time AS depart2_time,\
+				f.arrive_aid\
+		FROM		DB1.Flight f,\
+				DB1.FlightDate fd\
+		WHERE	f.flight_id = fd.flight_id\
+			AND	f.arrive_aid = 'PEK\'92) AS Trip2\
+	WHERE		Trip1.stop1_aid = Trip2.depart2_aid\
+;}
