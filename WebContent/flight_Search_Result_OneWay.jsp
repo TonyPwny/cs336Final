@@ -32,7 +32,22 @@ Project Final Group 4
 		String flight1id;
 		String flight2id;
 		String flight3id;
+		String defaultid1;
+		String depdate1;
+		String depdate2;
 		
+		out.print("<table>");
+		out.print("<tr>");
+			out.print("<form method='post' action='flight_Search_Result_OneWay.jsp'>");	
+		    out.print("Econ Fare"); out.print("<input type='radio' name='sort' value='fare_econ'>"); 
+		    out.print("   ");
+		    out.print("Business Fare"); out.print("<input type='radio' name='sort' value='bus_econ'>"); 
+		    out.print("   ");
+		    out.print("First-Class Fare"); out.print("<input type='radio' name='sort' value='fare_first'>"); 
+		    out.print("   ");
+		    out.print("Airline: "); out.print("<input type='text' name='sort' value='airline'>");
+		    out.print("   ");  out.print("<INPUT TYPE='submit' VALUE='SORT'>");
+		out.print("</tr>");
 		
 		
 		List<String> list = new ArrayList<String>();
@@ -51,7 +66,7 @@ Project Final Group 4
 			stmt.setString(1, flightid);
 			ResultSet flights = stmt.executeQuery();
 
-			out.print("<table>");
+			
 			//make a row
 			out.print("<tr>");
 			//make a column
@@ -118,7 +133,9 @@ Project Final Group 4
 				out.print("</td>");
 				
 				out.print("<form method='post' action='make_Reservation.jsp'>");
-				out.print("<button type='submit' name='Book now!' +  value = \"" + flights.getString("FlightDate.flight_id") + "\">");
+				out.print("<button type='submit' name='Book now!' +  value = \"" + flights.getString("FlightDate.flight_id") + "\">"
+				+ "session.setAttribute(\"depdate1\", " + (flights.getString("FlightDate.FlightDate.depart_date")) + ") " + ">");
+				
 				out.print("</button>");
 				out.print("</form>");
 				out.print("</tr>");
@@ -148,7 +165,7 @@ Project Final Group 4
 							+ "AND FlightDate.depart_date >= ? "
 							+ "and FlightDate.depart_date <= ? " 
 							+ "and Flight.depart_aid = ? "
-							+ "and Flight.arrive_aid = ?" ;
+							+ "and Flight.arrive_aid = ?";
 
 			PreparedStatement stmt = conn.prepareStatement(str);
 			stmt.setString(1, takeoffd1);
@@ -157,7 +174,6 @@ Project Final Group 4
 			stmt.setString(4, arriving_port);
 			ResultSet flights = stmt.executeQuery();
 
-			out.print("<table>");
 
 			while(flights.next()){
 				
@@ -254,7 +270,9 @@ Project Final Group 4
 					
 					out.print("<form method='post' action='reservationUserInput.jsp'>");
 					out.print("<button type='submit' name='book_now' onclick=\"" 
-					+ "session.setAttribute(\"flight1id\", " + (flights.getString("FlightDate.flight_id")) + ") " + ">");
+					+ "session.setAttribute(\"flight1id\", " + (flights.getString("FlightDate.flight_id") + ") " + ">")
+					+ "session.setAttribute(\"depdate1\", " + (flights.getString("FlightDate.FlightDate.depart_date")) + ") " + ">");
+
 					out.print("Book now!");
 				
 					out.print("</button>");
@@ -511,7 +529,10 @@ Project Final Group 4
 				out.print("<form method='post' action='reservationUserInput.jsp'>");
 				out.print("<button type='submit' name='book_now' onclick=\"" 
 						+ "session.setAttribute(\"flight2id\", " + (flightsCon1.getString("flight1_id")) + ") " 
-						+ "session.setAttribute(\"flight3id\", " + (flightsCon1.getString("flight2_id")) + ") " + ">");
+						+ "session.setAttribute(\"flight3id\", " + (flightsCon1.getString("flight2_id")) + ") " + ">"
+						+ "session.setAttribute(\"depdate1\", " + (flightsCon1.getString("depart1_date")) + ") " + ">"
+						+ "session.setAttribute(\"depdate2\", " + (flightsCon1.getString("depart2_date")) + ") " + ">");
+
 
 
 				
