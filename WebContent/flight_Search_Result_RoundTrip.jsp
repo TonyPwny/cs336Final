@@ -74,10 +74,11 @@ Project Final Group 4
 					"SELECT FlightDate.flight_id, FlightDate.depart_date, Flight.depart_aid, FlightDate.arrive_date, Flight.arrive_aid, " +
 					"Flight.fare_econ, Flight.fare_bus, Flight.fare_first "+
 					"from FlightDate, Flight " +
-					"and FlightDate.depart_date >= ?" +
+					"WHERE FlightDate.flight_id = Flight.flight_id "+
+					"and FlightDate.depart_date >= ? " +
 					"and FlightDate.depart_date <= ? " +
-					"and FlightDate.arrive_aid = ? " +
-					"and FlightDate.depart_aid = ? ";
+					"and Flight.arrive_aid = ? " +
+					"and Flight.depart_aid = ? ";
 
 				PreparedStatement stmt2 = conn.prepareStatement(str2);
 				stmt2.setString(1, arrived1);
@@ -99,6 +100,16 @@ Project Final Group 4
 					
 					out.print("<tr>");
 					out.print("potential trip");
+					out.print("<td>");
+					
+					out.print("<form method='post' action='reservationMake.jsp'>");
+					out.print("<button type='submit' name='book_now' +  value = \"" + flightsBA.getString("FlightDate.flight_id") + "\">");
+					out.print("Book now!");
+				
+					out.print("</button>");
+					out.print("</form>");
+					
+					out.print("</td>");
 					
 					out.print("</tr>");
 					
@@ -347,23 +358,14 @@ Project Final Group 4
 					
 					out.print("<td>");
 					
-					out.print("<form method='post' action='reservationUserInput.jsp'>");
-					out.print("<button type='submit' name='book_now' onclick=\"" 
-					+ "session.setAttribute(\"flight3id\", " + (flightsABCon1.getString("flight1_id")) + ") " 
-					+ "session.setAttribute(\"flight4id\", " + (flightsABCon1.getString("flight2_id")) + ") " 
-					+ "session.setAttribute(\"flight5id\", " + (flightsBACon1.getString("flight1_id")) + ") " 
-					+ "session.setAttribute(\"flight6id\", " + (flightsBACon1.getString("flight2_id")) + ") " + ">");
-
-
+						out.print("<form method='post' action='reservationMake.jsp'>");
+						out.print("<button type='submit' name='book_now' +  value = \"" + flightsABCon1.getString("flight1_id") + "\">");
+						out.print("Book now!");
 					
-					
-					
-					out.print("Book now!");
-				
-					out.print("</button>");
-					out.print("</form>");
-					
-					out.print("</td>");
+						out.print("</button>");
+						out.print("</form>");
+						
+						out.print("</td>");
 					
 						out.print("</tr>");
 
@@ -547,7 +549,27 @@ Project Final Group 4
 					out.print(flightsABCon1.getString("farefirst2"));
 					out.print("</td>");
 					
-			
+					out.print("<td>");
+					
+					out.print("<form method='post' action='reservationUserInput.jsp'>");
+					out.print("<button type='submit' name='book_now' onclick=\"" 
+					+ "session.setAttribute(\"flight3id\", " + (flightsABCon1.getString("flight1_id")) + ") " 
+					+ "session.setAttribute(\"flight4id\", " + (flightsABCon1.getString("flight2_id")) + ") " 
+					+ "session.setAttribute(\"flight5id\", " + (flightsABCon1.getString("flight1_id")) + ") " 
+					+ "session.setAttribute(\"flight6id\", " + (flightsABCon1.getString("flight2_id")) + ") "
+					
+					+ ">");
+
+
+					
+					
+					
+					out.print("Book now!");
+				
+					out.print("</button>");
+					out.print("</form>");
+					
+					out.print("</td>");
 					
 					
 					
