@@ -20,6 +20,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	String loginURL = "login.jsp";
 	String userSearch = "userSearch_Admin.jsp";
 	String userUpdate = "userUpdate_Admin.jsp";
+	String userDelete = "userDelete_Admin.jsp";
 
 	if (session.getAttribute("username") == null || !logintype.equals("Admin")) {
 		response.sendRedirect(loginURL);
@@ -104,11 +105,8 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				out.print("<form method='post' action='" + userUpdate + "'>");
 				//make a column
 				out.print("<td>");
-				//Print out current username:
-				out.print("<select name='username'>");
-				out.print("<option value='" + result.getString("username") + "'>" + result.getString("username")
-						+ "</option>");
-				out.print("</select>");
+				//Print out current password:
+				out.print("<input type='text' name='new_username' value='" + result.getString("username") + "'");
 				out.print("</td>");
 				out.print("<td>");
 				//Print out current password:
@@ -130,6 +128,15 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				out.print("</tr>");
 			}
 			out.print("</table>");
+			
+			if (logintype.equals("Admin")) {
+				out.print("<table><tr><td>[ADMIN MODE]: </td>");
+				out.print("<td><form method='post' action='" + userDelete + "'>");
+				out.print("<button type='submit' name='username' value='" + username + "'>");
+				out.print("delete");
+				out.print("</button>");
+				out.print("</form></td></tr></table>");
+			}
 
 			//close the connection.
 			con.close();

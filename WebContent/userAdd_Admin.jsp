@@ -19,21 +19,21 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 	String logintype = (String) session.getAttribute("usertype");
 	String loginURL = "login.jsp";
 
-	if (session.getAttribute("username") == null || logintype.equals("User")) {
+	if (session.getAttribute("username") == null || !logintype.equals("Admin")) {
 		response.sendRedirect(loginURL);
 	}
 
-	//Get the search from the flightSearch_AdminCR.jsp
-	String flightID = request.getParameter("flight_id");
-	//Make a SELECT query from the flight table with flightID specified by the 'flight_id' parameter from flightSearch_AdminCR.jsp
+	//Get the new airline_id from the airlineAddForm_Admin.jsp
+	String username = request.getParameter("username");
+
 	String str_query_title;
-	str_query_title = flightID;
+	str_query_title = username;
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>[<%
 	out.println(logintype);
-%>] Flight Update Information - <%
+%>] User Add - <%
 	out.println(str_query_title);
 %></title>
 </head>
@@ -54,33 +54,20 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 
-			//Get parameters from the HTML form at flightInfo_AdminCR.jsp
-			String new_flight_id = request.getParameter("new_flight_id");
-			String new_aircraft_id = request.getParameter("aircraft_id");
-			String new_depart_time = request.getParameter("depart_time");
-			String new_arrive_time = request.getParameter("arrive_time");
-			String new_flight_days = request.getParameter("flight_days");
-			String new_flight_type = request.getParameter("flight_type");
-			String new_fare_econ = request.getParameter("fare_econ");
-			String new_fare_first = request.getParameter("fare_first");
-			String new_fare_bus = request.getParameter("fare_bus");
+			String password = request.getParameter("password");
+			String name_user = request.getParameter("name_user");
+			String usertype = request.getParameter("usertype");
 
-			//Make an insert statement for the Flight table:
-			String update = "UPDATE Flight SET flight_id = ?, aircraft_id = ?, depart_time = ?, arrive_time = ?, flight_days = ?, flight_type = ?, fare_econ = ?, fare_first = ?, fare_bus = ? WHERE flight_id = ?";
+			//Make an insert statement for the User table:
+			String update = "INSERT INTO User VALUES (?, ?, ?, ?)";
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			PreparedStatement ps = con.prepareStatement(update);
 
 			//Add parameters of the query. Start with 1, the 0-parameter is the INSERT statement itself
-			ps.setString(1, new_flight_id);
-			ps.setString(2, new_aircraft_id);
-			ps.setString(3, new_depart_time);
-			ps.setString(4, new_arrive_time);
-			ps.setString(5, new_flight_days);
-			ps.setString(6, new_flight_type);
-			ps.setString(7, new_fare_econ);
-			ps.setString(8, new_fare_first);
-			ps.setString(9, new_fare_bus);
-			ps.setString(10, flightID);
+			ps.setString(1, username);
+			ps.setString(2, password);
+			ps.setString(3, name_user);
+			ps.setString(4, usertype);
 			//Run the query against the DB
 			ps.executeUpdate();
 
