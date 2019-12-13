@@ -149,7 +149,7 @@ Page was coded with aid from the project beer template and ProjectSETUP guide.
 				//make a column
 				out.print("<td>");
 				//Print out current flight_id:
-				out.print("<input type='text' name='flight_id' value='"
+				out.print("<input type='text' name='new_flight_id' value='"
 						+ flightInfoResult.getString("flight_id") + "'");
 				out.print("</td>");
 				out.print("<td>");
