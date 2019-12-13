@@ -41,7 +41,7 @@ Admin Ticket Search Results - Anthony
 Admin Ticket Info - Anthony
 Ticket Edit - Anthony
 Admin User Search - Tom
-Admin User Search Results - Anhony
+Admin User Search Results - Anthony
 Admin User Info - Anthony
 User Edit - Anthony
 Admin/Rep Customer Search - Tom
