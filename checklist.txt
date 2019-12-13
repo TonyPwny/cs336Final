@@ -12,14 +12,14 @@ User Flight Search - Nick
 User Flight Results - Nick
 User Flight Info - 
 User Airport Info - 
-User Ticket Reservations -  
+User Ticket Reservations - Tom
 User Ticket Purchases - 
-User Reservation Create - 
+User Reservation Create - Tom
 User Ticket Cancel -  
-User View Previous Tickets - 
-User View Current Tickets -
+User View Previous Tickets - Tom
+User View Current Tickets - Tom
 User View Current Waits in Waitlist - 
-User View Reservation Tickets - 
+User View Reservation Tickets - Tom
 
 Admin Home - Steve 
 Sales Report Search - Steve
@@ -28,22 +28,24 @@ Admin Flight Report Info - Steve
 Admin Flight Search - 
 Admin Flight Search Results - 
 Flight Edit - 
-Admin Airport Search - 
+Admin Airport Search - Tom
 Admin Airport Search Results - 
 Admin Airport Info - 
 Airport Edit - 
-Admin Airline Search - 
+Admin Airline Search - Tom
 Admin Airline Search Results - 
 Admin Airline Info - 
 Airline Edit - 
-Admin Ticket Search - 
+Admin Ticket Search - Tom
 Admin Ticket Search Results - 
 Admin Ticket Info - 
 Ticket Edit - 
-Admin User Search - 
+Admin User Search - Tom
 Admin User Search Results - 
 Admin User Info - 
 User Edit - 
+Admin/Rep Customer Search - Tom
+Admin/Rep View Customer Reservations - Tom
 
 Rep Home - 
 Rep Reserve Ticket - ?
